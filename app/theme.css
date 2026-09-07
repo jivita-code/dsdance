@@ -9,15 +9,20 @@
 .navGroupTrigger { display: flex; align-items: center; gap: 3px; }
 .navGroupTrigger button { display: grid; place-items: center; padding: 6px; border: 0; background: transparent; color: #d8d4cd; }
 .navGroupTrigger button:hover, .navGroup.expanded .navGroupTrigger button { color: var(--gold); }
-.subNav { display: none; position: absolute; z-index: 10; top: calc(100% + 18px); left: -18px; min-width: 205px; padding: 12px; background: #202228; border: 1px solid #3a3d42; box-shadow: 0 18px 35px rgba(0, 0, 0, .28); }
-.navGroup.expanded .subNav { display: grid; }
+.subNav { display: grid; position: absolute; z-index: 10; top: calc(100% + 18px); left: -18px; min-width: 205px; padding: 12px; background: #202228; border: 1px solid #3a3d42; box-shadow: 0 18px 35px rgba(0, 0, 0, .28); opacity: 0; visibility: hidden; pointer-events: none; translate: 0 -7px; transition: opacity 180ms ease, translate 180ms ease, visibility 180ms; }
+.navGroup.expanded .subNav { opacity: 1; visibility: visible; pointer-events: auto; translate: 0 0; }
+.navGroupTrigger svg { transition: rotate 180ms ease; }
+.navGroup.expanded .navGroupTrigger svg { rotate: 180deg; }
 .subNav a { padding: 9px 11px; color: #e4e0d9; white-space: nowrap; }
 .subNav a:hover { color: var(--gold); background: #292c31; }
 
 @media (max-width: 760px) {
+  .nav { display: flex; opacity: 0; visibility: hidden; pointer-events: none; translate: 0 -8px; transition: opacity 200ms ease, translate 200ms ease, visibility 200ms; }
+  .nav.open { opacity: 1; visibility: visible; pointer-events: auto; translate: 0 0; }
   .navGroup { width: 100%; }
   .navGroupTrigger { justify-content: space-between; }
-  .subNav { position: static; margin-top: 8px; box-shadow: none; background: #25282d; border-color: #3b3e43; }
+  .subNav { position: static; max-height: 0; margin-top: 0; padding-block: 0; overflow: hidden; box-shadow: none; background: #25282d; border-color: transparent; }
+  .navGroup.expanded .subNav { max-height: 260px; margin-top: 8px; padding-block: 12px; border-color: #3b3e43; }
 }
 
 /* Homepage — contemporary editorial research-lab system */
@@ -97,6 +102,42 @@
 .homeUnveilingGrid > div { overflow: hidden; background: #25282d; }
 .homeUnveilingGrid > div:last-child { transform: translateY(52px); }
 .homeUnveilingGrid img { display: block; width: 100%; height: auto; }
+
+/* Progressive motion system: content stays visible unless the controller is active. */
+.motion-enabled [data-reveal] {
+  opacity: 0;
+  translate: 0 18px;
+  transition-property: opacity, translate, scale;
+  transition-duration: 650ms;
+  transition-timing-function: cubic-bezier(.22, 1, .36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, translate;
+}
+.motion-enabled [data-reveal="image"] { translate: 0 0; scale: .985; will-change: opacity, scale; }
+.motion-enabled [data-reveal].is-visible { opacity: 1; translate: 0 0; scale: 1; will-change: auto; }
+[data-reveal-delay="1"] { --reveal-delay: 60ms; }
+[data-reveal-delay="2"] { --reveal-delay: 120ms; }
+[data-reveal-delay="3"] { --reveal-delay: 180ms; }
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-load] { animation: home-load-in 720ms cubic-bezier(.22, 1, .36, 1) both; }
+  .homeButton svg, .homeTextLink svg, .textLink svg, .goldButton svg, .outlineButton svg, .back svg, .externalLinks svg { transition: translate 180ms ease; }
+  .homeButton:hover svg, .homeTextLink:hover svg, .textLink:hover svg, .goldButton:hover svg, .outlineButton:hover svg, .externalLinks a:hover svg { translate: 3px 0; }
+  .back:hover svg { translate: -3px 0; }
+  .lightbox { animation: lightbox-backdrop-in 180ms ease-out both; }
+  .lightbox > img { animation: lightbox-image-in 280ms cubic-bezier(.22, 1, .36, 1) both; }
+}
+@keyframes home-load-in { from { opacity: 0; translate: 0 18px; } to { opacity: 1; translate: 0 0; } }
+@keyframes lightbox-backdrop-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes lightbox-image-in { from { opacity: 0; scale: .985; } to { opacity: 1; scale: 1; } }
+
+:where(a, button, input, textarea, select):focus-visible { outline: 2px solid #d5be91; outline-offset: 4px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .motion-enabled [data-reveal], [data-load] { opacity: 1; translate: none; scale: 1; animation: none; transition: none; }
+  .subNav, .nav, .navGroupTrigger svg, .homeButton svg, .homeTextLink svg, .textLink svg, .goldButton svg, .outlineButton svg, .back svg, .externalLinks svg, .lightbox, .lightbox > img { animation: none; transition: none; }
+}
 @media (prefers-reduced-motion: no-preference) { .homeProjectVisual img, .homeAboutMedia img, .homeValueImage img { transition: transform .6s ease; } .homeProjectVisual:hover img, .homeAboutMedia:hover img, .homeValueImage:hover img { transform: scale(1.045); } }
 @media (max-width: 860px) { .homeShell { width: min(100% - 40px, 680px); } .homeHero { min-height: 710px; } .homeHeroShade { background: linear-gradient(90deg, rgba(16,17,19,.96), rgba(16,17,19,.58)); } .homeAboutGrid, .homePortraitFeature, .homeMentorGrid, .homeValuesGrid { grid-template-columns: 1fr; } .homeAboutMedia { min-height: 370px; } .homePortraitMedia { min-height: 620px; max-width: 520px; } .homePortraitCopy { padding-top: 0; } .homeMission { padding-top: 0; } .homeMentorMedia { min-height: 560px; max-width: 520px; } .homeMentorCopy { order: 2; } .homeProjectsHeader { grid-template-columns: 1fr; gap: 24px; align-items: start; } .homeProjectGrid { grid-template-columns: 1fr 1fr; gap: 12px; } .homeProjectVisual { min-height: 270px; } .homeProjectVisual:nth-child(2), .homeProjectVisual:nth-child(3) { transform: none; } }
 @media (max-width: 520px) { .homeShell { width: min(100% - 32px, 460px); } .homeHero { min-height: 650px; } .homeHeroLayout { padding-block: 110px 35px; } .homeHero h1 { font-size: clamp(4rem, 21vw, 5.4rem); } .homeHeroIndex { display: none; } .homeQuoteInner { min-height: 126px; gap: 12px; } .homeQuote svg { width: 28px; height: 28px; } .homeQuote p { font-size: 1.45rem; } .homeAbout, .homeFounder, .homeValues, .homeMentor, .homeProjects, .homeUnveiling { padding-block: 76px; } .homeAboutMedia { min-height: 270px; } .homePortraitMedia, .homeMentorMedia { min-height: 480px; } .homeValueImage { min-height: 240px; } .homeProjectVisual { min-height: 178px; } .homeUnveilingGrid { grid-template-columns: minmax(0, 300px); margin-top: 40px; } .homeUnveilingGrid > div:last-child { transform: translateY(0); } }
