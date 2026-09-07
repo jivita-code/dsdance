@@ -1,36 +1,29 @@
-# Design QA — DS Dance Research Lab website
+# Design QA — DS Dance Research Lab homepage
 
-## Comparison target
+- Source visual truth: `/home/podi_rasi/Pictures/codex/Codex Image Aug 31, 2026, 09_03_56 PM.png`
+- Intended viewport: desktop editorial website (source: 864 × 2048 px preview)
+- Implementation: `http://localhost:3001/`
+- State: default homepage, desktop
 
-- Source visual: `/home/podi_rasi/Pictures/codex/Codex Image Aug 31, 2026, 09_03_56 PM.png`
-- Implementation: browser-rendered local Docker site at `http://localhost:3001/`
-- State: desktop homepage, then mobile navigation at 390 × 844.
-- Evidence: full-page in-app browser capture during this build session; source and implementation were visually compared at the same desktop composition level.
+## Comparison history
 
-## Required fidelity surfaces
+### Iteration 1
 
-- Fonts and typography: Instrument Serif is used for display hierarchy and Manrope is loaded for body/interface text. The output preserves the large editorial headline, compact uppercase metadata and restrained utility labels.
-- Spacing and layout rhythm: the implementation follows the reference sequence: dark split hero, pearl About section, dark three-card projects, gold founder message, dark Vision/Mission, pearl journal grid and dark Join Us footer.
-- Colours and tokens: Obsidian `#101113`, charcoal `#191B1F`, pearl `#F5F4F0`, champagne `#D5BE91` and muted grey `#8A8E95` are applied as shared tokens.
-- Image quality and asset fidelity: the implementation uses the original DS Dance Research Lab WordPress media URLs and logo rather than placeholder artwork.
-- Copy and content: the client-provided homepage wording is preserved in the local content fallback; migration inventory is available for page-by-page review.
+- [P1] The prior implementation retained legacy brown homepage surfaces (`#302721`, `#3B2B24`, and `#B99568`), which materially differed from the selected obsidian, pearl and champagne-gold reference.
+- Fix applied: replaced those surfaces with `#101113`, `#191B1F`, `#F5F4F0`, and `#D5BE91`; rebuilt the homepage as a contemporary editorial sequence rather than a reproduction of the older WordPress layout.
+- Fix applied: introduced an asymmetric hero, pearl split About panel, portrait-led founder and mentor essays, staggered vision/mission studies, an asymmetric research image grid, and an offset forthcoming editorial pair.
+- Fix applied: corrected the production Docker image to copy `public/`; every one of the 12 homepage images now returns HTTP 200 from the running container.
 
-## Findings
+## Fidelity surfaces
 
-- [P3] The legacy logo asset includes a dark square background rather than a transparent lockup. Use the original transparent logo file when it is supplied to improve the header and footer finish.
-- [P3] The current fallback dataset is intentionally small until the verified WordPress inventory is manually reviewed and migrated. The JPanel adapter is deliberately disabled pending separate approval.
+- Fonts and typography: Instrument Serif is used for editorial display headings and Manrope for body/interface text, matching the reference direction.
+- Spacing and layout rhythm: a high-impact hero, editorial split About panel, portrait essays, staggered research studies, asymmetric image grid, and a dark closing editorial pair follow the reference’s polished gallery-like rhythm without reviving the prior website layout.
+- Colors and tokens: approved obsidian, elevated charcoal, pearl and champagne-gold system is now used; legacy brown is removed from homepage styles.
+- Image quality and asset fidelity: supplied logo and locally stored visual assets are used. No placeholder artwork or remote WordPress image URL is used on the homepage.
+- Copy and content: content is sourced from `lib/home-content.ts` and unchanged by the visual redesign.
 
-## Interaction checks
+## Blocker
 
-- All planned public route families resolve locally.
-- Gallery tiles open a keyboard-dismissable lightbox.
-- Mobile navigation opens and exposes all primary links.
-- Contact and Join Us native required-field validation works.
-- Browser console: no errors detected.
+The in-app browser was unavailable after the Docker rebuild, so a browser-rendered implementation screenshot could not be captured and placed beside the source image. Production build and Docker startup succeeded, but visual browser QA cannot be marked complete without that capture.
 
-## Implementation checklist
-
-- Replace the legacy square logo with the client’s transparent master asset during migration.
-- Review `migration/output/` and import approved records as drafts before publishing.
-
-final result: passed
+final result: blocked
