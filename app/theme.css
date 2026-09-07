@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap');
+:root { --body: Manrope, Arial, sans-serif; --display: "Instrument Serif", Georgia, serif; }
+
+/* Primary navigation dropdowns */
+.nav { gap: 28px; }
+.nav > a:not(.joinButton), .navGroupTrigger > a { color: #ddd; }
+.nav > a:not(.joinButton):hover, .navGroupTrigger > a:hover { color: var(--gold); }
+.navGroup { position: relative; }
+.navGroupTrigger { display: flex; align-items: center; gap: 3px; }
+.navGroupTrigger button { display: grid; place-items: center; padding: 6px; border: 0; background: transparent; color: #d8d4cd; }
+.navGroupTrigger button:hover, .navGroup.expanded .navGroupTrigger button { color: var(--gold); }
+.subNav { display: none; position: absolute; z-index: 10; top: calc(100% + 18px); left: -18px; min-width: 205px; padding: 12px; background: #202228; border: 1px solid #3a3d42; box-shadow: 0 18px 35px rgba(0, 0, 0, .28); }
+.navGroup.expanded .subNav { display: grid; }
+.subNav a { padding: 9px 11px; color: #e4e0d9; white-space: nowrap; }
+.subNav a:hover { color: var(--gold); background: #292c31; }
+
+@media (max-width: 760px) {
+  .navGroup { width: 100%; }
+  .navGroupTrigger { justify-content: space-between; }
+  .subNav { position: static; margin-top: 8px; box-shadow: none; background: #25282d; border-color: #3b3e43; }
+}

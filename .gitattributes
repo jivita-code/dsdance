@@ -1,0 +1,11 @@
+# Keep repository text files consistent across development machines.
+* text=auto eol=lf
+
+# Keep binary assets byte-for-byte unchanged.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.gif binary
+*.svg text
+*.ico binary

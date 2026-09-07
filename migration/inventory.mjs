@@ -1,0 +1,16 @@
+import { mkdir, writeFile } from "node:fs/promises";
+const source = "https://dsdanceresearchlab.com/wp-json/wp/v2/pages?per_page=100&_fields=id,slug,link,title,content,featured_media";
+const output = new URL("./output/", import.meta.url);
+const response = await fetch(source);
+if (!response.ok) throw new Error(`WordPress inventory failed: ${response.status}`);
+const pages = await response.json();
+const decode = (value = "") => value.replace(/&#038;/g, "&").replace(/&nbsp;/g, " ").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+const classification = (slug) => slug === "blogs" ? "blog-index" : slug === "podcasts" ? "podcast-index" : ["past-projects", "ongoing-projects", "upcoming-projects", "services"].includes(slug) ? "research-project-index" : ["projects", "workshops-gallery"].includes(slug) ? "event-gallery" : "static-page";
+const rows = pages.map((page) => ({ id: page.id, slug: page.slug, sourceUrl: page.link, title: decode(page.title?.rendered), content: decode(page.content?.rendered), type: classification(page.slug), status: "needs-review" }));
+const media = [...new Set(pages.flatMap((page) => [...String(page.content?.rendered || "").matchAll(/https?:[^\"'\\\s]+?\.(?:png|jpe?g|webp)/gi)].map((match) => match[0].replace(/\\\//g, "/"))))].map((url) => ({ url, status: "needs-review" }));
+await mkdir(output, { recursive: true });
+await writeFile(new URL("pages.json", output), JSON.stringify(rows, null, 2));
+const csv = (values) => values.map((value) => `"${String(value ?? "").replaceAll('"', '""')}"`).join(",");
+await writeFile(new URL("pages.csv", output), [csv(["id","slug","sourceUrl","title","type","status"]), ...rows.map((row) => csv([row.id,row.slug,row.sourceUrl,row.title,row.type,row.status]))].join("\n"));
+await writeFile(new URL("media.csv", output), [csv(["url","status"]), ...media.map((row) => csv([row.url,row.status]))].join("\n"));
+console.log(`Inventoried ${rows.length} pages and ${media.length} media URLs.`);
