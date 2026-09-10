@@ -1,29 +1,34 @@
-# Design QA — DS Dance Research Lab homepage
+# Design QA — DS Dance Research Lab Editorial Redesign
 
-- Source visual truth: `/home/podi_rasi/Pictures/codex/Codex Image Aug 31, 2026, 09_03_56 PM.png`
-- Intended viewport: desktop editorial website (source: 864 × 2048 px preview)
-- Implementation: `http://localhost:3001/`
-- State: default homepage, desktop
+- Source visual truth: `/home/podi_rasi/Pictures/codex/Codex Image Aug 31, 2026, 09_03_56 PM.png` plus the Denison Dance School mobile reference supplied in the redesign request.
+- Implementation: `http://localhost:3001`
+- Viewports checked: 1440×900, 1024×800, 768×900, and 390×844 CSS pixels at device scale 1.
+- State: homepage, desktop navigation, mobile navigation open/closed, mobile submenu, every public listing/detail/static/form route.
+- Implementation screenshot: unavailable because the selected in-app browser repeatedly timed out while capturing both full-viewport and clipped screenshots.
+
+## Full-view comparison evidence
+
+Blocked. The source visual target is available, but a browser-rendered implementation screenshot could not be captured. DOM and computed-style checks confirmed the intended responsive composition, typography scale, loaded fonts, and zero horizontal overflow, but these checks do not replace visual comparison.
+
+## Focused checks completed
+
+- Typography: Instrument Serif and Manrope loaded; desktop hero 86.4px, section title 60px, body copy 17–17.2px; 390px hero 56.55px, section title 42.9px, body copy 17.2px.
+- Spacing and responsive structure: zero horizontal overflow at all four target widths.
+- Images: homepage above-fold imagery and all local listing assets loaded successfully; project listings use local assets rather than remote placeholders.
+- Navigation: full desktop navigation, mobile overlay, body scroll lock, submenu expansion, Escape handling, and collapsed-link tab exclusion are implemented.
+- Routes: all 17 public static, listing, detail, gallery, and form routes returned their expected page heading and no not-found state.
+- Console: no warning or error entries during the final desktop route check.
+- Build: TypeScript, Next.js production build, and Docker Compose rebuild passed.
+
+## Findings
+
+- No functional, responsive-overflow, font-loading, image-loading, or console P0/P1/P2 issues were found in the checks that could be completed.
+- Visual fidelity and crop quality remain unverified because implementation capture is unavailable.
 
 ## Comparison history
 
-### Iteration 1
-
-- [P1] The prior implementation retained legacy brown homepage surfaces (`#302721`, `#3B2B24`, and `#B99568`), which materially differed from the selected obsidian, pearl and champagne-gold reference.
-- Fix applied: replaced those surfaces with `#101113`, `#191B1F`, `#F5F4F0`, and `#D5BE91`; rebuilt the homepage as a contemporary editorial sequence rather than a reproduction of the older WordPress layout.
-- Fix applied: introduced an asymmetric hero, pearl split About panel, portrait-led founder and mentor essays, staggered vision/mission studies, an asymmetric research image grid, and an offset forthcoming editorial pair.
-- Fix applied: corrected the production Docker image to copy `public/`; every one of the 12 homepage images now returns HTTP 200 from the running container.
-
-## Fidelity surfaces
-
-- Fonts and typography: Instrument Serif is used for editorial display headings and Manrope for body/interface text, matching the reference direction.
-- Spacing and layout rhythm: a high-impact hero, editorial split About panel, portrait essays, staggered research studies, asymmetric image grid, and a dark closing editorial pair follow the reference’s polished gallery-like rhythm without reviving the prior website layout.
-- Colors and tokens: approved obsidian, elevated charcoal, pearl and champagne-gold system is now used; legacy brown is removed from homepage styles.
-- Image quality and asset fidelity: supplied logo and locally stored visual assets are used. No placeholder artwork or remote WordPress image URL is used on the homepage.
-- Copy and content: content is sourced from `lib/home-content.ts` and unchanged by the visual redesign.
-
-## Blocker
-
-The in-app browser was unavailable after the Docker rebuild, so a browser-rendered implementation screenshot could not be captured and placed beside the source image. Production build and Docker startup succeeded, but visual browser QA cannot be marked complete without that capture.
+- First responsive measurement found desktop and mobile headings larger than the approved scale.
+- Reduced desktop hero to 86.4px, internal page heading to a maximum of 80px, section headings to a maximum of 60px, and mobile hero to 56.55px.
+- Increased key body copy to 17–17.2px and rechecked all target widths with zero overflow.
 
 final result: blocked

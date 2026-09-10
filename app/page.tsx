@@ -4,10 +4,10 @@ import { ArrowRight, Quote } from "lucide-react";
 import { homeContent } from "@/lib/home-content";
 
 const projectImages = [
-  ["/images/home/project-elephant.png", "Dance research visual exploring human–elephant relationships"],
-  ["/images/home/project-textile.png", "Dance research visual exploring natural dye and textile practice"],
-  ["/images/home/project-ability.png", "Inclusive contemporary dance research visual"],
-  ["/images/home/project-heritage.png", "Dance research visual connecting Sri Lankan heritage and contemporary movement"],
+  ["/images/home/project-elephant.png", "Dance research visual exploring human–elephant relationships", "Tusker Eye", "Movement · Ecology"],
+  ["/images/home/project-textile.png", "Dance research visual exploring natural dye and textile practice", "Dye With Movements", "Material · Practice"],
+  ["/images/home/project-ability.png", "Inclusive contemporary dance research visual", "Ability Visible", "Access · Performance"],
+  ["/images/home/project-heritage.png", "Dance research visual connecting Sri Lankan heritage and contemporary movement", "Dance & Heritage", "Culture · Research"],
 ] as const;
 
 export default function Home() {
@@ -64,13 +64,14 @@ export default function Home() {
 
       <section className="homeProjects" aria-labelledby="projects-title">
         <div className="homeShell homeProjectsHeader" data-reveal="text"><div><p className="homeEyebrow">06 — Research in progress</p><h2 id="projects-title">{content.projects.title}</h2></div><p>{content.projects.body}</p><Link className="homeButton" href="/research-projects">{content.projects.cta}<ArrowRight size={16} /></Link></div>
-        <div className="homeShell homeProjectGrid">{projectImages.map(([src, alt], index) => <div className="homeProjectVisual" data-reveal="card" data-reveal-delay={String(index % 4)} key={src}><Image src={src} alt={alt} fill sizes="(max-width: 760px) 50vw, 25vw" /><span aria-hidden="true">0{index + 1}</span></div>)}</div>
+        <div className="homeShell homeProjectGrid">{projectImages.map(([src, alt, title, meta], index) => <Link href="/research-projects" className="homeProjectVisual" data-reveal="card" data-reveal-delay={String(index % 4)} key={src}><Image src={src} alt={alt} fill sizes="(max-width: 760px) 100vw, 28vw" /><span className="homeProjectNumber" aria-hidden="true">0{index + 1}</span><div className="homeProjectMeta"><p>{meta}</p><h3>{title}</h3></div></Link>)}</div>
       </section>
 
       <section className="homeUnveiling" aria-labelledby="unveiling-title">
         <div className="homeShell homeUnveilingHeading" data-reveal="text"><p className="homeEyebrow">07 — Forthcoming</p><h2 id="unveiling-title">{content.unveiling}</h2></div>
         <div className="homeShell homeUnveilingGrid"><div data-reveal="image"><Image src="/images/home/unveiling-movement.png" alt="Contemporary movement with natural pigment" width={560} height={800} sizes="(max-width: 760px) 82vw, 32vw" /></div><div data-reveal="image" data-reveal-delay="1"><Image src="/images/home/unveiling-community.png" alt="Dance researchers collaborating in a shared movement space" width={560} height={800} sizes="(max-width: 760px) 82vw, 32vw" /></div></div>
       </section>
+
     </main>
   );
 }
