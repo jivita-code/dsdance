@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { homeContent } from "@/lib/home-content";
+import { homeContent } from "@/content/home";
 
 const projectImages = [
   ["/images/home/project-elephant.png", "Dance research visual exploring human–elephant relationships", "Tusker Eye", "Movement · Ecology"],

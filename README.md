@@ -30,6 +30,25 @@ No JPanel setup is part of this build. A future integration can use `https://jpa
 - `npm run build`
 - `npm run migration:inventory`
 
+## Project structure
+
+The website follows the Next.js App Router convention. Each public URL has its own route folder instead of sharing one catch-all page:
+
+- `app/` — route pages, global states, layout and API routes.
+- `components/layout/` — global header and footer.
+- `components/ui/` — reusable visual building blocks.
+- `components/content/` — project, blog and detail presentation.
+- `components/forms/` — inquiry pages and form behavior.
+- `components/gallery/` — gallery and lightbox behavior.
+- `components/motion/` — progressive reveal behavior.
+- `content/` — approved static page wording.
+- `data/` — reviewed local seed records.
+- `lib/` — server-side content access.
+- `types/` — shared content contracts.
+- `config/` — navigation and other site configuration.
+
+Route files should compose shared components and own only the data selection and metadata for their URL. Keep client-side code limited to genuinely interactive components.
+
 ## Production
 
 Use `.env.production.example` as the deployment template. The public WordPress website remains live until the replacement has been approved and deployed to the VPS.
