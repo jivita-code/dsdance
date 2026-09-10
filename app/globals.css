@@ -116,6 +116,24 @@ p { text-wrap: pretty; }
 .visionMission article { padding: 2rem 0 2rem 2rem; border-left: 1px solid var(--gold); }
 .visionMission h2 { margin: 0 0 1.25rem; color: var(--gold); font-size: clamp(3rem, 4vw, 4.5rem); }
 .visionMission p:not(.eyebrow) { max-width: 550px; margin: 0; color: #dadbdd; font-size: 1.02rem; line-height: 1.75; }
+
+/* Who We Are — a three-part editorial statement */
+.whoWeAreHero .pageHeroImage { object-position: center center; filter: saturate(.72) contrast(1.08) brightness(.62); }
+.whoWeAreHero::after { background: linear-gradient(90deg, rgba(16, 17, 19, .9) 0%, rgba(16, 17, 19, .66) 47%, rgba(16, 17, 19, .27) 100%); }
+.whoWeAreIntroduction { padding: clamp(7rem, 11vw, 11rem) 0; display: grid; grid-template-columns: minmax(80px, .2fr) minmax(0, 1fr); gap: clamp(2.5rem, 7vw, 7rem); background: var(--pearl); }
+.whoWeAreIndex { padding-top: .45rem; color: #87693c; font-family: var(--display); font-size: clamp(2.5rem, 4vw, 4rem); line-height: .8; }
+.whoWeAreLead { max-width: 940px; }
+.whoWeAreLead h2 { max-width: 760px; margin: 0 0 2.5rem; color: var(--ink); font-size: clamp(3.75rem, 6.2vw, 6.5rem); letter-spacing: -.055em; }
+.whoWeAreLead > p:not(.eyebrow) { max-width: 840px; margin: 0; font-size: clamp(1.2rem, 1.8vw, 1.45rem); line-height: 1.7; }
+.whoWeArePractice { background: var(--panel); color: var(--pearl); }
+.whoWeArePracticeGrid { padding: clamp(6rem, 10vw, 10rem) 0; display: grid; grid-template-columns: minmax(280px, .72fr) minmax(0, 1fr); gap: clamp(4rem, 10vw, 11rem); align-items: center; }
+.whoWeArePortrait { position: relative; min-height: 670px; overflow: hidden; background: var(--graphite); }
+.whoWeArePortrait img { object-fit: cover; object-position: center; }
+.whoWeArePracticeCopy { max-width: 700px; }
+.whoWeArePracticeCopy > p:not(.eyebrow) { margin: 0; color: #e0e0e1; font-size: clamp(1.2rem, 1.65vw, 1.4rem); line-height: 1.78; }
+.whoWeAreClosing { padding: clamp(7rem, 11vw, 11rem) 0; background: var(--pearl); }
+.whoWeAreClosing p { max-width: 980px; margin: 2.5rem 0 0; font-family: var(--display); font-size: clamp(2.35rem, 4.25vw, 4.7rem); line-height: .98; letter-spacing: -.04em; }
+.whoWeAreRule { display: block; width: 96px; height: 1px; background: var(--gold); }
 .profilePage { width: var(--shell); margin-inline: auto; padding: var(--section-space) 0; display: grid; grid-template-columns: minmax(340px, .8fr) minmax(0, 1.2fr); gap: clamp(4rem, 8vw, 8rem); align-items: start; }
 .profileImage { position: sticky; top: 110px; min-height: 680px; overflow: hidden; }
 .profileImage img { object-fit: cover; object-position: center 25%; }
@@ -231,6 +249,9 @@ p { text-wrap: pretty; }
   .listingCard:nth-child(even) .listingMedia { order: 0; }
   .listingMedia { min-height: 400px; }
   .editorialIntro, .profilePage, .formLayout { grid-template-columns: 1fr; gap: 3.5rem; }
+  .whoWeAreIntroduction { grid-template-columns: 1fr; gap: 1.5rem; }
+  .whoWeArePracticeGrid { grid-template-columns: 1fr; gap: 3.5rem; }
+  .whoWeArePortrait { min-height: 600px; max-width: 600px; }
   .introAside { min-height: 500px; }
   .profileImage { position: relative; top: auto; min-height: 680px; max-width: 560px; }
   .profileCopy { padding-top: 0; }
@@ -256,6 +277,13 @@ p { text-wrap: pretty; }
   .listingMedia { min-height: 270px; }
   .listingCopy h2 { font-size: clamp(1.8rem, 8vw, 2.25rem); }
   .editorialIntro { gap: 3rem; }
+  .whoWeAreIntroduction { padding-block: 5rem; }
+  .whoWeAreLead h2 { margin-bottom: 1.75rem; font-size: clamp(3.1rem, 14vw, 4rem); }
+  .whoWeAreLead > p:not(.eyebrow), .whoWeArePracticeCopy > p:not(.eyebrow) { font-size: 1.05rem; line-height: 1.75; }
+  .whoWeArePracticeGrid { padding-block: 5rem; gap: 2.5rem; }
+  .whoWeArePortrait { min-height: 470px; }
+  .whoWeAreClosing { padding-block: 5rem; }
+  .whoWeAreClosing p { margin-top: 1.75rem; font-size: clamp(2.45rem, 11.5vw, 3.25rem); }
   .introAside { min-height: 380px; }
   .profileImage { min-height: 520px; }
   .peopleGrid { grid-template-columns: 1fr; }

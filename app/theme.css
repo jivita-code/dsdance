@@ -9,7 +9,7 @@
 .homeButton:hover { background: transparent; color: var(--gold); }
 .homeTextLink { color: #785d34; border-bottom: 1px solid currentColor; }
 
-.homeHero { position: relative; min-height: max(760px, 88vh); display: flex; align-items: flex-end; overflow: hidden; isolation: isolate; background: var(--ink); }
+.homeHero { position: relative; min-height: 100vh; min-height: 100dvh; display: flex; align-items: center; overflow: hidden; isolation: isolate; background: var(--ink); }
 .homeHeroImage { z-index: -2; object-fit: cover; object-position: 63% center; filter: saturate(.65) contrast(1.05) brightness(.8); }
 .homeHeroShade { position: absolute; z-index: -1; inset: 0;
   background:
@@ -17,18 +17,12 @@
     linear-gradient(to top, rgba(16, 17, 19, .75) 0%, transparent 55%),
     rgba(16, 17, 19, .15);
 }
-.homeHeroLayout { min-height: inherit; padding-block: 11rem 4.25rem; display: flex; align-items: flex-end; justify-content: space-between; }
-.homeHeroCopy { max-width: 670px; }
-.homeHero h1 { max-width: 660px; margin: 0; color: var(--gold); font-size: clamp(4.5rem, 6vw, 6rem); line-height: .84; }
+.homeHeroLayout { display: flex; align-items: center; justify-content: space-between; }
+.homeHeroCopy { max-width: 760px; }
+.homeHero h1 { max-width: 760px; margin: 0; color: var(--gold); font-size: clamp(5.5rem, 8vw, 7.5rem); line-height: .84; }
 .homeHeroStatement { max-width: 390px; margin: 0; color: var(--pearl); font-size: 1.08rem; line-height: 1.65; }
 .homeLocation { margin: 1.2rem 0 1.8rem; color: var(--gold); font-size: .75rem; font-weight: 800; letter-spacing: .19em; }
 .homeHeroIndex { margin: 0; color: rgba(245, 244, 240, .7); font-family: var(--display); font-size: 1.2rem; letter-spacing: .12em; writing-mode: vertical-rl; }
-
-.homeQuote { background: var(--gold); color: var(--ink); }
-.homeQuoteInner { min-height: 146px; display: flex; align-items: center; justify-content: center; gap: 1.5rem; text-align: center; }
-.homeQuote svg { width: 44px; height: 44px; flex: none; fill: currentColor; }
-.homeQuote p { margin: 0 0 .45rem; font-family: var(--display); font-size: clamp(2rem, 3vw, 2.8rem); line-height: 1; }
-.homeQuote span { font-size: .72rem; font-weight: 800; letter-spacing: .2em; }
 
 .homeAbout { padding-block: var(--section-space); background: var(--pearl); color: var(--ink); }
 .homeAboutGrid { display: grid; grid-template-columns: minmax(0, .85fr) minmax(450px, 1.15fr); gap: clamp(4rem, 9vw, 8rem); align-items: center; }
@@ -94,8 +88,8 @@
 .homeJoinInner > p:not(.homeEyebrow) { max-width: 440px; margin: 0; color: #cfd0d2; font-size: 1rem; }
 
 /* Progressive motion: content remains visible unless JS explicitly enables it. */
-.motion-enabled [data-reveal] { opacity: 0; translate: 0 12px; transition: opacity 580ms var(--ease-editorial), translate 580ms var(--ease-editorial), scale 620ms var(--ease-editorial); transition-delay: var(--reveal-delay, 0ms); will-change: opacity, translate; }
-.motion-enabled [data-reveal="image"] { translate: 0 0; scale: .985; will-change: opacity, scale; }
+.motion-enabled [data-reveal].is-pending { opacity: 0; translate: 0 12px; transition: opacity 580ms var(--ease-editorial), translate 580ms var(--ease-editorial), scale 620ms var(--ease-editorial); transition-delay: var(--reveal-delay, 0ms); will-change: opacity, translate; }
+.motion-enabled [data-reveal="image"].is-pending { translate: 0 0; scale: .985; will-change: opacity, scale; }
 .motion-enabled [data-reveal].is-visible { opacity: 1; translate: 0 0; scale: 1; will-change: auto; }
 [data-reveal-delay="1"] { --reveal-delay: 55ms; }
 [data-reveal-delay="2"] { --reveal-delay: 110ms; }
@@ -127,14 +121,14 @@
 }
 
 @media (max-width: 860px) {
-  .homeHero { min-height: 760px; }
+  .homeHero { min-height: 100vh; min-height: 100dvh; }
   .homeHeroShade {
     background:
       linear-gradient(to top, rgba(16, 17, 19, .85) 0%, rgba(16, 17, 19, .35) 50%, transparent 80%),
       rgba(16, 17, 19, .25);
   }
-  .homeHeroLayout { padding-block: 9rem 3rem; }
-  .homeHero h1 { font-size: clamp(4rem, 10vw, 5rem); }
+  .homeHeroLayout { padding-inline: 1.5rem; }
+  .homeHero h1 { font-size: clamp(4.5rem, 11vw, 6rem); }
   .homeAboutGrid, .homePortraitFeature, .homeMentorGrid, .homeValuesGrid { grid-template-columns: 1fr; }
   .homeAboutMedia { min-height: 560px; }
   .homePortraitMedia, .homeMentorMedia { min-height: 720px; max-width: 580px; }
@@ -153,15 +147,12 @@
 }
 
 @media (max-width: 560px) {
-  .homeHero { min-height: 700px; }
+  .homeHero { min-height: 100vh; min-height: 100dvh; }
   .homeHeroImage { object-position: 69% center; }
-  .homeHeroLayout { padding-block: 8.5rem 2.5rem; }
-  .homeHero h1 { font-size: clamp(3.25rem, 14.5vw, 3.75rem); }
+  .homeHeroLayout { padding-inline: 1.25rem; }
+  .homeHero h1 { font-size: clamp(3.75rem, 14.5vw, 4.5rem); }
   .homeHeroStatement { max-width: 330px; font-size: 1rem; }
   .homeHeroIndex { display: none; }
-  .homeQuoteInner { min-height: 140px; gap: .8rem; }
-  .homeQuote svg { width: 32px; height: 32px; }
-  .homeQuote p { font-size: 1.8rem; }
   .homeAboutGrid, .homePortraitFeature, .homeMentorGrid { gap: 3rem; }
   .homeSectionCopy h2, .homeProjects h2, .homeUnveiling h2, .homeJoin h2 { font-size: clamp(2.5rem, 11vw, 3rem); }
   .homeAboutMedia { min-height: 390px; }

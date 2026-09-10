@@ -15,12 +15,48 @@ const localProjectImages: Record<string, string> = {
   "movement-workshop": "/images/home/workshop-editorial.png",
 };
 
-function Title({ eyebrow, title, body, image = "/images/home/hero.png" }: { eyebrow?: string; title: string; body?: string; image?: string }) {
-  return <section className="pageHero">
+function Title({ eyebrow, title, body, image = "/images/home/hero.png", className = "" }: { eyebrow?: string; title: string; body?: string; image?: string; className?: string }) {
+  return <section className={`pageHero ${className}`}>
     <Image className="pageHeroImage" src={image} alt="" fill priority sizes="100vw" />
     <div className="pageHeroContent" data-load><p className="eyebrow gold">{eyebrow || "DS DANCE RESEARCH LAB"}</p><h1>{title}</h1>{body && <p>{body}</p>}<span className="pageHeroRule" /></div>
     <p className="pageHeroMarker" aria-hidden="true">Movement · Research · Practice</p>
   </section>;
+}
+
+const whoWeAre = {
+  heading: "Ds Dance Research Lab",
+  paragraphs: [
+    "DS Dance Research Lab is an independent platform rooted in creative exploration, critical inquiry, and contemporary performance practice. Founded by artist scholar Dhanushka Senaviratne, the lab serves as a bridge between dance research, education, and innovation particularly focusing on South Asian and Sri Lankan dance traditions.",
+    "We believe dance is not just movement it’s a powerful medium for identity, resistance, and transformation. Our platform brings together artists, researchers, educators, and thinkers from around the world to engage in interdisciplinary dialogue, practice based research, and community driven work.",
+    "At DS Dance Research Lab, we challenge conventions, explore emerging trends, and open space for bold ideas and meaningful collaborations in the field of dance and performance."
+  ]
+};
+
+function WhoWeArePage() {
+  return <article className="staticPage whoWeArePage">
+    <Title eyebrow="01 / WHO WE ARE" title="Who We Are" image="/images/who-we-are-collaboration.png" className="whoWeAreHero" />
+    <section className="whoWeAreIntroduction siteShell" aria-labelledby="who-we-are-statement">
+      <div className="whoWeAreIndex" data-reveal="text" aria-hidden="true">01</div>
+      <div className="whoWeAreLead">
+        <p className="eyebrow gold" data-reveal="text">Independent platform</p>
+        <h2 id="who-we-are-statement" data-reveal="text">{whoWeAre.heading}</h2>
+        <p data-reveal="text" data-reveal-delay="1">{whoWeAre.paragraphs[0]}</p>
+      </div>
+    </section>
+    <section className="whoWeArePractice">
+      <div className="siteShell whoWeArePracticeGrid">
+        <div className="whoWeArePortrait" data-reveal="image"><Image src="/images/who-we-are-inquiry.png" alt="Dance researcher exploring movement through a written score" fill sizes="(max-width: 860px) 100vw, 42vw" /></div>
+        <div className="whoWeArePracticeCopy">
+          <p className="eyebrow gold" data-reveal="text">02 / Practice</p>
+          <p data-reveal="text">{whoWeAre.paragraphs[1]}</p>
+        </div>
+      </div>
+    </section>
+    <section className="whoWeAreClosing siteShell">
+      <span className="whoWeAreRule" aria-hidden="true" />
+      <p data-reveal="text">{whoWeAre.paragraphs[2]}</p>
+    </section>
+  </article>;
 }
 
 function coverFor(item: Project) {
@@ -53,7 +89,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string[
   const content = await getContent();
   const projects = content.projects.filter((item) => item.contentType === "RESEARCH_PROJECT");
 
-  if (key === "who-we-are") return <article className="staticPage"><Title title={staticPages.about.title} image="/images/home/mission.png" /><section className="editorialIntro"><p className="largeCopy" data-reveal="text">{staticPages.about.body}</p><div className="introAside" data-reveal="image"><Image src="/images/home/vision.png" alt="Dancer exploring movement through embodied research" fill sizes="(max-width: 760px) 100vw, 36vw" /><span>Where movement becomes knowledge</span></div></section><section className="visionMission interior"><article data-reveal="text"><p className="eyebrow gold">OUR VISION</p><h2>Vision</h2><p>{staticPages.vision}</p></article><article data-reveal="text" data-reveal-delay="1"><p className="eyebrow gold">OUR MISSION</p><h2>Mission</h2><p>{staticPages.mission}</p></article></section></article>;
+  if (key === "who-we-are") return <WhoWeArePage />;
 
   if (key === "founder") {
     const paragraphs = staticPages.founder.body.split("\n").filter(Boolean);

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Quote } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { homeContent } from "@/lib/home-content";
 
 const projectImages = [
@@ -28,10 +28,6 @@ export default function Home() {
           </div>
           <p className="homeHeroIndex" aria-hidden="true">01 / 08</p>
         </div>
-      </section>
-
-      <section className="homeQuote" aria-label="DS Dance Research Lab statement">
-        <div className="homeQuoteInner homeShell" data-reveal="text"><Quote aria-hidden="true" /><div><p>“{content.quote.text}”</p><span>{content.quote.attribution}</span></div></div>
       </section>
 
       <section className="homeAbout" aria-labelledby="about-title">
