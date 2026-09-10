@@ -59,6 +59,43 @@ function WhoWeArePage() {
   </article>;
 }
 
+const founderBio = {
+  name: "Dhanushka Seneviratne",
+  qualifications: "Dhanushka Seneviratne, MA, MPA, BA 1st class (Hons)",
+  paragraphs: [
+    "is the visionary Founder and Artistic Director of DS Dance Research Lab (DSDRL). A distinguished, award winning professional dancer and a choreographer, Ballet director, interdisciplinary artist, international research scholar, and academic, and Sri Lankan born dance artist, based in London, brings a wealth of expertise and a unique global perspective to the lab. Her journey from Sri Lanka to the United Kingdom culminated in her Master’s degree in Public Art and Performative Practices from London Metropolitan University in 2023.",
+    "Her academic contributions include her role as a lecturer in dance choreography theory and practice, and dance research at the Department of Fine Arts at the University of Kelaniya, Sri Lanka. Here, she not only shapes the minds of the future Artists who supervise undergraduate and postgraduate research, but also coordinates the Performing Arts programs degree and engages with curriculum design.",
+    "As a professional dancer, researcher, collaborative filmmaker, and choreographer, she has created and performed internationally, establishing a significant presence in the global arts scene. Her expansive interdisciplinary practice showcases remarkable versatility. Her research encompasses Sri Lankan dance, Dance/Movement Therapy (DMT), dance history and archival studies, Public Art and performative practices, dance and community engagement, dance science, dance biomechanics, injury prevention, and dance on screen. She has delivered and published her academic work internationally.",
+    "She is an international research scholar who collaborates with renowned researchers in the dance industry, both in the UK and worldwide. In 2025, she became the first Sri Lankan dance artist to present her research work at the University of Oxford. Additionally, she presented her collaborative research on Sri Lankan low-country dance and Dance Movement Therapy (DMT) at the American Dance Therapy Association(ADTA) conference in the USA. Furthermore, she shared her findings as a dance science researcher at the Dance Medicine and Science Symposium at the University of Wolverhampton. Recently, she participated in the final research conference of the Arts and Humanities Research Council (AHRC) Dance Research Matters Festival at the University of Coventry, UK, hosted by the Centre for Dance Research.",
+    "Her commitment to advancing the creative arts extends beyond her direct artistic practice; she currently serves on the Europe Committee representing the UK for the International Association for Creative Arts in Education and Therapy (IACAET) and is also a proud member of the Dance and History e.v. Association Germany.",
+    "Through DSDRL, Dhanushka channels her passion for pushing artistic boundaries and fostering a deeper understanding of dance as a powerful form of research, collaboration, knowledge exchange, and expression"
+  ]
+};
+
+function FounderPage() {
+  return <article className="staticPage founderEditorial">
+    <Title eyebrow="FOUNDER & ARTISTIC DIRECTOR" title={founderBio.name} image="/images/home/founder-portrait.png" className="founderHero" />
+    <section className="founderIntroduction siteShell" aria-labelledby="founder-biography">
+      <div data-reveal="text"><p className="eyebrow gold">01 / Biography</p><h2 id="founder-biography">Dhanushka Seneviratne</h2></div>
+      <p className="founderLead" data-reveal="text" data-reveal-delay="1"><strong>{founderBio.qualifications}</strong>, {founderBio.paragraphs[0]}</p>
+    </section>
+    <section className="founderResearch">
+      <div className="siteShell founderResearchGrid">
+        <p data-reveal="text">{founderBio.paragraphs[1]}</p>
+        <div className="founderResearchImage" data-reveal="image"><Image src="/images/founder-research-practice.png" alt="Researchers and dancers studying archival movement material together" fill sizes="(max-width: 860px) 100vw, 56vw" /></div>
+        <p className="founderResearchStatement" data-reveal="text">{founderBio.paragraphs[2]}</p>
+      </div>
+    </section>
+    <section className="founderScholarship siteShell">
+      <div className="founderScholarshipIndex" data-reveal="text">02</div>
+      <div className="founderScholarshipCopy"><p className="eyebrow gold" data-reveal="text">International scholarship</p><p data-reveal="text">{founderBio.paragraphs[3]}</p><p data-reveal="text" data-reveal-delay="1">{founderBio.paragraphs[4]}</p></div>
+    </section>
+    <section className="founderClosing">
+      <div className="siteShell" data-reveal="text"><span aria-hidden="true" /><p>{founderBio.paragraphs[5]}</p></div>
+    </section>
+  </article>;
+}
+
 function coverFor(item: Project) {
   return localProjectImages[item.slug] || item.coverImageUrl || item.media[0]?.url || "/images/home/vision.png";
 }
@@ -91,10 +128,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string[
 
   if (key === "who-we-are") return <WhoWeArePage />;
 
-  if (key === "founder") {
-    const paragraphs = staticPages.founder.body.split("\n").filter(Boolean);
-    return <article className="staticPage"><Title title={staticPages.founder.title} image="/images/home/founder-portrait.png" /><section className="profilePage"><div className="profileImage" data-reveal="image"><Image src="/images/home/founder-portrait.png" alt="Dhanushka Seneviratne" fill sizes="(max-width: 760px) 100vw, 40vw" /></div><div className="profileCopy">{paragraphs.map((paragraph, index) => index === 0 ? <h2 data-reveal="text" key={paragraph}>{paragraph}</h2> : <p className="largeCopy" data-reveal="text" key={paragraph}>{paragraph}</p>)}</div></section></article>;
-  }
+  if (key === "founder") return <FounderPage />;
 
   if (key === "advisory-committee") {
     const people = staticPages.advisory.body.split("\n").filter(Boolean);
