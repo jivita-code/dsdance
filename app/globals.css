@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Manrope:wght@400;500;600;700;800&display=swap");
 
 :root {
   --ink: #101113;
@@ -10,7 +10,7 @@
   --line-dark: rgba(213, 190, 145, 0.28);
   --line-light: #d8d2c7;
   --body: "Manrope", Arial, sans-serif;
-  --display: "Instrument Serif", Georgia, serif;
+  --display: "Cormorant Garamond", Garamond, Georgia, serif;
   --shell: min(1280px, calc(100% - 96px));
   --section-space: clamp(6rem, 9vw, 9rem);
   --ease-editorial: cubic-bezier(.22, 1, .36, 1);
