@@ -33,7 +33,7 @@ export function SiteHeader() {
   }, [open]);
 
   return <header className={`siteHeader ${scrolled ? "isScrolled" : ""} ${open ? "hasOpenMenu" : ""}`}>
-    <Link href="/" className="brand" aria-label="DS Dance Research Lab home" onClick={close}><img src="/images/home/logo.png" alt="DS Dance Research Lab" /></Link>
+    <Link href="/" className="brand" aria-label="DS Dance Research Lab home" onClick={close}><img src="/images/brand/ds-dance-research-lab.png" alt="DS Dance Research Lab" /></Link>
     <button className="navToggle" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="primary-navigation" aria-label={open ? "Close menu" : "Open menu"}><span>{open ? "Close" : "Menu"}</span>{open ? <X size={22} /> : <Menu size={22} />}</button>
     <nav id="primary-navigation" className={open ? "nav open" : "nav"} aria-label="Primary navigation">
       <p className="mobileMenuLabel" aria-hidden="true">Explore the lab</p>

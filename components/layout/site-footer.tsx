@@ -21,7 +21,7 @@ export function SiteFooter() {
       <div className="footerBase siteShell">
         <div className="footerBrand" data-reveal="text">
         <div className="footerLogos">
-          <img src="/images/home/logo.png" alt="DS Dance Research Lab" />
+          <img src="/images/brand/ds-dance-research-lab.png" alt="DS Dance Research Lab" />
           <img src="/images/brand/one-dance-uk.png" alt="One Dance UK" />
         </div>
         <p>Where Dance Meets Discovery</p>
