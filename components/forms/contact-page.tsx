@@ -4,9 +4,16 @@ import { socialLinks } from "@/config/social-links";
 
 export function ContactPage({ type }: { type: "CONTACT" | "JOIN_US" }) {
   const join = type === "JOIN_US";
-  if (join) return <section className="formPage">
-    <PageHero eyebrow="COLLABORATE" title="Join Us" body="Join the DS Dance Research Lab community and help shape the future of dance and performative practice." image="/images/home/mission.png" />
-    <div className="formLayout"><aside data-reveal="text"><p className="eyebrow gold">DS DANCE RESEARCH LAB</p><h2>Where Dance Meets Discovery</h2><a href="mailto:dsdanceresearchlab@gmail.com">dsdanceresearchlab@gmail.com</a><a href="tel:+447375567669">+44 7375 567669</a></aside><InquiryForm type={type} /></div>
+  if (join) return <section className="joinPage formPage">
+    <PageHero eyebrow="COLLABORATE" title="Join Us" image="/images/join-us-hero.png" />
+    <div className="joinLayout">
+      <aside className="joinJourney" data-reveal="text">
+        <p className="eyebrow gold">DS DANCE RESEARCH LAB</p>
+        <h2>Join Our Journey</h2>
+        <p>At <strong>DS Dance Research Lab</strong>, we’re building a vibrant community where creativity, research, and performance come together. Whether you’re a performer, researcher, educator, or simply passionate about dance, this is your chance to connect, collaborate, and grow with us. Together, we can explore new ideas and create projects that inspire across borders.</p>
+      </aside>
+      <div className="joinForm" data-reveal="text"><InquiryForm type="JOIN_US" /></div>
+    </div>
   </section>;
 
   return <section className="contactPage formPage">

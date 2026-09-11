@@ -4,6 +4,7 @@ import { ArrowRight, LoaderCircle } from "lucide-react";
 import { FormEvent, useState } from "react";
 
 export function InquiryForm({ type }: { type: "CONTACT" | "JOIN_US" }) {
+  const isJoin = type === "JOIN_US";
   const [state, setState] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [error, setError] = useState("");
 
@@ -33,10 +34,10 @@ export function InquiryForm({ type }: { type: "CONTACT" | "JOIN_US" }) {
   return <form className="inquiryForm" data-reveal="text" onSubmit={submit}>
     <label>Name<input name="name" required maxLength={160} /></label>
     <label>Email<input name="email" type="email" required maxLength={254} /></label>
-    {type === "JOIN_US" && <label>Area of interest<select name="areaOfInterest" required><option value="">Select an option</option><option>Associate Artist</option><option>Residency Programs</option><option>Workshops &amp; Training</option><option>Research Collaborator</option><option>Community Engagement</option><option>Volunteer/Supporter</option><option>International Exchange</option><option>Other</option></select></label>}
-    <label>Message<textarea name="message" required rows={6} maxLength={10000} /></label>
+    {isJoin && <label>Area of interest<select name="areaOfInterest" required><option value="">--- Select Choice ---</option><option>Associate Artist</option><option>Residency Programs</option><option>Workshops &amp; Training</option><option>Research Collaborator</option><option>Community Engagement</option><option>Volunteer/Supporter</option><option>International Exchange</option><option>Other (please specify)</option></select></label>}
+    <label>{isJoin ? "Comment or Message" : "Message"}<textarea name="message" required rows={6} maxLength={10000} /></label>
     <input className="trap" name="website" tabIndex={-1} autoComplete="off" />
-    <button className="goldButton" disabled={state === "loading"}>{state === "loading" ? <><LoaderCircle className="spin" size={16} /> Sending</> : <>Send message <ArrowRight size={16} /></>}</button>
+    <button className="goldButton" disabled={state === "loading"}>{state === "loading" ? <><LoaderCircle className="spin" size={16} /> Sending</> : <>{isJoin ? "Submit" : "Send message"} <ArrowRight size={16} /></>}</button>
     {state === "error" && <p className="formError" role="alert">{error}</p>}
   </form>;
 }

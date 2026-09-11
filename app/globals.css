@@ -196,6 +196,15 @@ p { text-wrap: pretty; }
 .formLayout aside { display: flex; flex-direction: column; align-items: flex-start; }
 .formLayout aside h2 { max-width: 430px; margin: 0 0 2rem; font-size: clamp(3rem, 4.7vw, 5rem); }
 .formLayout aside a { margin-bottom: .45rem; font-size: .9rem; color: #635944; }
+.joinPage .pageHeroImage { object-position: center; filter: saturate(.68) contrast(1.06) brightness(.7); }
+.joinPage .pageHero::after { background: linear-gradient(90deg, rgba(16, 17, 19, .91) 0%, rgba(16, 17, 19, .66) 46%, rgba(16, 17, 19, .27) 100%); }
+.joinLayout { width: var(--shell); margin-inline: auto; padding: var(--section-space) 0; display: grid; grid-template-columns: minmax(300px, .85fr) minmax(0, 1.15fr); gap: clamp(3rem, 8vw, 9rem); align-items: center; }
+.joinJourney { padding: clamp(2.5rem, 5vw, 5rem); background: var(--panel); color: var(--pearl); }
+.joinJourney h2 { max-width: 10ch; margin: 0 0 2rem; color: var(--gold); font-size: clamp(3.5rem, 5vw, 5.5rem); letter-spacing: -.05em; }
+.joinJourney > p:not(.eyebrow) { max-width: 58ch; margin: 0; color: #e0e1e2; font-size: 1.08rem; line-height: 1.8; }
+.joinJourney strong { color: var(--gold); }
+.joinForm { padding: clamp(2rem, 4vw, 4rem); background: #ebe8e1; border-top: 2px solid var(--gold); }
+.joinForm .inquiryForm { margin: 0; }
 .contactPage .pageHeroImage { object-position: center; filter: saturate(.7) contrast(1.06) brightness(.72); }
 .contactPage .pageHero::after { background: linear-gradient(90deg, rgba(16, 17, 19, .9) 0%, rgba(16, 17, 19, .7) 45%, rgba(16, 17, 19, .26) 100%); }
 .contactLayout { width: var(--shell); margin-inline: auto; padding: var(--section-space) 0; display: grid; grid-template-columns: minmax(280px, .75fr) minmax(0, 1.25fr); gap: clamp(4rem, 10vw, 11rem); align-items: start; }
@@ -319,6 +328,7 @@ p { text-wrap: pretty; }
   .listingCard:nth-child(even) .listingMedia { order: 0; }
   .listingMedia { min-height: 400px; }
   .editorialIntro, .profilePage, .formLayout { grid-template-columns: 1fr; gap: 3.5rem; }
+  .joinLayout { grid-template-columns: 1fr; gap: 3.5rem; }
   .contactLayout { grid-template-columns: 1fr; gap: 3.5rem; }
   .advisoryProfile, .advisoryProfile:nth-child(even) { grid-template-columns: 1fr; gap: 2.5rem; }
   .advisoryProfile:nth-child(even) .advisoryPortrait { order: 0; }
@@ -354,6 +364,9 @@ p { text-wrap: pretty; }
   .listingCopy h2 { font-size: clamp(1.8rem, 8vw, 2.25rem); }
   .editorialIntro { gap: 3rem; }
   .contactLayout { padding-block: 5rem; gap: 3rem; }
+  .joinLayout { padding-block: 5rem; gap: 2.5rem; }
+  .joinJourney, .joinForm { padding: 1.5rem; }
+  .joinJourney h2 { font-size: clamp(3rem, 14vw, 4rem); }
   .contactInfo h2 { margin-bottom: 2rem; font-size: clamp(3rem, 14vw, 4rem); }
   .contactForm { padding: 1.5rem; }
   .advisoryIntroduction { padding-block: 1.5rem; }
