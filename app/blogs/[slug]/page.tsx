@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
-import { PageHero } from "@/components/ui/page-hero";
-import { contentText, getContent } from "@/lib/get-content";
+import { BlogDetail } from "@/components/content/blog-detail";
+import { getContent } from "@/lib/get-content";
 
 type BlogPageProps = { params: Promise<{ slug: string }> };
 
@@ -19,5 +17,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
   const content = await getContent();
   const blog = content.blogs.find((item) => item.slug === slug);
   if (!blog) notFound();
-  return <article className="detail"><Link className="back" data-reveal="text" href="/blogs"><ArrowLeft size={16} /> All blogs</Link><PageHero eyebrow="JOURNAL" title={blog.title} body={blog.excerpt || undefined} image={blog.coverImageUrl || "/images/home/journal-editorial.png"} /><p className="bodyCopy" data-reveal="text">{contentText(blog.content.body)}</p></article>;
+  const related = content.blogs.filter((item) => item.slug !== blog.slug).slice(0, 3);
+
+  return <BlogDetail blog={blog} related={related} />;
 }

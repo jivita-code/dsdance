@@ -200,6 +200,29 @@ p { text-wrap: pretty; }
 .relatedProjectCard h3 { min-height: 2.2em; margin: 0 0 1.25rem; color: var(--pearl); font-size: clamp(1.65rem, 2.2vw, 2.35rem); letter-spacing: -.03em; }
 .relatedProjectCard span { display: inline-flex; align-items: center; gap: .4rem; color: #d1d1d2; font-size: .72rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; transition: color 180ms ease; }
 .relatedProjectCard:hover span { color: var(--gold); }
+.blogArticle { width: var(--shell); margin-inline: auto; padding: clamp(6rem, 10vw, 10rem) 0; display: grid; grid-template-columns: minmax(220px, .48fr) minmax(0, 1fr); gap: clamp(4rem, 10vw, 11rem); align-items: start; }
+.blogMeta { position: sticky; top: 118px; display: grid; gap: 1.35rem; padding: 2rem 0 0 2rem; border-left: 1px solid var(--gold); }
+.blogMeta .eyebrow { margin: 0; }
+.blogMeta > div { display: grid; gap: .4rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--line-light); }
+.blogMeta span { color: #765b30; font-family: var(--display); font-size: 1.35rem; line-height: 1; }
+.blogMeta time { color: #3b383d; font-size: .92rem; line-height: 1.6; }
+.blogLinks a { width: fit-content; display: inline-flex; align-items: center; gap: .35rem; color: #3b383d; font-size: .84rem; line-height: 1.5; transition: color 180ms ease, translate 180ms ease; }
+.blogLinks a:hover { color: #765b30; translate: .15rem 0; }
+.blogCopy { max-width: 760px; }
+.blogCopy .detailSummary { max-width: 32ch; }
+.blogCopy .bodyCopy { margin: 0; color: #343238; font-size: clamp(1.05rem, 1.2vw, 1.16rem); line-height: 1.85; }
+.relatedBlogs { padding: clamp(6rem, 10vw, 10rem) max(3rem, calc((100vw - 1280px) / 2)); background: var(--ink); color: var(--pearl); }
+.relatedBlogs h2 { margin: 0; color: var(--gold); font-size: clamp(3.25rem, 5.3vw, 5.75rem); letter-spacing: -.05em; }
+.relatedBlogsHeading { margin-bottom: 3.25rem; }
+.relatedBlogsGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+.relatedBlogCard { display: block; padding-bottom: 1.5rem; border-bottom: 1px solid var(--line-dark); }
+.relatedBlogCard > div { position: relative; aspect-ratio: 1.15; margin-bottom: 1.25rem; overflow: hidden; background: var(--graphite); }
+.relatedBlogCard img { object-fit: cover; filter: saturate(.6) contrast(1.04); transition: scale 550ms var(--ease-editorial), filter 300ms ease; }
+.relatedBlogCard:hover img { scale: 1.025; filter: saturate(.9) contrast(1.02); }
+.relatedBlogCard p { margin: 0 0 .65rem; color: var(--gold); font-size: .68rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+.relatedBlogCard h3 { min-height: 2.2em; margin: 0 0 1.25rem; color: var(--pearl); font-size: clamp(1.65rem, 2.2vw, 2.35rem); letter-spacing: -.03em; }
+.relatedBlogCard span { display: inline-flex; align-items: center; gap: .4rem; color: #d1d1d2; font-size: .72rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; transition: color 180ms ease; }
+.relatedBlogCard:hover span { color: var(--gold); }
 .externalLinks { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
 .externalLinks a { display: inline-flex; min-height: 44px; align-items: center; gap: .45rem; padding: .65rem 1rem; border: 1px solid #8f7c5e; font-size: .8rem; text-transform: capitalize; }
 
@@ -361,6 +384,9 @@ p { text-wrap: pretty; }
   .detailArticle { grid-template-columns: 1fr; gap: 3.5rem; }
   .detailMeta { position: static; max-width: 600px; }
   .relatedProjectsGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .blogArticle { grid-template-columns: 1fr; gap: 3.5rem; }
+  .blogMeta { position: static; max-width: 600px; }
+  .relatedBlogsGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .editorialIntro, .profilePage, .formLayout { grid-template-columns: 1fr; gap: 3.5rem; }
   .joinLayout { grid-template-columns: 1fr; gap: 3.5rem; }
   .contactLayout { grid-template-columns: 1fr; gap: 3.5rem; }
@@ -409,6 +435,12 @@ p { text-wrap: pretty; }
   .relatedProjects { padding-block: 5rem; }
   .relatedProjectsGrid { grid-template-columns: 1fr; gap: 2.5rem; }
   .relatedProjectCard > div { aspect-ratio: 1.2; }
+  .blogArticle { padding-block: 5rem; gap: 3rem; }
+  .blogMeta { padding-left: 1.25rem; }
+  .relatedBlogs { padding: 5rem 1.25rem; }
+  .relatedBlogs h2 { font-size: clamp(3rem, 14vw, 4rem); }
+  .relatedBlogsGrid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .relatedBlogCard > div { aspect-ratio: 1.2; }
   .editorialIntro { gap: 3rem; }
   .contactLayout { padding-block: 5rem; gap: 3rem; }
   .joinLayout { padding-block: 5rem; gap: 2.5rem; }
