@@ -1,13 +1,13 @@
 import Link from "next/link";
-import { Apple, ArrowRight, Instagram, Linkedin, Music2, Newspaper, Youtube } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const socialLinks = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/ds-dance-research-lab-30a44b361/", icon: Linkedin },
-  { label: "YouTube", href: "https://www.youtube.com/@DSDanceResearchLab", icon: Youtube },
-  { label: "Instagram", href: "https://www.instagram.com/ds_dance_research_lab/", icon: Instagram },
-  { label: "Apple Podcasts", href: "https://podcasts.apple.com/us/podcast/dance-connect/id1837786505", icon: Apple },
-  { label: "Spotify", href: "https://creators.spotify.com/pod/profile/ds-dance-research-lab", icon: Music2 },
-  { label: "Substack", href: "https://substack.com/@dhanushkaseneviratne?utm_source=global-search", icon: Newspaper },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/ds-dance-research-lab-30a44b361/", icon: "linkedin" },
+  { label: "YouTube", href: "https://www.youtube.com/@DSDanceResearchLab", icon: "youtube" },
+  { label: "Instagram", href: "https://www.instagram.com/ds_dance_research_lab/", icon: "instagram" },
+  { label: "Apple Podcasts", href: "https://podcasts.apple.com/us/podcast/dance-connect/id1837786505", icon: "apple-podcasts" },
+  { label: "Spotify", href: "https://creators.spotify.com/pod/profile/ds-dance-research-lab", icon: "spotify" },
+  { label: "Substack", href: "https://substack.com/@dhanushkaseneviratne?utm_source=global-search", icon: "substack" },
 ] as const;
 
 export function SiteFooter() {
@@ -28,7 +28,7 @@ export function SiteFooter() {
         <div className="footerSocial" aria-label="Follow and listen to DS Dance Research Lab">
           <b>Follow &amp; Listen</b>
           <div className="footerSocialLinks">
-            {socialLinks.map(({ label, href, icon: Icon }) => <a aria-label={label} href={href} key={label} rel="noreferrer" target="_blank" title={label}><Icon aria-hidden="true" size={18} strokeWidth={1.7} /></a>)}
+            {socialLinks.map(({ label, href, icon }) => <a aria-label={label} href={href} key={label} rel="noreferrer" target="_blank" title={label}><span aria-hidden="true" className={`footerSocialMark footerSocialMark--${icon}`} /></a>)}
           </div>
         </div>
       </div>

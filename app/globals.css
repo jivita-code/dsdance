@@ -230,6 +230,14 @@ p { text-wrap: pretty; }
 .footerSocial b { display: block; margin-bottom: .8rem; }
 .footerSocialLinks { display: flex; flex-wrap: wrap; gap: .55rem; }
 .footerSocialLinks a { width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid rgba(213, 190, 145, .35); color: #d7d8da; transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease, translate 200ms var(--ease-editorial); }
+.footerSocialMark { width: 20px; height: 20px; display: block; background: currentColor; -webkit-mask-position: center; -webkit-mask-repeat: no-repeat; -webkit-mask-size: contain; mask-position: center; mask-repeat: no-repeat; mask-size: contain; }
+.footerSocialMark--instagram { width: 26px; height: 26px; }
+.footerSocialMark--linkedin { -webkit-mask-image: url("/images/social/linkedin.svg"); mask-image: url("/images/social/linkedin.svg"); }
+.footerSocialMark--youtube { -webkit-mask-image: url("/images/social/youtube.svg"); mask-image: url("/images/social/youtube.svg"); }
+.footerSocialMark--instagram { -webkit-mask-image: url("/images/social/instagram.svg"); mask-image: url("/images/social/instagram.svg"); }
+.footerSocialMark--apple-podcasts { -webkit-mask-image: url("/images/social/apple-podcasts.svg"); mask-image: url("/images/social/apple-podcasts.svg"); }
+.footerSocialMark--spotify { -webkit-mask-image: url("/images/social/spotify.svg"); mask-image: url("/images/social/spotify.svg"); }
+.footerSocialMark--substack { -webkit-mask-image: url("/images/social/substack.svg"); mask-image: url("/images/social/substack.svg"); }
 .footerSocialLinks a:hover { border-color: var(--gold); background: var(--gold); color: var(--ink); translate: 0 -.18rem; }
 .advisoryPage { min-height: 65vh; background: var(--pearl); color: var(--ink); }
 .advisoryIntroduction { width: var(--shell); margin-inline: auto; padding: 2rem 0; border-bottom: 1px solid var(--line-light); }
