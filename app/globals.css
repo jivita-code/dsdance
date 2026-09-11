@@ -167,10 +167,39 @@ p { text-wrap: pretty; }
 .peopleGrid article:nth-child(2n) { border-right: 0; }
 .peopleGrid span { color: #87693c; font-size: .72rem; font-weight: 800; letter-spacing: .18em; }
 .peopleGrid h2 { max-width: 480px; margin-top: 3rem; font-size: clamp(1.8rem, 2.5vw, 2.5rem); }
-.back { position: relative; z-index: 3; display: inline-flex; min-height: 44px; align-items: center; gap: .6rem; margin: 7.25rem max(3rem, calc((100vw - 1280px) / 2)) 1.5rem; color: var(--gold); font-size: .72rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
-.detail .pageHero { min-height: 670px; }
-.detailBody { width: min(760px, calc(100% - 48px)); margin: 0 auto; padding: var(--section-space) 0; }
-.detail .bodyCopy { margin: 0 0 2.5rem; }
+.detailHero { position: relative; }
+.detail .pageHero { min-height: 720px; }
+.detailBack { position: absolute; z-index: 4; top: 7.75rem; left: max(3rem, calc((100vw - 1280px) / 2)); display: inline-flex; min-height: 44px; align-items: center; gap: .6rem; color: var(--pearl); font-size: .72rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; transition: color 180ms ease, translate 180ms ease; }
+.detailBack:hover { color: var(--gold); translate: -.2rem 0; }
+.detailArticle { width: var(--shell); margin-inline: auto; padding: clamp(6rem, 10vw, 10rem) 0; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(260px, .55fr); gap: clamp(4rem, 10vw, 11rem); align-items: start; }
+.detailCopy { max-width: 760px; }
+.detailCopy h2, .detailGallery h2, .relatedProjects h2 { margin: 0 0 2rem; color: var(--ink); font-size: clamp(3.25rem, 5.3vw, 5.75rem); letter-spacing: -.05em; }
+.detailSummary { max-width: 29ch; margin: 0 0 2.5rem; color: #765b30; font-family: var(--display); font-size: clamp(1.8rem, 2.5vw, 2.6rem); line-height: 1.1; }
+.detailCopy .bodyCopy { margin: 0; color: #343238; font-size: clamp(1.05rem, 1.2vw, 1.16rem); line-height: 1.85; }
+.detailMeta { position: sticky; top: 118px; padding: 2rem 0 0 2rem; border-left: 1px solid var(--gold); }
+.detailMeta dl { margin: 0; display: grid; gap: 1.4rem; }
+.detailMeta dl div { padding-bottom: 1.2rem; border-bottom: 1px solid var(--line-light); }
+.detailMeta dt { margin-bottom: .35rem; color: #765b30; font-family: var(--display); font-size: 1.45rem; line-height: 1; }
+.detailMeta dd { margin: 0; color: #3b383d; font-size: .92rem; line-height: 1.6; text-transform: capitalize; }
+.detailLinks { margin-top: 2.5rem; display: grid; align-items: start; gap: .75rem; }
+.detailLinks .eyebrow { margin-bottom: .25rem; }
+.detailLinks .textLink { width: fit-content; color: #765b30; }
+.detailGallery { padding: clamp(5rem, 9vw, 8rem) max(3rem, calc((100vw - 1280px) / 2)); background: #e9e6df; }
+.detailGalleryHeading { width: min(760px, 100%); margin-bottom: 3.5rem; }
+.detailGallery .galleryGrid { grid-template-columns: minmax(0, 1fr); max-width: 1060px; }
+.detailGallery .galleryTile { aspect-ratio: 16 / 8.5; }
+.relatedProjects { padding: clamp(6rem, 10vw, 10rem) max(3rem, calc((100vw - 1280px) / 2)); background: var(--ink); color: var(--pearl); }
+.relatedProjects h2 { color: var(--gold); }
+.relatedProjectsHeading { margin-bottom: 3.25rem; }
+.relatedProjectsGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+.relatedProjectCard { display: block; padding-bottom: 1.5rem; border-bottom: 1px solid var(--line-dark); }
+.relatedProjectCard > div { position: relative; aspect-ratio: 1.15; margin-bottom: 1.25rem; overflow: hidden; background: var(--graphite); }
+.relatedProjectCard img { object-fit: cover; filter: saturate(.6) contrast(1.04); transition: scale 550ms var(--ease-editorial), filter 300ms ease; }
+.relatedProjectCard:hover img { scale: 1.025; filter: saturate(.9) contrast(1.02); }
+.relatedProjectCard p { margin: 0 0 .65rem; color: var(--gold); font-size: .68rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+.relatedProjectCard h3 { min-height: 2.2em; margin: 0 0 1.25rem; color: var(--pearl); font-size: clamp(1.65rem, 2.2vw, 2.35rem); letter-spacing: -.03em; }
+.relatedProjectCard span { display: inline-flex; align-items: center; gap: .4rem; color: #d1d1d2; font-size: .72rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; transition: color 180ms ease; }
+.relatedProjectCard:hover span { color: var(--gold); }
 .externalLinks { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
 .externalLinks a { display: inline-flex; min-height: 44px; align-items: center; gap: .45rem; padding: .65rem 1rem; border: 1px solid #8f7c5e; font-size: .8rem; text-transform: capitalize; }
 
@@ -327,6 +356,11 @@ p { text-wrap: pretty; }
   .listingCard { grid-template-columns: 1fr; gap: 2.5rem; padding-bottom: 4rem; }
   .listingCard:nth-child(even) .listingMedia { order: 0; }
   .listingMedia { min-height: 400px; }
+  .detail .pageHero { min-height: 620px; }
+  .detailBack { top: 6.5rem; left: 1.5rem; }
+  .detailArticle { grid-template-columns: 1fr; gap: 3.5rem; }
+  .detailMeta { position: static; max-width: 600px; }
+  .relatedProjectsGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .editorialIntro, .profilePage, .formLayout { grid-template-columns: 1fr; gap: 3.5rem; }
   .joinLayout { grid-template-columns: 1fr; gap: 3.5rem; }
   .contactLayout { grid-template-columns: 1fr; gap: 3.5rem; }
@@ -362,6 +396,19 @@ p { text-wrap: pretty; }
   .listingCard { gap: 2rem; padding-bottom: 3.5rem; }
   .listingMedia { min-height: 270px; }
   .listingCopy h2 { font-size: clamp(1.8rem, 8vw, 2.25rem); }
+  .detail .pageHero { min-height: 540px; }
+  .detailBack { top: 5.8rem; left: 1.25rem; }
+  .detailArticle { padding-block: 5rem; gap: 3rem; }
+  .detailCopy h2, .detailGallery h2, .relatedProjects h2 { margin-bottom: 1.5rem; font-size: clamp(3rem, 14vw, 4rem); }
+  .detailSummary { margin-bottom: 2rem; font-size: clamp(1.75rem, 8vw, 2.25rem); }
+  .detailMeta { padding-left: 1.25rem; }
+  .detailGallery, .relatedProjects { padding-inline: 1.25rem; }
+  .detailGallery { padding-block: 5rem; }
+  .detailGalleryHeading { margin-bottom: 2.5rem; }
+  .detailGallery .galleryTile { aspect-ratio: 1.05; }
+  .relatedProjects { padding-block: 5rem; }
+  .relatedProjectsGrid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .relatedProjectCard > div { aspect-ratio: 1.2; }
   .editorialIntro { gap: 3rem; }
   .contactLayout { padding-block: 5rem; gap: 3rem; }
   .joinLayout { padding-block: 5rem; gap: 2.5rem; }

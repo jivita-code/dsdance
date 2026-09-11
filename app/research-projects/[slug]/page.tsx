@@ -17,5 +17,6 @@ export default async function ResearchProjectPage({ params }: ProjectPageProps) 
   const content = await getContent();
   const item = content.projects.find((project) => project.contentType === "RESEARCH_PROJECT" && project.slug === slug);
   if (!item) notFound();
-  return <ProjectDetail item={item} back="/research-projects" />;
+  const related = content.projects.filter((project) => project.contentType === "RESEARCH_PROJECT" && project.slug !== item.slug).sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0)).slice(0, 3);
+  return <ProjectDetail item={item} back="/research-projects" related={related} />;
 }
