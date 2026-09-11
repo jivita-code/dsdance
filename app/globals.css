@@ -196,6 +196,22 @@ p { text-wrap: pretty; }
 .formLayout aside { display: flex; flex-direction: column; align-items: flex-start; }
 .formLayout aside h2 { max-width: 430px; margin: 0 0 2rem; font-size: clamp(3rem, 4.7vw, 5rem); }
 .formLayout aside a { margin-bottom: .45rem; font-size: .9rem; color: #635944; }
+.contactPage .pageHeroImage { object-position: center; filter: saturate(.7) contrast(1.06) brightness(.72); }
+.contactPage .pageHero::after { background: linear-gradient(90deg, rgba(16, 17, 19, .9) 0%, rgba(16, 17, 19, .7) 45%, rgba(16, 17, 19, .26) 100%); }
+.contactLayout { width: var(--shell); margin-inline: auto; padding: var(--section-space) 0; display: grid; grid-template-columns: minmax(280px, .75fr) minmax(0, 1.25fr); gap: clamp(4rem, 10vw, 11rem); align-items: start; }
+.contactInfo h2 { margin: 0 0 3rem; font-size: clamp(3.2rem, 5vw, 5.25rem); letter-spacing: -.045em; }
+.contactInfo dl { margin: 0; display: grid; gap: 2rem; }
+.contactInfo dl div { padding-bottom: 1.5rem; border-bottom: 1px solid var(--line-light); }
+.contactInfo dt, .contactSocial h3 { margin: 0 0 .45rem; color: #765b30; font-family: var(--display); font-size: 1.7rem; font-weight: 500; line-height: 1; }
+.contactInfo dd { margin: 0; color: #39363b; font-size: 1rem; line-height: 1.65; }
+.contactInfo dd a { transition: color 180ms ease; }
+.contactInfo dd a:hover { color: #765b30; }
+.contactSocial { margin-top: 3rem; }
+.contactSocialLinks { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 1rem; }
+.contactSocialLinks a { width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid #9d8660; color: var(--ink); transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease, translate 200ms var(--ease-editorial); }
+.contactSocialLinks a:hover { border-color: var(--gold); background: var(--gold); color: var(--ink); translate: 0 -.18rem; }
+.contactForm { padding: clamp(2rem, 4vw, 4rem); background: #ebe8e1; border-top: 2px solid var(--gold); }
+.contactForm .inquiryForm { margin: 0; }
 .inquiryForm { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 .inquiryForm label { display: grid; gap: .6rem; font-size: .75rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
 .inquiryForm label:has(textarea), .inquiryForm label:has(select) { grid-column: 1 / -1; }
@@ -303,6 +319,7 @@ p { text-wrap: pretty; }
   .listingCard:nth-child(even) .listingMedia { order: 0; }
   .listingMedia { min-height: 400px; }
   .editorialIntro, .profilePage, .formLayout { grid-template-columns: 1fr; gap: 3.5rem; }
+  .contactLayout { grid-template-columns: 1fr; gap: 3.5rem; }
   .advisoryProfile, .advisoryProfile:nth-child(even) { grid-template-columns: 1fr; gap: 2.5rem; }
   .advisoryProfile:nth-child(even) .advisoryPortrait { order: 0; }
   .advisoryPortrait { position: relative; top: auto; max-width: 600px; }
@@ -336,6 +353,9 @@ p { text-wrap: pretty; }
   .listingMedia { min-height: 270px; }
   .listingCopy h2 { font-size: clamp(1.8rem, 8vw, 2.25rem); }
   .editorialIntro { gap: 3rem; }
+  .contactLayout { padding-block: 5rem; gap: 3rem; }
+  .contactInfo h2 { margin-bottom: 2rem; font-size: clamp(3rem, 14vw, 4rem); }
+  .contactForm { padding: 1.5rem; }
   .advisoryIntroduction { padding-block: 1.5rem; }
   .advisoryProfile { gap: 2.25rem; padding-block: 5rem; }
   .advisoryPortrait { max-width: none; }
