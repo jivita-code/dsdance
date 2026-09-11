@@ -219,6 +219,20 @@ p { text-wrap: pretty; }
 .footerBase b { margin-bottom: .65rem; color: var(--gold); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; }
 .footerBase a { transition: color 180ms ease; }
 .footerBase a:hover { color: var(--gold); }
+.advisoryPage { min-height: 65vh; background: var(--pearl); color: var(--ink); }
+.advisoryIntroduction { width: var(--shell); margin-inline: auto; padding: 2rem 0; border-bottom: 1px solid var(--line-light); }
+.advisoryProfiles { width: var(--shell); margin-inline: auto; }
+.advisoryProfile { display: grid; grid-template-columns: minmax(280px, .85fr) minmax(0, 1.15fr); align-items: start; gap: clamp(3rem, 8vw, 9rem); padding: clamp(5rem, 10vw, 9rem) 0; border-bottom: 1px solid var(--line-light); }
+.advisoryProfile:nth-child(even) { grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr); }
+.advisoryProfile:nth-child(even) .advisoryPortrait { order: 2; }
+.advisoryPortrait { position: sticky; top: 116px; aspect-ratio: 4 / 5; overflow: hidden; background: var(--graphite); }
+.advisoryPortrait::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(145deg, transparent 55%, rgba(16, 17, 19, .24)); }
+.advisoryPortrait img { object-fit: cover; object-position: center; transition: scale 650ms var(--ease-editorial); }
+.advisoryProfile:hover .advisoryPortrait img { scale: 1.02; }
+.advisoryCopy { max-width: 70ch; padding-top: .6rem; }
+.advisoryCopy h2 { max-width: 15ch; margin: 1.25rem 0 2.4rem; color: var(--ink); font-size: clamp(2.8rem, 5vw, 5.25rem); line-height: .9; }
+.advisoryCopy > p:not(.eyebrow) { margin: 0; color: #353238; font-size: clamp(1rem, 1.15vw, 1.125rem); line-height: 1.78; }
+.advisoryCopy > p:not(.eyebrow) + p:not(.eyebrow) { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line-light); }
 .footerBrand img { width: 180px; height: 110px; object-fit: contain; mix-blend-mode: screen; }
 .footerBrand p { color: var(--gold); font-family: var(--display); font-size: 1.25rem; font-style: italic; }
 .copyright { margin: 0; padding: 1.5rem; color: var(--muted); font-size: .7rem; text-align: center; }
@@ -271,6 +285,9 @@ p { text-wrap: pretty; }
   .listingCard:nth-child(even) .listingMedia { order: 0; }
   .listingMedia { min-height: 400px; }
   .editorialIntro, .profilePage, .formLayout { grid-template-columns: 1fr; gap: 3.5rem; }
+  .advisoryProfile, .advisoryProfile:nth-child(even) { grid-template-columns: 1fr; gap: 2.5rem; }
+  .advisoryProfile:nth-child(even) .advisoryPortrait { order: 0; }
+  .advisoryPortrait { position: relative; top: auto; max-width: 600px; }
   .whoWeAreIntroduction { grid-template-columns: 1fr; gap: 1.5rem; }
   .whoWeArePracticeGrid { grid-template-columns: 1fr; gap: 3.5rem; }
   .whoWeArePortrait { min-height: 600px; max-width: 600px; }
@@ -302,6 +319,11 @@ p { text-wrap: pretty; }
   .listingMedia { min-height: 270px; }
   .listingCopy h2 { font-size: clamp(1.8rem, 8vw, 2.25rem); }
   .editorialIntro { gap: 3rem; }
+  .advisoryIntroduction { padding-block: 1.5rem; }
+  .advisoryProfile { gap: 2.25rem; padding-block: 5rem; }
+  .advisoryPortrait { max-width: none; }
+  .advisoryCopy h2 { margin: 1rem 0 1.75rem; font-size: clamp(2.7rem, 12.5vw, 3.8rem); }
+  .advisoryCopy > p:not(.eyebrow) { font-size: 1.02rem; line-height: 1.78; }
   .whoWeAreIntroduction { padding-block: 5rem; }
   .whoWeAreLead h2 { margin-bottom: 1.75rem; font-size: clamp(3.1rem, 14vw, 4rem); }
   .whoWeAreLead > p:not(.eyebrow), .whoWeArePracticeCopy > p:not(.eyebrow) { font-size: 1.05rem; line-height: 1.75; }
