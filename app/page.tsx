@@ -15,10 +15,24 @@ function projectLabel(project: Project) {
   return "Research Project";
 }
 
+function eventLabel(event: Project) {
+  const status = typeof event.content.status === "string" ? event.content.status.trim() : "";
+  return status || "News & Events";
+}
+
+function eventDate(event: Project) {
+  for (const key of ["startDate", "date", "eventDate", "timeline"]) {
+    const value = event.content[key];
+    if (typeof value === "string" && value.trim()) return value.trim();
+  }
+  return "";
+}
+
 export default async function Home() {
   const content = homeContent;
   const siteContent = await getContent();
   const projects = siteContent.projects.filter((project) => project.contentType === "RESEARCH_PROJECT").slice(0, 4);
+  const events = siteContent.projects.filter((project) => project.contentType === "EVENT").slice(0, 3);
   return (
     <main className="homePage">
       <section className="homeHero" aria-labelledby="home-title">
@@ -70,9 +84,9 @@ export default async function Home() {
         {projects.length ? <div className="homeShell homeProjectGrid">{projects.map((project, index) => <Link href={`/research-projects/${project.slug}`} className="homeProjectVisual" data-reveal="card" data-reveal-delay={String(index % 4)} key={project.slug}><Image src={projectCover(project)} alt={project.title} fill sizes="(max-width: 760px) 100vw, (max-width: 1024px) 50vw, 58vw" /><span className="homeProjectNumber" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><div className="homeProjectMeta"><p>{projectLabel(project)}</p><h3>{project.title}</h3></div></Link>)}</div> : <div className="homeShell homeProjectsEmpty" data-reveal="text"><p className="homeEyebrow">Current research is being prepared.</p><Link className="homeTextLink" href="/research-projects">Explore our research <ArrowRight size={16} /></Link></div>}
       </section>
 
-      <section className="homeUnveiling" aria-labelledby="unveiling-title">
-        <div className="homeShell homeUnveilingHeading" data-reveal="text"><p className="homeEyebrow">07 — Forthcoming</p><h2 id="unveiling-title">{content.unveiling}</h2></div>
-        <div className="homeShell homeUnveilingGrid"><div data-reveal="image"><Image src="/images/home/unveiling-movement.png" alt="Contemporary movement with natural pigment" width={560} height={800} sizes="(max-width: 760px) 82vw, 32vw" /></div><div data-reveal="image" data-reveal-delay="1"><Image src="/images/home/unveiling-community.png" alt="Dance researchers collaborating in a shared movement space" width={560} height={800} sizes="(max-width: 760px) 82vw, 32vw" /></div></div>
+      <section className="homeNews" aria-labelledby="news-title">
+        <div className="homeShell homeNewsHeader" data-reveal="text"><div><p className="homeEyebrow">07 — What&apos;s on</p><h2 id="news-title">News &amp; Events</h2></div><Link className="homeTextLink" href="/news-events">View all news &amp; events <ArrowRight size={16} /></Link></div>
+        {events.length ? <div className="homeShell homeNewsList">{events.map((event, index) => <Link className="homeNewsCard" data-reveal="card" data-reveal-delay={String(index)} href={`/news-events/${event.slug}`} key={event.slug}><span className="homeNewsNumber" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><div className="homeNewsImage"><Image src={projectCover(event)} alt={event.title} fill sizes="(max-width: 760px) 100vw, 240px" /></div><div className="homeNewsCopy"><p>{eventDate(event) || eventLabel(event)}</p><h3>{event.title}</h3>{event.summary && <span>{event.summary}</span>}</div><ArrowRight className="homeNewsArrow" aria-hidden="true" size={20} /></Link>)}</div> : <div className="homeShell homeNewsEmpty" data-reveal="text"><p>New events and research gatherings will appear here as they are published.</p><Link className="homeTextLink" href="/news-events">Visit News &amp; Events <ArrowRight size={16} /></Link></div>}
       </section>
 
     </main>
