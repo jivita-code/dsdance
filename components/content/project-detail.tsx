@@ -68,6 +68,10 @@ export function ProjectDetail({ item, back, related = [] }: { item: Project; bac
   const locations = Array.isArray(item.content.locations)
     ? item.content.locations.filter((location): location is string => typeof location === "string")
     : contentText(item.content.Locations || item.content.location) ? [contentText(item.content.Locations || item.content.location)] : [];
+  const locationLines = locations
+    .flatMap((location) => location.split(/(?:\r?\n|\s{2,})+/))
+    .map((location) => location.trim())
+    .filter(Boolean);
   const media = projectMedia(item);
   const labels = item.contentType === "PODCAST"
     ? { eyebrow: "PODCAST", back: "Back to podcasts", heading: "About this podcast", related: "More podcasts" }
@@ -95,7 +99,7 @@ export function ProjectDetail({ item, back, related = [] }: { item: Project; bac
         <dl>
           {phase && <div><dt>Phase</dt><dd>{phase}</dd></div>}
           {timeline && <div><dt>Timeline</dt><dd>{timeline}</dd></div>}
-          {locations.length > 0 && <div><dt>Location</dt><dd>{locations.join(", ")}</dd></div>}
+          {locationLines.length > 0 && <div><dt>Location</dt><dd className="detailLocations">{locationLines.map((location, index) => <span key={`${location}-${index}`}>{location}</span>)}</dd></div>}
           {item.tags?.length ? <div><dt>Focus</dt><dd>{item.tags.join(" · ")}</dd></div> : null}
         </dl>
         {(item.projectUrl || links.length > 0) && <div className="detailLinks"><p className="eyebrow">PROJECT LINKS</p>{item.projectUrl && <a className="textLink" href={item.projectUrl} target="_blank" rel="noreferrer">Visit external project <ExternalLink size={15} aria-hidden="true" /></a>}{links.map(([name, href]) => <a className="textLink" key={name} href={href} target="_blank" rel="noreferrer">{name} <ExternalLink size={15} aria-hidden="true" /></a>)}</div>}

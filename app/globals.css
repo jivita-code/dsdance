@@ -198,6 +198,8 @@ p { text-wrap: pretty; }
 .detailMeta dl div { padding-bottom: 1.2rem; border-bottom: 1px solid var(--line-light); }
 .detailMeta dt { margin-bottom: .35rem; color: #765b30; font-family: var(--display); font-size: 1.45rem; line-height: 1; }
 .detailMeta dd { margin: 0; color: #3b383d; font-size: .92rem; line-height: 1.6; text-transform: capitalize; }
+.detailMeta .detailLocations { display: grid; gap: .12rem; text-transform: none; }
+.detailMeta .detailLocations span { display: block; white-space: pre-line; }
 .detailLinks { margin-top: 2.5rem; display: grid; align-items: start; gap: .75rem; }
 .detailLinks .eyebrow { margin-bottom: .25rem; }
 .detailLinks .textLink { width: fit-content; color: #765b30; }
