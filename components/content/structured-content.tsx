@@ -19,6 +19,17 @@ function LinkedText({ text }: { text: string }) {
   })}</>;
 }
 
+function textParagraphs(value: string) {
+  return value
+    .trim()
+    // JPanel can store visual paragraph breaks as either line breaks or two or
+    // more spaces. Treat both as a new paragraph rather than letting the
+    // browser collapse the content into one continuous block.
+    .split(/(?:\r?\n\s*)+|[ \t]{2,}/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
+}
+
 export function hasContentValue(value: unknown): boolean {
   if (typeof value === "string") return Boolean(value.trim());
   if (typeof value === "number" || typeof value === "boolean") return true;
@@ -32,7 +43,7 @@ export function StructuredValue({ value }: { value: unknown }) {
     const text = value.trim();
     if (!text) return null;
     if (isSafeExternalUrl(text)) return <a className="contentExternalLink" href={text} rel="noreferrer" target="_blank">{text} <ExternalLink aria-hidden="true" size={15} /></a>;
-    return <>{text.split(/\n\s*\n/).map((paragraph, index) => <p key={index}><LinkedText text={paragraph} /></p>)}</>;
+    return <>{textParagraphs(text).map((paragraph, index) => <p key={index}><LinkedText text={paragraph} /></p>)}</>;
   }
 
   if (typeof value === "number" || typeof value === "boolean") return <p>{String(value)}</p>;
