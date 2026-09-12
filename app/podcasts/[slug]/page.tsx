@@ -4,6 +4,7 @@ import { ProjectDetail } from "@/components/content/project-detail";
 import { getContent } from "@/lib/get-content";
 
 type PodcastPageProps = { params: Promise<{ slug: string }> };
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: PodcastPageProps): Promise<Metadata> {
   const { slug } = await params;
@@ -17,5 +18,6 @@ export default async function PodcastPage({ params }: PodcastPageProps) {
   const content = await getContent();
   const item = content.projects.find((project) => project.contentType === "PODCAST" && project.slug === slug);
   if (!item) notFound();
-  return <ProjectDetail item={item} back="/podcasts" />;
+  const related = content.projects.filter((project) => project.contentType === "PODCAST" && project.slug !== item.slug).slice(0, 3);
+  return <ProjectDetail item={item} back="/podcasts" related={related} />;
 }

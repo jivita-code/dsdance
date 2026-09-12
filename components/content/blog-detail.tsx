@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
-import { contentText } from "@/lib/get-content";
+import { ContentSections, hasContentValue, isSafeExternalUrl, StructuredValue } from "@/components/content/structured-content";
 import type { Blog } from "@/types/content";
 
 function formatPublishedDate(value?: string | null) {
@@ -21,7 +21,7 @@ function blogLinks(content: Record<string, unknown>) {
   if (!content.links || typeof content.links !== "object") return [];
 
   return Object.entries(content.links as Record<string, unknown>).filter(
-    (entry): entry is [string, string] => typeof entry[1] === "string",
+    (entry): entry is [string, string] => typeof entry[1] === "string" && isSafeExternalUrl(entry[1]),
   );
 }
 
@@ -29,6 +29,8 @@ export function BlogDetail({ blog, related = [] }: { blog: Blog; related?: Blog[
   const publishedDate = formatPublishedDate(blog.publishedAt);
   const links = blogLinks(blog.content);
   const cover = blog.coverImageUrl || "/images/home/journal-editorial.png";
+  const body = blog.content.body;
+  const contentEntries = Object.entries(blog.content).filter(([key, value]) => !["body", "links"].includes(key.trim().toLowerCase()) && hasContentValue(value));
 
   return (
     <article className="detail blogDetail">
@@ -48,7 +50,8 @@ export function BlogDetail({ blog, related = [] }: { blog: Blog; related?: Blog[
 
         <div className="blogCopy">
           {blog.excerpt && <p className="detailSummary" data-reveal="text">{blog.excerpt}</p>}
-          <p className="bodyCopy" data-reveal="text">{contentText(blog.content.body)}</p>
+          {hasContentValue(body) && <div className="bodyCopy" data-reveal="text"><StructuredValue value={body} /></div>}
+          {contentEntries.length > 0 && <ContentSections entries={contentEntries} />}
         </div>
       </section>
 

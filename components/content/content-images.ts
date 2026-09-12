@@ -10,10 +10,10 @@ const localProjectImages: Record<string, string> = {
 };
 
 export function projectCover(item: Project) {
-  return localProjectImages[item.slug] || item.coverImageUrl || item.media[0]?.url || "/images/home/vision.png";
+  return item.coverImageUrl || item.media.find((entry) => entry.type === "image")?.url || localProjectImages[item.slug] || "/images/home/vision.png";
 }
 
 export function projectMedia(item: Project): Media[] {
   const local = localProjectImages[item.slug];
-  return local ? [{ url: local, type: "image" }] : item.media;
+  return item.media.length ? item.media : local ? [{ url: local, type: "image" }] : [];
 }

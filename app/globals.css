@@ -176,6 +176,23 @@ p { text-wrap: pretty; }
 .detailCopy h2, .detailGallery h2, .relatedProjects h2 { margin: 0 0 2rem; color: var(--ink); font-size: clamp(3.25rem, 5.3vw, 5.75rem); letter-spacing: -.05em; }
 .detailSummary { max-width: 29ch; margin: 0 0 2.5rem; color: #765b30; font-family: var(--display); font-size: clamp(1.8rem, 2.5vw, 2.6rem); line-height: 1.1; }
 .detailCopy .bodyCopy { margin: 0; color: #343238; font-size: clamp(1.05rem, 1.2vw, 1.16rem); line-height: 1.85; }
+.detailCopy .bodyCopy p { margin: 0 0 1.35rem; white-space: pre-line; }
+.contentSections { margin-top: clamp(3rem, 6vw, 5rem); border-top: 1px solid var(--line-light); }
+.contentSections > section { padding: 2rem 0; display: grid; grid-template-columns: 54px minmax(0, 1fr); gap: 1.25rem; border-bottom: 1px solid var(--line-light); }
+.contentSectionIndex { margin: .25rem 0 0; color: #87693c; font-size: .68rem; font-weight: 800; letter-spacing: .16em; }
+.contentSections h3 { margin: 0 0 1rem; color: #765b30; font-size: clamp(1.8rem, 2.7vw, 2.65rem); letter-spacing: -.03em; }
+.contentSections p { margin: 0 0 1rem; color: #343238; font-size: clamp(1.02rem, 1.15vw, 1.12rem); line-height: 1.82; white-space: pre-line; }
+.contentSections ul { margin: 0; padding-left: 1.2rem; }
+.contentSections li + li { margin-top: .7rem; }
+.contentSections li p { margin: 0; }
+.contentSections dl { margin: 0; display: grid; gap: 1rem; }
+.contentSections dl div { display: grid; grid-template-columns: minmax(110px, .35fr) minmax(0, 1fr); gap: 1rem; }
+.contentSections dt { color: #765b30; font-weight: 700; }
+.contentSections dd { margin: 0; }
+.contentExternalLink { width: fit-content; min-height: 44px; display: inline-flex; align-items: center; gap: .45rem; color: #765b30; font-size: .78rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; transition: color 180ms ease, translate 180ms ease; }
+.contentExternalLink:hover { color: var(--ink); translate: .15rem 0; }
+.inlineContentLink { display: inline-flex; align-items: baseline; gap: .2rem; color: #765b30; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; }
+.inlineContentLink:hover { color: var(--ink); }
 .detailMeta { position: sticky; top: 118px; padding: 2rem 0 0 2rem; border-left: 1px solid var(--gold); }
 .detailMeta dl { margin: 0; display: grid; gap: 1.4rem; }
 .detailMeta dl div { padding-bottom: 1.2rem; border-bottom: 1px solid var(--line-light); }
@@ -234,13 +251,13 @@ p { text-wrap: pretty; }
 .galleryHeading h2 { margin: 0; font-size: clamp(2.5rem, 4vw, 3.75rem); }
 .galleryGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
 .galleryTile { position: relative; aspect-ratio: 1.2; padding: 0; overflow: hidden; border: 0; background: var(--graphite); color: var(--pearl); }
-.galleryTile img { width: 100%; height: 100%; object-fit: cover; transition: scale 600ms var(--ease-editorial), filter 300ms ease; }
+.galleryTile img, .galleryTile video { width: 100%; height: 100%; object-fit: cover; transition: scale 600ms var(--ease-editorial), filter 300ms ease; }
 .galleryTile span { position: absolute; left: 1rem; bottom: 1rem; padding: .35rem .55rem; background: var(--ink); font-size: .68rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; opacity: 0; translate: 0 .4rem; transition: opacity 200ms ease, translate 200ms ease; }
-.galleryTile:hover img { scale: 1.02; }
+.galleryTile:hover img, .galleryTile:hover video { scale: 1.02; }
 .galleryTile:hover span, .galleryTile:focus-visible span { opacity: 1; translate: 0 0; }
 .lightbox { position: fixed; z-index: 80; inset: 0; padding: 2.5rem; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 1rem; align-items: center; background: rgba(5, 6, 7, .96); }
 .lightbox figure { margin: 0; text-align: center; }
-.lightbox img { max-width: 100%; max-height: 82vh; object-fit: contain; }
+.lightbox img, .lightbox video { max-width: 100%; max-height: 82vh; object-fit: contain; }
 .lightbox figcaption { margin-top: .75rem; color: var(--gold); font-size: .72rem; letter-spacing: .18em; }
 .lightbox button { width: 48px; height: 48px; display: grid; place-items: center; border: 1px solid var(--line-dark); background: var(--ink); color: var(--pearl); }
 .lightboxClose { position: absolute; top: 1.5rem; right: 1.5rem; }
@@ -427,6 +444,8 @@ p { text-wrap: pretty; }
   .detailArticle { padding-block: 5rem; gap: 3rem; }
   .detailCopy h2, .detailGallery h2, .relatedProjects h2 { margin-bottom: 1.5rem; font-size: clamp(3rem, 14vw, 4rem); }
   .detailSummary { margin-bottom: 2rem; font-size: clamp(1.75rem, 8vw, 2.25rem); }
+  .contentSections > section { grid-template-columns: 1fr; gap: .75rem; }
+  .contentSections dl div { grid-template-columns: 1fr; gap: .35rem; }
   .detailMeta { padding-left: 1.25rem; }
   .detailGallery, .relatedProjects { padding-inline: 1.25rem; }
   .detailGallery { padding-block: 5rem; }

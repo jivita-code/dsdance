@@ -2,6 +2,8 @@ export type Media = {
   url: string;
   type: "image" | "video";
   originalName?: string;
+  mimeType?: string;
+  size?: number;
 };
 
 export type ProjectType = "RESEARCH_PROJECT" | "PODCAST" | "EVENT";
@@ -29,6 +31,7 @@ export type Blog = {
   excerpt?: string | null;
   content: Record<string, unknown>;
   coverImageUrl?: string | null;
+  coverVideoUrl?: string | null;
   publishedAt?: string | null;
 };
 

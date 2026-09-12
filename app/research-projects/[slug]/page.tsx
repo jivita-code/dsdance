@@ -4,6 +4,7 @@ import { ProjectDetail } from "@/components/content/project-detail";
 import { getContent } from "@/lib/get-content";
 
 type ProjectPageProps = { params: Promise<{ slug: string }> };
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
   const { slug } = await params;

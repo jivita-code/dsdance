@@ -4,6 +4,7 @@ import { BlogDetail } from "@/components/content/blog-detail";
 import { getContent } from "@/lib/get-content";
 
 type BlogPageProps = { params: Promise<{ slug: string }> };
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: BlogPageProps): Promise<Metadata> {
   const { slug } = await params;

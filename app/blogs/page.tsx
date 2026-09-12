@@ -4,6 +4,7 @@ import { PageHero } from "@/components/ui/page-hero";
 import { getContent } from "@/lib/get-content";
 
 export const metadata: Metadata = { title: "Blogs" };
+export const dynamic = "force-dynamic";
 
 export default async function BlogsPage() {
   const content = await getContent();
