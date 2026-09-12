@@ -8,6 +8,57 @@ import { PageHero } from "@/components/ui/page-hero";
 import { contentText } from "@/lib/get-content";
 import type { Project } from "@/types/content";
 
+const projectSectionOrder = [
+  ["context", "Context"],
+  ["methodology", "Methodology"],
+  ["objectives", "Objectives"],
+  ["artistic engagement", "Artistic Engagement"],
+  ["community engagement", "Community Engagement"],
+  ["site specific performance", "Site-Specific Performance"],
+  ["sustainability and ecology", "Sustainability & Ecology"],
+  ["collaborative research", "Collaborative Research"],
+  ["public interaction", "Public Interaction"],
+  ["collaborative contributions", "Collaborative Contributions"],
+  ["project", "Project"],
+  ["dance film", "Dance Film"],
+  ["archival integration", "Archival Integration"],
+  ["outputs", "Outputs"],
+] as const;
+
+function normalizedFieldName(value: string) {
+  return value
+    .trim()
+    .replace(/:$/, "")
+    .replace(/[‐‑–—-]/g, " ")
+    .replace(/&/g, "and")
+    .replace(/\s+/g, " ")
+    .toLowerCase();
+}
+
+function orderedProjectContentEntries(content: Record<string, unknown>) {
+  const controlFields = new Set(["type", "status", "timeline", "locations", "location", "tags", "body", "links"]);
+  const knownSections = new Map<string, { label: string; order: number }>(projectSectionOrder.map(([field, label], index) => [field, { label, order: index }]));
+  knownSections.set("dancefilm", { label: "Dance Film", order: 11 });
+  knownSections.set("archival", { label: "Archival Integration", order: 12 });
+
+  return Object.entries(content)
+    .map(([field, value], index) => {
+      const normalized = normalizedFieldName(field);
+      const section = knownSections.get(normalized);
+      return {
+        field,
+        value,
+        index,
+        include: !controlFields.has(normalized) && hasContentValue(value),
+        label: section?.label || field.trim().replace(/:$/, "").replace(/\s+/g, " "),
+        order: section?.order ?? 9.5,
+      };
+    })
+    .filter((entry) => entry.include)
+    .sort((a, b) => a.order - b.order || a.index - b.index)
+    .map((entry) => [entry.label, entry.value] as [string, unknown]);
+}
+
 export function ProjectDetail({ item, back, related = [] }: { item: Project; back: string; related?: Project[] }) {
   const links = item.content.links && typeof item.content.links === "object"
     ? Object.entries(item.content.links as Record<string, unknown>).filter((entry): entry is [string, string] => typeof entry[1] === "string" && isSafeExternalUrl(entry[1]))
@@ -23,8 +74,7 @@ export function ProjectDetail({ item, back, related = [] }: { item: Project; bac
     : item.contentType === "EVENT"
       ? { eyebrow: "NEWS & EVENT", back: "Back to news & events", heading: "About this event", related: "More news & events" }
       : { eyebrow: "RESEARCH PROJECT", back: "Back to projects", heading: "About this project", related: "Other research projects" };
-  const controlFields = new Set(["type", "status", "timeline", "locations", "location", "tags", "body", "links"]);
-  const contentEntries = Object.entries(item.content).filter(([key, value]) => !controlFields.has(key.trim().replace(/:$/, "").toLowerCase()) && hasContentValue(value));
+  const contentEntries = orderedProjectContentEntries(item.content);
   const body = item.content.body;
 
   return <article className="detail">

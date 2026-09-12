@@ -53,5 +53,5 @@ export function StructuredValue({ value }: { value: unknown }) {
 }
 
 export function ContentSections({ entries }: { entries: [string, unknown][] }) {
-  return <div className="contentSections">{entries.filter(([, value]) => hasContentValue(value)).map(([label, value], index) => <section data-reveal="text" key={label}><p className="contentSectionIndex">{String(index + 1).padStart(2, "0")}</p><div><h3>{label}</h3><StructuredValue value={value} /></div></section>)}</div>;
+  return <div className="contentSections">{entries.filter(([, value]) => hasContentValue(value)).map(([label, value], index) => <section data-reveal="text" key={`${label}-${index}`}><p className="contentSectionIndex">{String(index + 1).padStart(2, "0")}</p><div><h3>{label}</h3><StructuredValue value={value} /></div></section>)}</div>;
 }
