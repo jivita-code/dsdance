@@ -1,17 +1,24 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { projectCover } from "@/components/content/content-images";
 import { homeContent } from "@/content/home";
+import { getContent } from "@/lib/get-content";
+import type { Project } from "@/types/content";
 
-const projectImages = [
-  ["/images/home/project-elephant.png", "Dance research visual exploring human–elephant relationships", "Tusker Eye", "Movement · Ecology"],
-  ["/images/home/project-textile.png", "Dance research visual exploring natural dye and textile practice", "Dye With Movements", "Material · Practice"],
-  ["/images/home/project-ability.png", "Inclusive contemporary dance research visual", "Ability Visible", "Access · Performance"],
-  ["/images/home/project-heritage.png", "Dance research visual connecting Sri Lankan heritage and contemporary movement", "Dance & Heritage", "Culture · Research"],
-] as const;
+export const dynamic = "force-dynamic";
 
-export default function Home() {
+function projectLabel(project: Project) {
+  const status = typeof project.content.status === "string" ? project.content.status.trim() : "";
+  if (status) return status;
+  if (project.projectPhase) return `${project.projectPhase[0]}${project.projectPhase.slice(1).toLowerCase()} Project`;
+  return "Research Project";
+}
+
+export default async function Home() {
   const content = homeContent;
+  const siteContent = await getContent();
+  const projects = siteContent.projects.filter((project) => project.contentType === "RESEARCH_PROJECT").slice(0, 4);
   return (
     <main className="homePage">
       <section className="homeHero" aria-labelledby="home-title">
@@ -60,7 +67,7 @@ export default function Home() {
 
       <section className="homeProjects" aria-labelledby="projects-title">
         <div className="homeShell homeProjectsHeader" data-reveal="text"><div><p className="homeEyebrow">06 — Research in progress</p><h2 id="projects-title">{content.projects.title}</h2></div><p>{content.projects.body}</p><Link className="homeButton" href="/research-projects">{content.projects.cta}<ArrowRight size={16} /></Link></div>
-        <div className="homeShell homeProjectGrid">{projectImages.map(([src, alt, title, meta], index) => <Link href="/research-projects" className="homeProjectVisual" data-reveal="card" data-reveal-delay={String(index % 4)} key={src}><Image src={src} alt={alt} fill sizes="(max-width: 760px) 100vw, 28vw" /><span className="homeProjectNumber" aria-hidden="true">0{index + 1}</span><div className="homeProjectMeta"><p>{meta}</p><h3>{title}</h3></div></Link>)}</div>
+        {projects.length ? <div className="homeShell homeProjectGrid">{projects.map((project, index) => <Link href={`/research-projects/${project.slug}`} className="homeProjectVisual" data-reveal="card" data-reveal-delay={String(index % 4)} key={project.slug}><Image src={projectCover(project)} alt={project.title} fill sizes="(max-width: 760px) 100vw, (max-width: 1024px) 50vw, 58vw" /><span className="homeProjectNumber" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><div className="homeProjectMeta"><p>{projectLabel(project)}</p><h3>{project.title}</h3></div></Link>)}</div> : <div className="homeShell homeProjectsEmpty" data-reveal="text"><p className="homeEyebrow">Current research is being prepared.</p><Link className="homeTextLink" href="/research-projects">Explore our research <ArrowRight size={16} /></Link></div>}
       </section>
 
       <section className="homeUnveiling" aria-labelledby="unveiling-title">

@@ -60,17 +60,21 @@
 .homeProjects { padding-block: var(--section-space); background: var(--pearl); color: var(--ink); }
 .homeProjectsHeader { display: grid; grid-template-columns: 1fr minmax(280px, .68fr) auto; gap: 3rem; align-items: flex-end; margin-bottom: 4rem; }
 .homeProjectsHeader p:not(.homeEyebrow) { max-width: 440px; margin: 0; font-size: 1.0625rem; line-height: 1.72; }
-.homeProjectGrid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 1.5rem; }
-.homeProjectVisual { position: relative; min-height: 560px; overflow: hidden; background: var(--graphite); color: var(--pearl); }
-.homeProjectVisual:nth-child(2), .homeProjectVisual:nth-child(3) { min-height: 440px; }
-.homeProjectVisual:nth-child(4) { margin-top: -7.5rem; }
-.homeProjectVisual::after { content: ""; position: absolute; inset: 55% 0 0; background: rgba(16, 17, 19, .72); }
+.homeProjectGrid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(1rem, 1.7vw, 1.5rem); align-items: start; }
+.homeProjectVisual { position: relative; grid-column: span 7; min-height: 560px; overflow: hidden; background: var(--graphite); color: var(--pearl); isolation: isolate; }
+.homeProjectVisual:nth-child(4n + 2) { grid-column: span 5; min-height: 460px; margin-top: clamp(2.5rem, 6vw, 5rem); }
+.homeProjectVisual:nth-child(4n + 3) { grid-column: span 5; min-height: 470px; }
+.homeProjectVisual:nth-child(4n + 4) { grid-column: span 7; min-height: 540px; }
+.homeProjectVisual:only-child { grid-column: 1 / -1; min-height: 580px; }
+.homeProjectVisual::after { content: ""; position: absolute; z-index: 1; inset: 42% 0 0; background: linear-gradient(180deg, rgba(16, 17, 19, 0), rgba(16, 17, 19, .88) 72%); pointer-events: none; }
 .homeProjectVisual img { transition: scale 700ms var(--ease-editorial), filter 500ms ease; }
 .homeProjectVisual:hover img { scale: 1.02; filter: saturate(.8); }
 .homeProjectNumber { position: absolute; z-index: 2; top: 1.25rem; left: 1.25rem; font-size: .72rem; font-weight: 800; letter-spacing: .16em; }
 .homeProjectMeta { position: absolute; z-index: 2; left: 1.5rem; right: 1.5rem; bottom: 1.5rem; }
 .homeProjectMeta p { margin: 0 0 .5rem; color: var(--gold); font-size: .68rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
 .homeProjectMeta h3 { margin: 0; font-size: clamp(1.7rem, 2.2vw, 2.25rem); }
+.homeProjectsEmpty { min-height: 260px; display: grid; align-content: center; gap: 1.25rem; border-top: 1px solid var(--line-light); border-bottom: 1px solid var(--line-light); }
+.homeProjectsEmpty .homeEyebrow { margin: 0; }
 
 .homeUnveiling { padding-block: var(--section-space); background: var(--ink); }
 .homeUnveilingHeading { display: grid; grid-template-columns: .42fr 1fr; gap: 3rem; align-items: start; }
@@ -137,8 +141,7 @@
   .homeMentorCopy { order: 2; }
   .homeProjectsHeader { grid-template-columns: 1fr; gap: 2rem; align-items: start; }
   .homeProjectsHeader .homeButton { grid-column: auto; }
-  .homeProjectVisual, .homeProjectVisual:nth-child(2), .homeProjectVisual:nth-child(3) { min-height: 430px; }
-  .homeProjectVisual:nth-child(4) { margin-top: 0; }
+  .homeProjectVisual, .homeProjectVisual:nth-child(4n + 2), .homeProjectVisual:nth-child(4n + 3), .homeProjectVisual:nth-child(4n + 4) { min-height: 430px; margin-top: 0; }
   .homeUnveilingHeading { grid-template-columns: 1fr; gap: 1rem; }
   .homeUnveilingGrid { justify-content: center; }
   .homeUnveilingGrid > div:last-child { translate: 0 3rem; }
@@ -160,8 +163,8 @@
   .homePortraitCopy h2, .homeMentorCopy h2 { font-size: clamp(2.7rem, 11.5vw, 3.25rem); }
   .homePortraitCopy > p:not(.homeEyebrow), .homeMentorCopy > p:not(.homeEyebrow), .homeValue > p:not(.homeEyebrow) { font-size: 1rem; }
   .homeValueImage { min-height: 320px; }
-  .homeProjectGrid { grid-template-columns: 1fr; }
-  .homeProjectVisual, .homeProjectVisual:nth-child(2), .homeProjectVisual:nth-child(3) { min-height: 420px; }
+  .homeProjectGrid { grid-template-columns: 1fr; gap: 1rem; }
+  .homeProjectVisual, .homeProjectVisual:nth-child(4n + 2), .homeProjectVisual:nth-child(4n + 3), .homeProjectVisual:nth-child(4n + 4), .homeProjectVisual:only-child { grid-column: auto; min-height: 420px; margin-top: 0; }
   .homeUnveilingGrid { grid-template-columns: 1fr; gap: 1.25rem; }
   .homeUnveilingGrid > div:last-child { translate: 0 0; }
   .homeJoin { padding-top: 5rem; }
