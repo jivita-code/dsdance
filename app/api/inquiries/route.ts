@@ -1,4 +1,91 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-const input = z.object({ type: z.enum(["CONTACT", "JOIN_US"]), name: z.string().trim().min(1).max(160), email: z.string().trim().email().max(254), areaOfInterest: z.string().trim().max(160).optional(), message: z.string().trim().min(1).max(10000), website: z.string().max(200).optional().default("") });
-export async function POST(request: Request) { const parsed = input.safeParse(await request.json().catch(() => null)); if (!parsed.success) return NextResponse.json({ message: "Please complete the required fields." }, { status: 400 }); if (process.env.INQUIRIES_ENABLED !== "true") return NextResponse.json({ message: "Form delivery is being configured for this preview." }, { status: 503 }); const base = process.env.JPANEL_API_URL?.replace(/\/$/, ""); const slug = process.env.JPANEL_SITE_SLUG; const key = process.env.JPANEL_SITE_API_KEY; if (!base || !slug || !key) return NextResponse.json({ message: "Form delivery has not been configured yet." }, { status: 503 }); const { type, name, email, areaOfInterest, message, website } = parsed.data; try { const response = await fetch(`${base}/public/sites/${slug}/inquiries`, { method: "POST", headers: { "content-type": "application/json", authorization: `Bearer ${key}`, "idempotency-key": crypto.randomUUID() }, body: JSON.stringify({ clientName: name, email, inquiryType: type, message: type === "JOIN_US" ? { areaOfInterest, text: message } : { text: message }, website }) }); if (!response.ok) return NextResponse.json({ message: "Unable to send your message right now." }, { status: response.status >= 500 ? 503 : 400 }); return NextResponse.json({ message: "Inquiry received" }, { status: 201 }); } catch { return NextResponse.json({ message: "Unable to reach the enquiry service." }, { status: 503 }); } }
+
+const areasOfInterest = [
+  "Associate Artist",
+  "Residency Programs",
+  "Workshops & Training",
+  "Research Collaborator",
+  "Community Engagement",
+  "Volunteer/Supporter",
+  "International Exchange",
+  "Other (please specify)",
+] as const;
+
+const commonFields = {
+  name: z.string().trim().min(1).max(160),
+  email: z.string().trim().email().max(254),
+  message: z.string().trim().min(1).max(10000),
+  website: z.string().max(200).optional().default(""),
+  submissionId: z.string().uuid(),
+};
+
+const input = z.discriminatedUnion("type", [
+  z.object({
+    ...commonFields,
+    type: z.literal("CONTACT"),
+    areaOfInterest: z.string().max(160).optional(),
+  }).strict(),
+  z.object({
+    ...commonFields,
+    type: z.literal("JOIN_US"),
+    areaOfInterest: z.enum(areasOfInterest),
+  }).strict(),
+]);
+
+function json(message: string, status: number) {
+  return NextResponse.json(
+    { message },
+    { status, headers: { "cache-control": "no-store" } },
+  );
+}
+
+export async function POST(request: Request) {
+  const parsed = input.safeParse(await request.json().catch(() => null));
+  if (!parsed.success) return json("Please complete the required fields correctly.", 400);
+
+  // Give automated submissions the same response as a successful inquiry,
+  // without sending them to JPanel or revealing the honeypot behaviour.
+  if (parsed.data.website) return json("Inquiry received", 201);
+
+  if (process.env.INQUIRIES_ENABLED !== "true") {
+    return json("Form delivery is being configured for this preview.", 503);
+  }
+
+  const base = process.env.JPANEL_API_URL?.replace(/\/$/, "");
+  const slug = process.env.JPANEL_SITE_SLUG;
+  const key = process.env.JPANEL_SITE_API_KEY;
+  if (!base || !slug || !key) return json("Form delivery has not been configured yet.", 503);
+
+  const { type, name, email, message, submissionId } = parsed.data;
+  const jpanelMessage = type === "JOIN_US"
+    ? { areaOfInterest: parsed.data.areaOfInterest, text: message }
+    : { text: message };
+
+  try {
+    const response = await fetch(`${base}/public/sites/${encodeURIComponent(slug)}/inquiries`, {
+      method: "POST",
+      cache: "no-store",
+      signal: AbortSignal.timeout(10000),
+      headers: {
+        authorization: `Bearer ${key}`,
+        "content-type": "application/json",
+        "idempotency-key": submissionId,
+      },
+      body: JSON.stringify({
+        clientName: name,
+        email,
+        inquiryType: type === "JOIN_US" ? "Join Us" : "Contact",
+        message: jpanelMessage,
+        website: "",
+      }),
+    });
+
+    if (response.status === 201) return json("Inquiry received", 201);
+    if (response.status === 400) return json("Please check your details and try again.", 400);
+    if (response.status === 429) return json("Too many messages were sent. Please wait a minute and try again.", 429);
+    return json("Form delivery is temporarily unavailable. Please try again later.", 503);
+  } catch {
+    return json("Unable to reach the enquiry service. Please try again later.", 503);
+  }
+}
