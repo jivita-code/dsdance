@@ -1,12 +1,94 @@
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, MapPin } from "lucide-react";
-import { getContent, staticPages } from "@/lib/content";
+import { ArrowRight } from "lucide-react";
+import { projectCover } from "@/components/content/content-images";
+import { homeContent } from "@/content/home";
+import { getContent } from "@/lib/get-content";
+import type { Project } from "@/types/content";
 
-export default async function Home() { const { projects, blogs } = await getContent(); const featured = projects.filter((item) => item.contentType === "RESEARCH_PROJECT").slice(0, 3); const events = projects.filter((item) => item.contentType === "EVENT").slice(0, 3); const podcasts = projects.filter((item) => item.contentType === "PODCAST").slice(0, 3); return <>
-  <section className="hero"><div className="heroCopy"><p className="eyebrow">SL & UK</p><h1>DS Dance<br/>Research Lab</h1><span className="rule"/><p>International platform for Dance &amp; Performative practices, Research &amp; Innovation</p><Link className="textLink" href="/join-us">Join our conversation <ArrowRight size={16}/></Link></div><div className="heroImage"><img src="https://dsdanceresearchlab.com/wp-content/uploads/2025/07/IMG-20250720-WA0046-e1753869636107.jpg" alt="Dancers in motion"/></div></section>
-  <section className="section pearl about"><div><p className="eyebrow gold">ABOUT US</p><h2>Where Dance Meets Discovery</h2><p>{staticPages.about.body}</p><Link className="outlineButton" href="/who-we-are">Explore who we are <ArrowRight size={16}/></Link></div><img src="https://dsdanceresearchlab.com/wp-content/uploads/2025/07/688a11ac6384655546b2c81a5b8b3a46.jpg" alt="Dance research in practice"/></section>
-  <section className="section dark"><div className="sectionHead"><div><p className="eyebrow">RESEARCH IN PRACTICE</p><h2>Our Projects</h2></div><Link className="textLink" href="/research-projects">View all projects <ArrowRight size={16}/></Link></div><div className="cardGrid">{featured.map(item => <article className="projectCard" key={item.slug}><img src={item.coverImageUrl || item.media[0]?.url} alt=""/><p className="eyebrow gold">{item.projectPhase || "RESEARCH"}</p><h3>{item.title}</h3><p>{item.summary}</p><Link href={`/research-projects/${item.slug}`} aria-label={`Read ${item.title}`}><ArrowRight size={18}/></Link></article>)}</div></section>
-  <section className="founder"><img src="https://dsdanceresearchlab.com/wp-content/uploads/2025/07/IMG-20250720-WA0046-e1753869636107.jpg" alt="Dhanushka Seneviratne"/><div><p className="eyebrow">MESSAGE FROM FOUNDER</p><h2>Movement carries memory, resistance, ritual, and renewal.</h2><p>{staticPages.founder.body.split("\n\n")[1]}</p><Link className="textLink darkText" href="/founder">Meet the founder <ArrowRight size={16}/></Link></div></section>
-  <section className="visionMission"><article><p className="eyebrow gold">OUR VISION</p><h2>Vision</h2><p>{staticPages.vision}</p></article><article><p className="eyebrow gold">OUR MISSION</p><h2>Mission</h2><p>{staticPages.mission}</p></article></section>
-  <section className="section pearl journal"><div><div className="sectionHead"><h2>News &amp; Events</h2><Link className="textLink darkText" href="/news-events">View all <ArrowRight size={16}/></Link></div>{events.length ? events.map(event => <article className="journalRow" key={event.slug}><MapPin size={18}/><div><h3>{event.title}</h3><p>{event.summary}</p></div></article>) : <p>New events will be announced here.</p>}</div><div><div className="sectionHead"><h2>Podcasts</h2><Link className="textLink darkText" href="/podcasts">View all <ArrowRight size={16}/></Link></div>{podcasts.map(podcast => <article className="journalRow" key={podcast.slug}><span className="episode">EP</span><div><h3>{podcast.title}</h3><p>{podcast.summary}</p></div></article>)}{blogs.slice(0,1).map(blog => <p className="recentBlog" key={blog.slug}>Latest writing: <Link href={`/blogs/${blog.slug}`}>{blog.title}</Link></p>)}</div></section>
-</>; }
+export const dynamic = "force-dynamic";
+
+function projectLabel(project: Project) {
+  const status = typeof project.content.status === "string" ? project.content.status.trim() : "";
+  if (status) return status;
+  if (project.projectPhase) return `${project.projectPhase[0]}${project.projectPhase.slice(1).toLowerCase()} Project`;
+  return "Research Project";
+}
+
+function eventLabel(event: Project) {
+  const status = typeof event.content.status === "string" ? event.content.status.trim() : "";
+  return status || "News & Events";
+}
+
+function eventDate(event: Project) {
+  for (const key of ["startDate", "date", "eventDate", "timeline"]) {
+    const value = event.content[key];
+    if (typeof value === "string" && value.trim()) return value.trim();
+  }
+  return "";
+}
+
+export default async function Home() {
+  const content = homeContent;
+  const siteContent = await getContent();
+  const projects = siteContent.projects.filter((project) => project.contentType === "RESEARCH_PROJECT").slice(0, 4);
+  const events = siteContent.projects.filter((project) => project.contentType === "EVENT").slice(0, 3);
+  return (
+    <main className="homePage">
+      <section className="homeHero" aria-labelledby="home-title">
+        <Image className="homeHeroImage" src="/images/home/hero.png" alt="Contemporary dancers in a dance research rehearsal" fill priority sizes="100vw" />
+        <div className="homeHeroShade" />
+        <div className="homeShell homeHeroLayout">
+          <div className="homeHeroCopy" data-load>
+            <p className="homeEyebrow">Dance · Research · Performance</p>
+            <h1 id="home-title">{content.hero.title}</h1>
+            <span className="homeRule" />
+            <p className="homeHeroStatement">{content.hero.statement}</p>
+            <p className="homeLocation">{content.hero.location}</p>
+            <Link href="/join-us" className="homeButton">{content.hero.cta}<ArrowRight size={16} /></Link>
+          </div>
+          <p className="homeHeroIndex" aria-hidden="true">01 / 08</p>
+        </div>
+      </section>
+
+      <section className="homeAbout" aria-labelledby="about-title">
+        <div className="homeShell homeAboutGrid">
+          <div className="homeSectionCopy" data-reveal="text"><p className="homeEyebrow">01 — Introduction</p><h2 id="about-title">{content.about.title}</h2><span className="homeRule" /><p>{content.about.body}</p><Link href="/who-we-are" className="homeTextLink">{content.about.cta}<ArrowRight size={16} /></Link></div>
+          <div className="homeAboutMedia" data-reveal="image" data-reveal-delay="1"><Image src="/images/home/mission.png" alt="Dancers collaborating in a movement research studio" fill sizes="(max-width: 760px) 100vw, 48vw" /><span className="homeImageCaption">Movement as knowledge</span></div>
+        </div>
+      </section>
+
+      <section className="homeFounder" aria-labelledby="founder-title">
+        <div className="homeShell homePortraitFeature">
+          <div className="homePortraitMedia" data-reveal="image"><Image src="/images/home/founder-portrait.png" alt="Dhanushka Seneviratne" fill sizes="(max-width: 760px) 100vw, 44vw" priority /><span>Founder</span></div>
+          <article className="homePortraitCopy" data-reveal="text" data-reveal-delay="1"><p className="homeEyebrow">02 — Perspective</p><h2 id="founder-title">{content.founder.title}</h2><h3>{content.founder.name}</h3>{content.founder.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}<ul>{content.founder.credentials.map((credential) => <li key={credential}>{credential}</li>)}</ul></article>
+        </div>
+      </section>
+
+      <section className="homeValues" aria-label="Our vision and mission">
+        <div className="homeShell homeValuesGrid">
+          <article className="homeValue"><div className="homeValueImage" data-reveal="image"><Image src="/images/home/vision.png" alt="Solo dancer exploring an expansive movement" fill sizes="(max-width: 760px) 100vw, 43vw" /></div><p className="homeEyebrow" data-reveal="text">03 — Direction</p><h2 data-reveal="text">Our Vision</h2><p data-reveal="text">{content.vision}</p></article>
+          <article className="homeValue homeMission"><div className="homeValueImage" data-reveal="image"><Image src="/images/home/mission.png" alt="Dancers collaborating in a movement research studio" fill sizes="(max-width: 760px) 100vw, 43vw" /></div><p className="homeEyebrow" data-reveal="text">04 — Practice</p><h2 data-reveal="text">Our Mission</h2>{content.mission.map((paragraph) => <p data-reveal="text" key={paragraph}>{paragraph}</p>)}</article>
+        </div>
+      </section>
+
+      <section className="homeMentor" aria-labelledby="mentor-title">
+        <div className="homeShell homeMentorGrid">
+          <article className="homeMentorCopy" data-reveal="text"><p className="homeEyebrow">05 — Exchange</p><h2 id="mentor-title">{content.mentor.title}</h2><h3>{content.mentor.name}</h3>{content.mentor.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}<ul>{content.mentor.credentials.map((credential) => <li key={credential}>{credential}</li>)}</ul></article>
+          <div className="homeMentorMedia" data-reveal="image" data-reveal-delay="1"><Image src="/images/home/mentor-portrait.png" alt="Dr Jacek Ludwig Scarso" fill sizes="(max-width: 760px) 100vw, 44vw" /><span>Mentor</span></div>
+        </div>
+      </section>
+
+      <section className="homeProjects" aria-labelledby="projects-title">
+        <div className="homeShell homeProjectsHeader" data-reveal="text"><div><p className="homeEyebrow">06 — Research in progress</p><h2 id="projects-title">{content.projects.title}</h2></div><p>{content.projects.body}</p><Link className="homeButton" href="/research-projects">{content.projects.cta}<ArrowRight size={16} /></Link></div>
+        {projects.length ? <div className="homeShell homeProjectGrid">{projects.map((project, index) => <Link href={`/research-projects/${project.slug}`} className="homeProjectVisual" data-reveal="card" data-reveal-delay={String(index % 4)} key={project.slug}><Image src={projectCover(project)} alt={project.title} fill sizes="(max-width: 760px) 100vw, (max-width: 1024px) 50vw, 58vw" /><span className="homeProjectNumber" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><div className="homeProjectMeta"><p>{projectLabel(project)}</p><h3>{project.title}</h3></div></Link>)}</div> : <div className="homeShell homeProjectsEmpty" data-reveal="text"><p className="homeEyebrow">Current research is being prepared.</p><Link className="homeTextLink" href="/research-projects">Explore our research <ArrowRight size={16} /></Link></div>}
+      </section>
+
+      <section className="homeNews" aria-labelledby="news-title">
+        <div className="homeShell homeNewsHeader" data-reveal="text"><div><p className="homeEyebrow">07 — What&apos;s on</p><h2 id="news-title">News &amp; Events</h2></div><Link className="homeTextLink" href="/news-events">View all news &amp; events <ArrowRight size={16} /></Link></div>
+        {events.length ? <div className="homeShell homeNewsList">{events.map((event, index) => <Link className="homeNewsCard" data-reveal="card" data-reveal-delay={String(index)} href={`/news-events/${event.slug}`} key={event.slug}><span className="homeNewsNumber" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><div className="homeNewsImage"><Image src={projectCover(event)} alt={event.title} fill sizes="(max-width: 760px) 100vw, 240px" /></div><div className="homeNewsCopy"><p>{eventDate(event) || eventLabel(event)}</p><h3>{event.title}</h3>{event.summary && <span>{event.summary}</span>}</div><ArrowRight className="homeNewsArrow" aria-hidden="true" size={20} /></Link>)}</div> : <div className="homeShell homeNewsEmpty" data-reveal="text"><p>New events and research gatherings will appear here as they are published.</p><Link className="homeTextLink" href="/news-events">Visit News &amp; Events <ArrowRight size={16} /></Link></div>}
+      </section>
+
+    </main>
+  );
+}

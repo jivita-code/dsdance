@@ -10,25 +10,44 @@ This folder is ready to be pushed to a new GitHub repository, but Git has not be
 2. Start this website with `docker compose up -d --build`.
 3. Open `http://localhost:3001`.
 
-The website is intentionally standalone and displays the reviewed local content dataset. JPanel is not connected, and no JPanel code is changed by this website project.
+The website reads published content from JPanel and relays Contact and Join Us submissions to JPanel through a server-only Next.js route. No JPanel code is changed by this website project.
 
-## Future JPanel connection
+## JPanel connection
 
-Only after separate approval, set `CMS_ENABLED=true` and configure:
+Set `CMS_ENABLED=true` and `INQUIRIES_ENABLED=true`, then configure:
 
-- `JPANEL_API_URL=http://host.docker.internal:3000` locally, or `https://jpanel.jivita.lk/api` in production.
-- `JPANEL_SITE_SLUG=ds-dance-research-lab`
-- `JPANEL_SITE_API_KEY=<site inquiry key>`
+- `JPANEL_API_URL=https://jpanel.jivita.lk/api`
+- `JPANEL_SITE_SLUG=ds-dance`
+- `JPANEL_SITE_API_KEY=<site-scoped inquiries:write key>`
 
-The API key is used only by the server-side inquiry route. Do not add it to `NEXT_PUBLIC_*` variables.
+The API key is used only by the server-side inquiry route. Do not add it to `NEXT_PUBLIC_*` variables, commit it, or submit directly to JPanel from browser code.
 
-No JPanel setup is part of this build. A future integration can use `https://jpanel.jivita.lk/api` as the production API endpoint, subject to a separate instruction and credentials.
+The browser posts to `/api/inquiries`; that route validates the request, attaches the key and an idempotency identifier, and forwards it to JPanel. Successful submissions appear in the JPanel Inquiries dashboard as either `Contact` or `Join Us`.
 
 ## Commands
 
 - `npm run typecheck`
 - `npm run build`
 - `npm run migration:inventory`
+
+## Project structure
+
+The website follows the Next.js App Router convention. Each public URL has its own route folder instead of sharing one catch-all page:
+
+- `app/` — route pages, global states, layout and API routes.
+- `components/layout/` — global header and footer.
+- `components/ui/` — reusable visual building blocks.
+- `components/content/` — project, blog and detail presentation.
+- `components/forms/` — inquiry pages and form behavior.
+- `components/gallery/` — gallery and lightbox behavior.
+- `components/motion/` — progressive reveal behavior.
+- `content/` — approved static page wording.
+- `data/` — reviewed local seed records.
+- `lib/` — server-side content access.
+- `types/` — shared content contracts.
+- `config/` — navigation and other site configuration.
+
+Route files should compose shared components and own only the data selection and metadata for their URL. Keep client-side code limited to genuinely interactive components.
 
 ## Production
 

@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: "standalone",
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "jpanel.jivita.lk", pathname: "/api/media/**" },
+    ],
+  },
   async redirects() { return [
     { source: "/about", destination: "/who-we-are", permanent: true },
     { source: "/services", destination: "/research-projects", permanent: true },

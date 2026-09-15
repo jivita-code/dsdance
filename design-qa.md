@@ -1,36 +1,34 @@
-# Design QA — DS Dance Research Lab website
+# Design QA — DS Dance Research Lab Editorial Redesign
 
-## Comparison target
+- Source visual truth: `/home/podi_rasi/Pictures/codex/Codex Image Aug 31, 2026, 09_03_56 PM.png` plus the Denison Dance School mobile reference supplied in the redesign request.
+- Implementation: `http://localhost:3001`
+- Viewports checked: 1440×900, 1024×800, 768×900, and 390×844 CSS pixels at device scale 1.
+- State: homepage, desktop navigation, mobile navigation open/closed, mobile submenu, every public listing/detail/static/form route.
+- Implementation screenshot: unavailable because the selected in-app browser repeatedly timed out while capturing both full-viewport and clipped screenshots.
 
-- Source visual: `/home/podi_rasi/Pictures/codex/Codex Image Aug 31, 2026, 09_03_56 PM.png`
-- Implementation: browser-rendered local Docker site at `http://localhost:3001/`
-- State: desktop homepage, then mobile navigation at 390 × 844.
-- Evidence: full-page in-app browser capture during this build session; source and implementation were visually compared at the same desktop composition level.
+## Full-view comparison evidence
 
-## Required fidelity surfaces
+Blocked. The source visual target is available, but a browser-rendered implementation screenshot could not be captured. DOM and computed-style checks confirmed the intended responsive composition, typography scale, loaded fonts, and zero horizontal overflow, but these checks do not replace visual comparison.
 
-- Fonts and typography: Instrument Serif is used for display hierarchy and Manrope is loaded for body/interface text. The output preserves the large editorial headline, compact uppercase metadata and restrained utility labels.
-- Spacing and layout rhythm: the implementation follows the reference sequence: dark split hero, pearl About section, dark three-card projects, gold founder message, dark Vision/Mission, pearl journal grid and dark Join Us footer.
-- Colours and tokens: Obsidian `#101113`, charcoal `#191B1F`, pearl `#F5F4F0`, champagne `#D5BE91` and muted grey `#8A8E95` are applied as shared tokens.
-- Image quality and asset fidelity: the implementation uses the original DS Dance Research Lab WordPress media URLs and logo rather than placeholder artwork.
-- Copy and content: the client-provided homepage wording is preserved in the local content fallback; migration inventory is available for page-by-page review.
+## Focused checks completed
+
+- Typography: Instrument Serif and Manrope loaded; desktop hero 86.4px, section title 60px, body copy 17–17.2px; 390px hero 56.55px, section title 42.9px, body copy 17.2px.
+- Spacing and responsive structure: zero horizontal overflow at all four target widths.
+- Images: homepage above-fold imagery and all local listing assets loaded successfully; project listings use local assets rather than remote placeholders.
+- Navigation: full desktop navigation, mobile overlay, body scroll lock, submenu expansion, Escape handling, and collapsed-link tab exclusion are implemented.
+- Routes: all 17 public static, listing, detail, gallery, and form routes returned their expected page heading and no not-found state.
+- Console: no warning or error entries during the final desktop route check.
+- Build: TypeScript, Next.js production build, and Docker Compose rebuild passed.
 
 ## Findings
 
-- [P3] The legacy logo asset includes a dark square background rather than a transparent lockup. Use the original transparent logo file when it is supplied to improve the header and footer finish.
-- [P3] The current fallback dataset is intentionally small until the verified WordPress inventory is manually reviewed and migrated. The JPanel adapter is deliberately disabled pending separate approval.
+- No functional, responsive-overflow, font-loading, image-loading, or console P0/P1/P2 issues were found in the checks that could be completed.
+- Visual fidelity and crop quality remain unverified because implementation capture is unavailable.
 
-## Interaction checks
+## Comparison history
 
-- All planned public route families resolve locally.
-- Gallery tiles open a keyboard-dismissable lightbox.
-- Mobile navigation opens and exposes all primary links.
-- Contact and Join Us native required-field validation works.
-- Browser console: no errors detected.
+- First responsive measurement found desktop and mobile headings larger than the approved scale.
+- Reduced desktop hero to 86.4px, internal page heading to a maximum of 80px, section headings to a maximum of 60px, and mobile hero to 56.55px.
+- Increased key body copy to 17–17.2px and rechecked all target widths with zero overflow.
 
-## Implementation checklist
-
-- Replace the legacy square logo with the client’s transparent master asset during migration.
-- Review `migration/output/` and import approved records as drafts before publishing.
-
-final result: passed
+final result: blocked
