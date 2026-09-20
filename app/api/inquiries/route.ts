@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { dispatchInquiryEmails } from "@/lib/email/inquiry-emails";
 
 const areasOfInterest = [
   "Associate Artist",
@@ -81,7 +82,12 @@ export async function POST(request: Request) {
       }),
     });
 
-    if (response.status === 201) return json("Inquiry received", 201);
+    if (response.status === 201) {
+      // JPanel is the source of truth. A temporary SMTP issue must never make
+      // a valid inquiry disappear or tell the visitor to submit it again.
+      await dispatchInquiryEmails({ type, name, email, message, submissionId, areaOfInterest: parsed.data.areaOfInterest });
+      return json("Inquiry received", 201);
+    }
     if (response.status === 400) return json("Please check your details and try again.", 400);
     if (response.status === 429) return json("Too many messages were sent. Please wait a minute and try again.", 429);
     return json("Form delivery is temporarily unavailable. Please try again later.", 503);

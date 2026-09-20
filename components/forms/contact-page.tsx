@@ -24,7 +24,7 @@ export function ContactPage({ type }: { type: "CONTACT" | "JOIN_US" }) {
         <h2>Contact Info</h2>
         <dl>
           <div><dt>Address</dt><dd>London, United Kingdom, SS17 0BP</dd></div>
-          <div><dt>Email Us</dt><dd><a href="mailto:dsdanceresearchlab@gmail.com">dsdanceresearchlab@gmail.com</a></dd></div>
+          <div><dt>Email Us</dt><dd><a href="mailto:info@dsdanceresearchlab.com">info@dsdanceresearchlab.com</a></dd></div>
           <div><dt>Call Us</dt><dd><a href="tel:+447375567669">+44 7375 567669</a></dd></div>
         </dl>
         <div className="contactSocial">

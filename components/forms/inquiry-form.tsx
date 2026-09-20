@@ -34,7 +34,7 @@ export function InquiryForm({ type }: { type: "CONTACT" | "JOIN_US" }) {
     }
   };
 
-  if (state === "success") return <div className="formSuccess" role="status"><h3>Thank you.</h3><p>Your message has been received.</p></div>;
+  if (state === "success") return <div className="formSuccess" role="status" aria-live="polite"><h3>Thank you.</h3><p>{isJoin ? "Your interest has been received." : "Your message has been received."}</p></div>;
 
   return <form className="inquiryForm" data-reveal="text" onSubmit={submit}>
     <label>Name<input name="name" required maxLength={160} /></label>

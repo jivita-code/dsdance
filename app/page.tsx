@@ -47,7 +47,7 @@ export default async function Home() {
             <p className="homeLocation">{content.hero.location}</p>
             <Link href="/join-us" className="homeButton">{content.hero.cta}<ArrowRight size={16} /></Link>
           </div>
-          <p className="homeHeroIndex" aria-hidden="true">01 / 08</p>
+          <p className="homeHeroIndex" aria-hidden="true">01 / 07</p>
         </div>
       </section>
 
@@ -58,13 +58,6 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="homeFounder" aria-labelledby="founder-title">
-        <div className="homeShell homePortraitFeature">
-          <div className="homePortraitMedia" data-reveal="image"><Image src="/images/home/founder-portrait.png" alt="Dhanushka Seneviratne" fill sizes="(max-width: 760px) 100vw, 44vw" priority /><span>Founder</span></div>
-          <article className="homePortraitCopy" data-reveal="text" data-reveal-delay="1"><p className="homeEyebrow">02 — Perspective</p><h2 id="founder-title">{content.founder.title}</h2><h3>{content.founder.name}</h3>{content.founder.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}<ul>{content.founder.credentials.map((credential) => <li key={credential}>{credential}</li>)}</ul></article>
-        </div>
-      </section>
-
       <section className="homeValues" aria-label="Our vision and mission">
         <div className="homeShell homeValuesGrid">
           <article className="homeValue"><div className="homeValueImage" data-reveal="image"><Image src="/images/home/vision.png" alt="Solo dancer exploring an expansive movement" fill sizes="(max-width: 760px) 100vw, 43vw" /></div><p className="homeEyebrow" data-reveal="text">03 — Direction</p><h2 data-reveal="text">Our Vision</h2><p data-reveal="text">{content.vision}</p></article>
@@ -72,10 +65,22 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="homeMentor" aria-labelledby="mentor-title">
-        <div className="homeShell homeMentorGrid">
-          <article className="homeMentorCopy" data-reveal="text"><p className="homeEyebrow">05 — Exchange</p><h2 id="mentor-title">{content.mentor.title}</h2><h3>{content.mentor.name}</h3>{content.mentor.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}<ul>{content.mentor.credentials.map((credential) => <li key={credential}>{credential}</li>)}</ul></article>
-          <div className="homeMentorMedia" data-reveal="image" data-reveal-delay="1"><Image src="/images/home/mentor-portrait.png" alt="Dr Jacek Ludwig Scarso" fill sizes="(max-width: 760px) 100vw, 44vw" /><span>Mentor</span></div>
+      <section className="homeVoices" aria-labelledby="voices-title">
+        <div className="homeShell">
+          <div className="homeVoicesHeading" data-reveal="text"><p className="homeEyebrow">05 — Perspectives</p><h2 id="voices-title">Voices from the Lab</h2></div>
+          <div className="homeVoicesGrid">
+            <article className="homeVoiceCard" data-reveal="text">
+              <div className="homeVoicePerson"><div className="homeVoicePortrait" data-reveal="image"><Image src="/images/home/founder-portrait.png" alt="Dhanushka Seneviratne" fill sizes="104px" /></div><div><p>Founder &amp; Artistic Director</p><h3>{content.founder.name}</h3></div></div>
+              <div className="homeVoiceMessage">{content.founder.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
+              <ul className="homeVoiceCredentials">{content.founder.credentials.map((credential) => <li key={credential}>{credential}</li>)}</ul>
+              <Link className="homeTextLink" href="/founder">Meet Dhanushka <ArrowRight size={16} /></Link>
+            </article>
+            <article className="homeVoiceCard" data-reveal="text" data-reveal-delay="1">
+              <div className="homeVoicePerson"><div className="homeVoicePortrait" data-reveal="image"><Image src="/images/home/mentor-portrait.png" alt="Dr Jacek Ludwig Scarso" fill sizes="104px" /></div><div><p>Mentor</p><h3>{content.mentor.name}</h3></div></div>
+              <div className="homeVoiceMessage">{content.mentor.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
+              <ul className="homeVoiceCredentials">{content.mentor.credentials.map((credential) => <li key={credential}>{credential}</li>)}</ul>
+            </article>
+          </div>
         </div>
       </section>
 

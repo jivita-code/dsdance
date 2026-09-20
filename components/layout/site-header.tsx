@@ -42,7 +42,7 @@ export function SiteHeader() {
         <div className="subNav" aria-hidden={expanded !== item.label}>{item.children.map((child) => <Link href={child.href} onClick={close} tabIndex={expanded === item.label ? 0 : -1} key={child.href}>{child.label}</Link>)}</div>
       </div> : <Link onClick={close} href={item.href} key={item.href}><span className="mobileNavIndex">0{index + 1}</span>{item.label}</Link>)}
       <Link className="joinButton" onClick={close} href="/join-us">Join Us <ArrowRight size={15} /></Link>
-      <div className="mobileMenuContact"><a href="mailto:dsdanceresearchlab@gmail.com">dsdanceresearchlab@gmail.com</a><span>London · Sri Lanka</span></div>
+      <div className="mobileMenuContact"><a href="mailto:info@dsdanceresearchlab.com">info@dsdanceresearchlab.com</a><span>London · Sri Lanka</span></div>
     </nav>
   </header>;
 }

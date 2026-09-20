@@ -1,34 +1,46 @@
-# Design QA — DS Dance Research Lab Editorial Redesign
+# Research Projects card redesign — Design QA
 
-- Source visual truth: `/home/podi_rasi/Pictures/codex/Codex Image Aug 31, 2026, 09_03_56 PM.png` plus the Denison Dance School mobile reference supplied in the redesign request.
-- Implementation: `http://localhost:3001`
-- Viewports checked: 1440×900, 1024×800, 768×900, and 390×844 CSS pixels at device scale 1.
-- State: homepage, desktop navigation, mobile navigation open/closed, mobile submenu, every public listing/detail/static/form route.
-- Implementation screenshot: unavailable because the selected in-app browser repeatedly timed out while capturing both full-viewport and clipped screenshots.
+## Comparison target
 
-## Full-view comparison evidence
+- Source visual truth: user-provided reference screenshot in this conversation, showing an image-first three-column editorial card grid with a visible filter row (The Imagination Museum “Latest news” reference).
+- Intended implementation route: `/research-projects`.
+- Intended viewport: desktop, matching the supplied reference’s wide landscape composition.
+- Intended state: all projects selected; status filters visible above the card grid.
 
-Blocked. The source visual target is available, but a browser-rendered implementation screenshot could not be captured. DOM and computed-style checks confirmed the intended responsive composition, typography scale, loaded fonts, and zero horizontal overflow, but these checks do not replace visual comparison.
+## Implementation evidence
 
-## Focused checks completed
+- Build evidence: `npm run typecheck` and `npm run build` completed successfully after the compact-card correction.
+- Cover-image transport: the live JPanel media endpoint and the local Next.js image optimizer both returned `200 image/jpeg` for a project cover.
+- Browser-rendered screenshot: unavailable. Both enabled browser surfaces (`iab` and `chrome`) reported that no browser was available in this session, so no implementation capture or console inspection could be performed.
 
-- Typography: Instrument Serif and Manrope loaded; desktop hero 86.4px, section title 60px, body copy 17–17.2px; 390px hero 56.55px, section title 42.9px, body copy 17.2px.
-- Spacing and responsive structure: zero horizontal overflow at all four target widths.
-- Images: homepage above-fold imagery and all local listing assets loaded successfully; project listings use local assets rather than remote placeholders.
-- Navigation: full desktop navigation, mobile overlay, body scroll lock, submenu expansion, Escape handling, and collapsed-link tab exclusion are implemented.
-- Routes: all 17 public static, listing, detail, gallery, and form routes returned their expected page heading and no not-found state.
-- Console: no warning or error entries during the final desktop route check.
-- Build: TypeScript, Next.js production build, and Docker Compose rebuild passed.
+## Required fidelity surfaces
+
+- Fonts and typography: implemented using the existing Cormorant Garamond display and Manrope interface system; browser rendering not captured.
+- Spacing and layout rhythm: implemented as a three-column desktop card grid, two-column tablet grid, and one-column mobile grid; browser rendering not captured.
+- Colors and visual tokens: implemented with the existing obsidian archive surface, soft-pearl cards, and champagne-gold status emphasis; browser rendering not captured.
+- Image quality and asset fidelity: the image transport is confirmed working; a fixed responsive cover frame now reserves `200–270px` before the card copy, so covers cannot be hidden by equal-height card stretching. Browser rendering not captured.
+- Copy and content: project title, status, summary, and existing destination route are preserved; browser rendering not captured.
 
 ## Findings
 
-- No functional, responsive-overflow, font-loading, image-loading, or console P0/P1/P2 issues were found in the checks that could be completed.
-- Visual fidelity and crop quality remain unverified because implementation capture is unavailable.
+- [P1] Browser visual verification unavailable.
+  Location: `/research-projects` desktop and responsive views.
+  Evidence: both the in-app browser and Chrome browser control reported no available browser surface.
+  Impact: the new grid, filter controls, image crop, and responsive layout cannot be compared against the supplied reference visually in this session.
+  Fix: reopen this task with an enabled browser surface, capture the reference and local route at a matching desktop viewport, then complete the visual comparison and interaction checks.
+
+## Primary interactions pending browser verification
+
+- All projects, Ongoing, Past, and Upcoming filter links.
+- Project-card destination links.
+- Keyboard focus styling for filters and cards.
+- Desktop, tablet, and mobile layout behavior.
 
 ## Comparison history
 
-- First responsive measurement found desktop and mobile headings larger than the approved scale.
-- Reduced desktop hero to 86.4px, internal page heading to a maximum of 80px, section headings to a maximum of 60px, and mobile hero to 56.55px.
-- Increased key body copy to 17–17.2px and rechecked all target widths with zero overflow.
+1. Initial implementation completed from the supplied visual reference. Build and type checks passed. Browser capture was blocked by unavailable browser surfaces.
+2. Compact-card correction: removed inherited full-height rules from the card and copy, made the grid align cards to their own content, and assigned an explicit responsive cover-image height. Type checks and production build passed; browser capture remains blocked.
+
+## Final result
 
 final result: blocked
