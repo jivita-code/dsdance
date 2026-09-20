@@ -35,9 +35,9 @@ Set `EMAIL_ENABLED=true` only after configuring these server-only values:
 - `ZOHO_SMTP_APP_PASSWORD=<Zoho app-specific password>`
 - `EMAIL_FROM_NAME=DS Dance Research Lab`
 - `EMAIL_FROM_ADDRESS=info@dsdanceresearchlab.com`
-- `INQUIRY_NOTIFICATION_TO=info@dsdanceresearchlab.com`
+- `INQUIRY_NOTIFICATION_TO=<optional separate notification address>`
 
-Never commit the app password or expose it through a `NEXT_PUBLIC_*` variable. Configure SPF, DKIM, and DMARC for `dsdanceresearchlab.com` in Zoho before enabling automatic acknowledgements.
+Never commit the app password or expose it through a `NEXT_PUBLIC_*` variable. Do not set `INQUIRY_NOTIFICATION_TO` to the same address as `EMAIL_FROM_ADDRESS`; Zoho flags self-delivery. Leave it empty to rely on JPanel, or use a different monitored mailbox. Configure SPF, DKIM, and DMARC for `dsdanceresearchlab.com` in Zoho before enabling automatic acknowledgements.
 
 ## Commands
 

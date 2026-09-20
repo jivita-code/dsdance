@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import { join } from "node:path";
 
 export type InquiryEmail = {
   type: "CONTACT" | "JOIN_US";
@@ -11,6 +12,13 @@ export type InquiryEmail = {
 
 const sentOrSending = new Map<string, Promise<void>>();
 const duplicateGuardDuration = 24 * 60 * 60 * 1000;
+const logoCid = "dsdance-landscape-logo";
+const logoAttachment = {
+  filename: "ds-dance-research-lab.png",
+  path: join(process.cwd(), "public/images/brand/ds-dance-research-lab.png"),
+  cid: logoCid,
+  contentDisposition: "inline" as const,
+};
 
 function escapeHtml(value: string) {
   return value.replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character] ?? character);
@@ -25,7 +33,7 @@ function firstName(name: string) {
 }
 
 function emailShell({ preheader, title, body }: { preheader: string; title: string; body: string }) {
-  return `<!doctype html><html lang="en"><head><meta charSet="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /></head><body style="margin:0;background:#f5f4f0;color:#191b1f;font-family:Arial,sans-serif;"><span style="display:none!important;visibility:hidden;opacity:0;color:transparent;height:0;width:0;overflow:hidden;">${escapeHtml(preheader)}</span><table role="presentation" width="100%" cellPadding="0" cellSpacing="0" style="background:#f5f4f0;padding:32px 16px;"><tr><td align="center"><table role="presentation" width="100%" cellPadding="0" cellSpacing="0" style="max-width:640px;background:#ffffff;border:1px solid #ddd5c7;"><tr><td style="background:#101113;padding:28px 36px 24px;"><p style="margin:0;color:#d5be91;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">DS Dance Research Lab</p><p style="margin:10px 0 0;color:#f5f4f0;font-family:Georgia,serif;font-size:24px;line-height:1.1;">Where Dance Meets Discovery</p></td></tr><tr><td style="padding:40px 36px 32px;"><h1 style="margin:0 0 20px;color:#101113;font-family:Georgia,serif;font-size:38px;font-weight:400;line-height:1.05;">${escapeHtml(title)}</h1><div style="color:#34373b;font-size:16px;line-height:1.7;">${body}</div></td></tr><tr><td style="border-top:1px solid #ddd5c7;padding:20px 36px;color:#6a6e74;font-size:12px;line-height:1.6;">DS Dance Research Lab · London, United Kingdom<br /><a href="mailto:info@dsdanceresearchlab.com" style="color:#806236;">info@dsdanceresearchlab.com</a></td></tr></table></td></tr></table></body></html>`;
+  return `<!doctype html><html lang="en"><head><meta charSet="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /></head><body style="margin:0;background:#f5f4f0;color:#191b1f;font-family:Arial,sans-serif;"><span style="display:none!important;visibility:hidden;opacity:0;color:transparent;height:0;width:0;overflow:hidden;">${escapeHtml(preheader)}</span><table role="presentation" width="100%" cellPadding="0" cellSpacing="0" style="background:#f5f4f0;padding:32px 16px;"><tr><td align="center"><table role="presentation" width="100%" cellPadding="0" cellSpacing="0" style="max-width:640px;background:#ffffff;border:1px solid #ddd5c7;"><tr><td style="background:#101113;padding:28px 36px 26px;"><img src="cid:${logoCid}" width="266" alt="DS Dance Research Lab" style="display:block;width:266px;max-width:100%;height:auto;border:0;outline:none;text-decoration:none;" /><p style="margin:20px 0 0;color:#d5be91;font-size:10px;font-weight:700;letter-spacing:2.4px;text-transform:uppercase;">Where Dance Meets Discovery</p></td></tr><tr><td style="padding:42px 36px 34px;"><h1 style="margin:0 0 22px;color:#101113;font-family:Garamond,Georgia,'Times New Roman',serif;font-size:38px;font-weight:400;line-height:1.08;">${escapeHtml(title)}</h1><div style="color:#34373b;font-size:16px;line-height:1.75;">${body}</div></td></tr><tr><td style="background:#eee9df;border-top:1px solid #ddd5c7;padding:28px 36px;"><p style="margin:0 0 8px;color:#806236;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Our Vision</p><p style="margin:0 0 22px;color:#1f2125;font-family:Garamond,Georgia,'Times New Roman',serif;font-size:19px;line-height:1.45;">To be a leading global hub that redefines the boundaries of dance and performative practices through interdisciplinary inquiry.</p><p style="margin:0 0 8px;color:#806236;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Our Mission</p><p style="margin:0;color:#1f2125;font-family:Garamond,Georgia,'Times New Roman',serif;font-size:19px;line-height:1.45;">We connect research, critical dialogue, and creative experimentation to create new possibilities for dance and performance.</p></td></tr><tr><td style="border-top:1px solid #ddd5c7;padding:20px 36px;color:#6a6e74;font-size:12px;line-height:1.6;">DS Dance Research Lab · London, United Kingdom<br /><a href="mailto:info@dsdanceresearchlab.com" style="color:#806236;">info@dsdanceresearchlab.com</a></td></tr></table></td></tr></table></body></html>`;
 }
 
 function getSettings() {
@@ -33,9 +41,9 @@ function getSettings() {
   const user = process.env.ZOHO_SMTP_USER;
   const password = process.env.ZOHO_SMTP_APP_PASSWORD;
   const fromAddress = process.env.EMAIL_FROM_ADDRESS || user;
-  const notificationTo = process.env.INQUIRY_NOTIFICATION_TO || fromAddress;
+  const notificationTo = process.env.INQUIRY_NOTIFICATION_TO?.trim() || undefined;
   const port = Number(process.env.ZOHO_SMTP_PORT || "465");
-  if (!host || !user || !password || !fromAddress || !notificationTo || !Number.isFinite(port)) return null;
+  if (!host || !user || !password || !fromAddress || !Number.isFinite(port)) return null;
   return { host, user, password, port, secure: process.env.ZOHO_SMTP_SECURE !== "false", from: `${process.env.EMAIL_FROM_NAME || "DS Dance Research Lab"} <${fromAddress}>`, fromAddress, notificationTo };
 }
 
@@ -69,14 +77,23 @@ async function sendInquiryEmails(email: InquiryEmail) {
     return;
   }
   const transporter = nodemailer.createTransport({ host: settings.host, port: settings.port, secure: settings.secure, auth: { user: settings.user, pass: settings.password }, connectionTimeout: 10_000, greetingTimeout: 10_000, socketTimeout: 15_000 });
-  const internal = notification(email);
   const visitor = acknowledgement(email);
-  const [notificationResult, acknowledgementResult] = await Promise.allSettled([
-    transporter.sendMail({ from: settings.from, to: settings.notificationTo, replyTo: email.email, subject: internal.subject, html: internal.html, text: internal.text }),
-    transporter.sendMail({ from: settings.from, to: email.email, replyTo: settings.fromAddress, subject: visitor.subject, html: visitor.html, text: visitor.text }),
-  ]);
-  if (notificationResult.status === "rejected") console.error("Inquiry notification email failed.", { submissionId: email.submissionId, type: email.type });
-  if (acknowledgementResult.status === "rejected") console.error("Inquiry acknowledgement email failed.", { submissionId: email.submissionId, type: email.type });
+  const deliveries: Array<{ kind: "notification" | "acknowledgement"; send: () => Promise<unknown> }> = [
+    { kind: "acknowledgement", send: () => transporter.sendMail({ from: settings.from, to: email.email, replyTo: settings.fromAddress, subject: visitor.subject, html: visitor.html, text: visitor.text, attachments: [logoAttachment] }) },
+  ];
+
+  // Zoho marks messages sent from and delivered back to the same mailbox as a
+  // delivery problem. JPanel already records every inquiry, so only send an
+  // additional notification when it has a distinct, monitored recipient.
+  if (settings.notificationTo && settings.notificationTo.toLowerCase() !== settings.fromAddress.toLowerCase()) {
+    const internal = notification(email);
+    deliveries.unshift({ kind: "notification", send: () => transporter.sendMail({ from: settings.from, to: settings.notificationTo, replyTo: email.email, subject: internal.subject, html: internal.html, text: internal.text, attachments: [logoAttachment] }) });
+  }
+
+  const results = await Promise.allSettled(deliveries.map(({ send }) => send()));
+  results.forEach((result, index) => {
+    if (result.status === "rejected") console.error(`Inquiry ${deliveries[index].kind} email failed.`, { submissionId: email.submissionId, type: email.type });
+  });
 }
 
 /** Sends no more than one notification/acknowledgement pair per submission ID in this server process. */
