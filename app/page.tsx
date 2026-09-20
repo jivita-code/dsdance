@@ -47,7 +47,7 @@ export default async function Home() {
             <p className="homeLocation">{content.hero.location}</p>
             <Link href="/join-us" className="homeButton">{content.hero.cta}<ArrowRight size={16} /></Link>
           </div>
-          <p className="homeHeroIndex" aria-hidden="true">01 / 08</p>
+          <p className="homeHeroIndex" aria-hidden="true">01 / 06</p>
         </div>
       </section>
 
@@ -58,10 +58,22 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="homeFounder" aria-labelledby="founder-title">
-        <div className="homeShell homePortraitFeature">
-          <div className="homePortraitMedia" data-reveal="image"><Image src="/images/home/founder-portrait.png" alt="Dhanushka Seneviratne" fill sizes="(max-width: 760px) 100vw, 44vw" priority /><span>Founder</span></div>
-          <article className="homePortraitCopy" data-reveal="text" data-reveal-delay="1"><p className="homeEyebrow">02 — Perspective</p><h2 id="founder-title">{content.founder.title}</h2><h3>{content.founder.name}</h3>{content.founder.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}<ul>{content.founder.credentials.map((credential) => <li key={credential}>{credential}</li>)}</ul></article>
+      <section className="homeVoices" aria-labelledby="voices-title">
+        <div className="homeShell">
+          <div className="homeVoicesHeading" data-reveal="text"><p className="homeEyebrow">02 — Perspectives</p><h2 id="voices-title">Voices from the Lab</h2></div>
+          <div className="homeVoicesGrid">
+            <article className="homeVoiceCard" data-reveal="text">
+              <div className="homeVoicePerson"><div className="homeVoicePortrait" data-reveal="image"><Image src="/images/home/founder-portrait.png" alt="Dhanushka Seneviratne" fill sizes="104px" /></div><div><p>Founder &amp; Artistic Director</p><h3>{content.founder.name}</h3></div></div>
+              <div className="homeVoiceMessage">{content.founder.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
+              <ul className="homeVoiceCredentials">{content.founder.credentials.map((credential) => <li key={credential}>{credential}</li>)}</ul>
+              <Link className="homeTextLink" href="/founder">Meet Dhanushka <ArrowRight size={16} /></Link>
+            </article>
+            <article className="homeVoiceCard" data-reveal="text" data-reveal-delay="1">
+              <div className="homeVoicePerson"><div className="homeVoicePortrait" data-reveal="image"><Image src="/images/home/mentor-portrait.png" alt="Dr Jacek Ludwig Scarso" fill sizes="104px" /></div><div><p>Mentor</p><h3>{content.mentor.name}</h3></div></div>
+              <div className="homeVoiceMessage">{content.mentor.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
+              <ul className="homeVoiceCredentials">{content.mentor.credentials.map((credential) => <li key={credential}>{credential}</li>)}</ul>
+            </article>
+          </div>
         </div>
       </section>
 
@@ -72,20 +84,13 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="homeMentor" aria-labelledby="mentor-title">
-        <div className="homeShell homeMentorGrid">
-          <article className="homeMentorCopy" data-reveal="text"><p className="homeEyebrow">05 — Exchange</p><h2 id="mentor-title">{content.mentor.title}</h2><h3>{content.mentor.name}</h3>{content.mentor.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}<ul>{content.mentor.credentials.map((credential) => <li key={credential}>{credential}</li>)}</ul></article>
-          <div className="homeMentorMedia" data-reveal="image" data-reveal-delay="1"><Image src="/images/home/mentor-portrait.png" alt="Dr Jacek Ludwig Scarso" fill sizes="(max-width: 760px) 100vw, 44vw" /><span>Mentor</span></div>
-        </div>
-      </section>
-
       <section className="homeProjects" aria-labelledby="projects-title">
-        <div className="homeShell homeProjectsHeader" data-reveal="text"><div><p className="homeEyebrow">06 — Research in progress</p><h2 id="projects-title">{content.projects.title}</h2></div><p>{content.projects.body}</p><Link className="homeButton" href="/research-projects">{content.projects.cta}<ArrowRight size={16} /></Link></div>
+        <div className="homeShell homeProjectsHeader" data-reveal="text"><div><p className="homeEyebrow">05 — Research in progress</p><h2 id="projects-title">{content.projects.title}</h2></div><p>{content.projects.body}</p><Link className="homeButton" href="/research-projects">{content.projects.cta}<ArrowRight size={16} /></Link></div>
         {projects.length ? <div className="homeShell homeProjectGrid">{projects.map((project, index) => <Link href={`/research-projects/${project.slug}`} className="homeProjectVisual" data-reveal="card" data-reveal-delay={String(index % 4)} key={project.slug}><Image src={projectCover(project)} alt={project.title} fill sizes="(max-width: 760px) 100vw, (max-width: 1024px) 50vw, 58vw" /><span className="homeProjectNumber" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><div className="homeProjectMeta"><p>{projectLabel(project)}</p><h3>{project.title}</h3></div></Link>)}</div> : <div className="homeShell homeProjectsEmpty" data-reveal="text"><p className="homeEyebrow">Current research is being prepared.</p><Link className="homeTextLink" href="/research-projects">Explore our research <ArrowRight size={16} /></Link></div>}
       </section>
 
       <section className="homeNews" aria-labelledby="news-title">
-        <div className="homeShell homeNewsHeader" data-reveal="text"><div><p className="homeEyebrow">07 — What&apos;s on</p><h2 id="news-title">News &amp; Events</h2></div><Link className="homeTextLink" href="/news-events">View all news &amp; events <ArrowRight size={16} /></Link></div>
+        <div className="homeShell homeNewsHeader" data-reveal="text"><div><p className="homeEyebrow">06 — What&apos;s on</p><h2 id="news-title">News &amp; Events</h2></div><Link className="homeTextLink" href="/news-events">View all news &amp; events <ArrowRight size={16} /></Link></div>
         {events.length ? <div className="homeShell homeNewsList">{events.map((event, index) => <Link className="homeNewsCard" data-reveal="card" data-reveal-delay={String(index)} href={`/news-events/${event.slug}`} key={event.slug}><span className="homeNewsNumber" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><div className="homeNewsImage"><Image src={projectCover(event)} alt={event.title} fill sizes="(max-width: 760px) 100vw, 240px" /></div><div className="homeNewsCopy"><p>{eventDate(event) || eventLabel(event)}</p><h3>{event.title}</h3>{event.summary && <span>{event.summary}</span>}</div><ArrowRight className="homeNewsArrow" aria-hidden="true" size={20} /></Link>)}</div> : <div className="homeShell homeNewsEmpty" data-reveal="text"><p>New events and research gatherings will appear here as they are published.</p><Link className="homeTextLink" href="/news-events">Visit News &amp; Events <ArrowRight size={16} /></Link></div>}
       </section>
 

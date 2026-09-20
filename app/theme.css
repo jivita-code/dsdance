@@ -42,6 +42,22 @@
 .homePortraitCopy > p:not(.homeEyebrow), .homeMentorCopy > p:not(.homeEyebrow) { max-width: 650px; color: #dedfe0; font-size: 1.0625rem; line-height: 1.75; }
 .homePortraitCopy ul, .homeMentorCopy ul { display: grid; gap: .25rem; margin: 2rem 0 0; padding: 1.5rem 0 0; border-top: 1px solid var(--line-dark); color: #b9bbc0; font-size: .78rem; line-height: 1.55; list-style: none; }
 
+.homeVoices { padding-block: var(--section-space); background: var(--panel); color: var(--pearl); }
+.homeVoicesHeading { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; margin-bottom: clamp(3rem, 5vw, 4.5rem); }
+.homeVoicesHeading h2 { margin: 0; color: var(--gold); font-size: clamp(3rem, 4.25vw, 3.75rem); line-height: .9; }
+.homeVoicesGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(2rem, 5vw, 5rem); }
+.homeVoiceCard { padding-top: 1.75rem; border-top: 1px solid var(--line-dark); }
+.homeVoicePerson { display: flex; align-items: center; gap: 1.15rem; }
+.homeVoicePortrait { position: relative; width: 104px; aspect-ratio: 1; flex: 0 0 auto; overflow: hidden; border: 1px solid rgba(213, 190, 145, .65); border-radius: 50%; background: var(--graphite); }
+.homeVoicePortrait img { object-fit: cover; object-position: center 22%; }
+.homeVoicePerson p { margin: 0 0 .35rem; color: var(--gold); font-size: .69rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+.homeVoicePerson h3 { margin: 0; color: var(--pearl); font-family: var(--display); font-size: clamp(1.75rem, 2.35vw, 2.2rem); font-weight: 400; line-height: 1; }
+.homeVoiceMessage { max-width: 610px; margin: 2rem 0 1.75rem; padding-left: 1.25rem; border-left: 1px solid var(--gold); }
+.homeVoiceMessage p { margin: 0; color: #dedfe0; font-size: 1.025rem; line-height: 1.78; }
+.homeVoiceMessage p + p { margin-top: 1rem; }
+.homeVoiceCredentials { display: grid; gap: .3rem; margin: 0 0 1.6rem; padding: 1.35rem 0 0; border-top: 1px solid var(--line-dark); color: #b9bbc0; font-size: .78rem; line-height: 1.55; list-style: none; }
+.homeVoiceCard .homeTextLink { color: var(--gold); }
+
 .homeValues { padding-block: var(--section-space); background: var(--ink); }
 .homeValuesGrid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(3rem, 7vw, 7rem); }
 .homeValue { display: grid; align-content: start; }
@@ -142,7 +158,9 @@
   }
   .homeHeroLayout { padding-inline: 1.5rem; }
   .homeHero h1 { font-size: clamp(4.5rem, 11vw, 6rem); }
-  .homeAboutGrid, .homePortraitFeature, .homeMentorGrid, .homeValuesGrid { grid-template-columns: 1fr; }
+  .homeAboutGrid, .homePortraitFeature, .homeMentorGrid, .homeValuesGrid, .homeVoicesGrid { grid-template-columns: 1fr; }
+  .homeVoicesHeading { display: block; }
+  .homeVoicesHeading h2 { margin-top: 1rem; }
   .homeAboutMedia { min-height: 560px; }
   .homePortraitMedia, .homeMentorMedia { min-height: 720px; max-width: 580px; }
   .homePortraitCopy { padding-top: 0; }
@@ -164,6 +182,12 @@
   .homeHeroStatement { max-width: 330px; font-size: 1rem; }
   .homeHeroIndex { display: none; }
   .homeAboutGrid, .homePortraitFeature, .homeMentorGrid { gap: 3rem; }
+  .homeVoicesGrid { gap: 2.5rem; }
+  .homeVoicePortrait { width: 82px; }
+  .homeVoicePerson { gap: 1rem; }
+  .homeVoicePerson h3 { font-size: 1.75rem; }
+  .homeVoiceMessage { margin: 1.5rem 0 1.25rem; padding-left: 1rem; }
+  .homeVoiceMessage p { font-size: 1rem; }
   .homeSectionCopy h2, .homeProjects h2, .homeUnveiling h2, .homeJoin h2 { font-size: clamp(2.5rem, 11vw, 3rem); }
   .homeAboutMedia { min-height: 390px; }
   .homePortraitMedia, .homeMentorMedia { min-height: 540px; }
