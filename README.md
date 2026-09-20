@@ -24,6 +24,21 @@ The API key is used only by the server-side inquiry route. Do not add it to `NEX
 
 The browser posts to `/api/inquiries`; that route validates the request, attaches the key and an idempotency identifier, and forwards it to JPanel. Successful submissions appear in the JPanel Inquiries dashboard as either `Contact` or `Join Us`.
 
+## Zoho email delivery
+
+JPanel remains the source of truth for inquiries. Once JPanel accepts a submission, the website can send an internal notification and a visitor acknowledgement through Zoho Mail.
+
+Set `EMAIL_ENABLED=true` only after configuring these server-only values:
+
+- `ZOHO_SMTP_HOST`, `ZOHO_SMTP_PORT`, and `ZOHO_SMTP_SECURE` from Zoho Mail's Server Configuration page.
+- `ZOHO_SMTP_USER=info@dsdanceresearchlab.com`
+- `ZOHO_SMTP_APP_PASSWORD=<Zoho app-specific password>`
+- `EMAIL_FROM_NAME=DS Dance Research Lab`
+- `EMAIL_FROM_ADDRESS=info@dsdanceresearchlab.com`
+- `INQUIRY_NOTIFICATION_TO=info@dsdanceresearchlab.com`
+
+Never commit the app password or expose it through a `NEXT_PUBLIC_*` variable. Configure SPF, DKIM, and DMARC for `dsdanceresearchlab.com` in Zoho before enabling automatic acknowledgements.
+
 ## Commands
 
 - `npm run typecheck`
