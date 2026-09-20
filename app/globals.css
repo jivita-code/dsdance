@@ -551,6 +551,21 @@ p { text-wrap: pretty; }
   .footerLogos img:last-child { width: 80px; height: 58px; }
 }
 
+/* Project documentation uses a natural-height masonry layout so photography is never cropped. */
+.detailGallery .galleryGrid { display: block; max-width: 1280px; column-count: 4; column-gap: clamp(.7rem, 1.2vw, 1.1rem); }
+.detailGallery .galleryGrid:has(.galleryTile:only-child) { max-width: 640px; margin-inline: 0 auto; }
+.detailGallery .galleryTile, .detailGallery .galleryTile:first-child, .detailGallery .galleryTile:nth-child(2), .detailGallery .galleryTile:nth-child(3), .detailGallery .galleryTile:nth-child(n + 4), .detailGallery .galleryTile:only-child { width: 100%; min-height: 0; display: inline-block; margin: 0 0 clamp(.7rem, 1.2vw, 1.1rem); break-inside: avoid; vertical-align: top; aspect-ratio: auto; }
+.detailGallery .galleryTile img, .detailGallery .galleryTile video { display: block; width: 100%; height: auto; object-fit: contain; }
+
+@media (max-width: 860px) {
+  .detailGallery .galleryGrid { column-count: 3; }
+}
+
+@media (max-width: 560px) {
+  .detailGallery .galleryGrid { column-count: 2; column-gap: .65rem; }
+  .detailGallery .galleryTile, .detailGallery .galleryTile:first-child, .detailGallery .galleryTile:nth-child(2), .detailGallery .galleryTile:nth-child(3), .detailGallery .galleryTile:nth-child(n + 4), .detailGallery .galleryTile:only-child { margin-bottom: .65rem; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
