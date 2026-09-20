@@ -47,7 +47,7 @@ export default async function Home() {
             <p className="homeLocation">{content.hero.location}</p>
             <Link href="/join-us" className="homeButton">{content.hero.cta}<ArrowRight size={16} /></Link>
           </div>
-          <p className="homeHeroIndex" aria-hidden="true">01 / 06</p>
+          <p className="homeHeroIndex" aria-hidden="true">01 / 07</p>
         </div>
       </section>
 
@@ -58,9 +58,16 @@ export default async function Home() {
         </div>
       </section>
 
+      <section className="homeValues" aria-label="Our vision and mission">
+        <div className="homeShell homeValuesGrid">
+          <article className="homeValue"><div className="homeValueImage" data-reveal="image"><Image src="/images/home/vision.png" alt="Solo dancer exploring an expansive movement" fill sizes="(max-width: 760px) 100vw, 43vw" /></div><p className="homeEyebrow" data-reveal="text">03 — Direction</p><h2 data-reveal="text">Our Vision</h2><p data-reveal="text">{content.vision}</p></article>
+          <article className="homeValue homeMission"><div className="homeValueImage" data-reveal="image"><Image src="/images/home/mission.png" alt="Dancers collaborating in a movement research studio" fill sizes="(max-width: 760px) 100vw, 43vw" /></div><p className="homeEyebrow" data-reveal="text">04 — Practice</p><h2 data-reveal="text">Our Mission</h2>{content.mission.map((paragraph) => <p data-reveal="text" key={paragraph}>{paragraph}</p>)}</article>
+        </div>
+      </section>
+
       <section className="homeVoices" aria-labelledby="voices-title">
         <div className="homeShell">
-          <div className="homeVoicesHeading" data-reveal="text"><p className="homeEyebrow">02 — Perspectives</p><h2 id="voices-title">Voices from the Lab</h2></div>
+          <div className="homeVoicesHeading" data-reveal="text"><p className="homeEyebrow">05 — Perspectives</p><h2 id="voices-title">Voices from the Lab</h2></div>
           <div className="homeVoicesGrid">
             <article className="homeVoiceCard" data-reveal="text">
               <div className="homeVoicePerson"><div className="homeVoicePortrait" data-reveal="image"><Image src="/images/home/founder-portrait.png" alt="Dhanushka Seneviratne" fill sizes="104px" /></div><div><p>Founder &amp; Artistic Director</p><h3>{content.founder.name}</h3></div></div>
@@ -77,20 +84,13 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="homeValues" aria-label="Our vision and mission">
-        <div className="homeShell homeValuesGrid">
-          <article className="homeValue"><div className="homeValueImage" data-reveal="image"><Image src="/images/home/vision.png" alt="Solo dancer exploring an expansive movement" fill sizes="(max-width: 760px) 100vw, 43vw" /></div><p className="homeEyebrow" data-reveal="text">03 — Direction</p><h2 data-reveal="text">Our Vision</h2><p data-reveal="text">{content.vision}</p></article>
-          <article className="homeValue homeMission"><div className="homeValueImage" data-reveal="image"><Image src="/images/home/mission.png" alt="Dancers collaborating in a movement research studio" fill sizes="(max-width: 760px) 100vw, 43vw" /></div><p className="homeEyebrow" data-reveal="text">04 — Practice</p><h2 data-reveal="text">Our Mission</h2>{content.mission.map((paragraph) => <p data-reveal="text" key={paragraph}>{paragraph}</p>)}</article>
-        </div>
-      </section>
-
       <section className="homeProjects" aria-labelledby="projects-title">
-        <div className="homeShell homeProjectsHeader" data-reveal="text"><div><p className="homeEyebrow">05 — Research in progress</p><h2 id="projects-title">{content.projects.title}</h2></div><p>{content.projects.body}</p><Link className="homeButton" href="/research-projects">{content.projects.cta}<ArrowRight size={16} /></Link></div>
+        <div className="homeShell homeProjectsHeader" data-reveal="text"><div><p className="homeEyebrow">06 — Research in progress</p><h2 id="projects-title">{content.projects.title}</h2></div><p>{content.projects.body}</p><Link className="homeButton" href="/research-projects">{content.projects.cta}<ArrowRight size={16} /></Link></div>
         {projects.length ? <div className="homeShell homeProjectGrid">{projects.map((project, index) => <Link href={`/research-projects/${project.slug}`} className="homeProjectVisual" data-reveal="card" data-reveal-delay={String(index % 4)} key={project.slug}><Image src={projectCover(project)} alt={project.title} fill sizes="(max-width: 760px) 100vw, (max-width: 1024px) 50vw, 58vw" /><span className="homeProjectNumber" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><div className="homeProjectMeta"><p>{projectLabel(project)}</p><h3>{project.title}</h3></div></Link>)}</div> : <div className="homeShell homeProjectsEmpty" data-reveal="text"><p className="homeEyebrow">Current research is being prepared.</p><Link className="homeTextLink" href="/research-projects">Explore our research <ArrowRight size={16} /></Link></div>}
       </section>
 
       <section className="homeNews" aria-labelledby="news-title">
-        <div className="homeShell homeNewsHeader" data-reveal="text"><div><p className="homeEyebrow">06 — What&apos;s on</p><h2 id="news-title">News &amp; Events</h2></div><Link className="homeTextLink" href="/news-events">View all news &amp; events <ArrowRight size={16} /></Link></div>
+        <div className="homeShell homeNewsHeader" data-reveal="text"><div><p className="homeEyebrow">07 — What&apos;s on</p><h2 id="news-title">News &amp; Events</h2></div><Link className="homeTextLink" href="/news-events">View all news &amp; events <ArrowRight size={16} /></Link></div>
         {events.length ? <div className="homeShell homeNewsList">{events.map((event, index) => <Link className="homeNewsCard" data-reveal="card" data-reveal-delay={String(index)} href={`/news-events/${event.slug}`} key={event.slug}><span className="homeNewsNumber" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><div className="homeNewsImage"><Image src={projectCover(event)} alt={event.title} fill sizes="(max-width: 760px) 100vw, 240px" /></div><div className="homeNewsCopy"><p>{eventDate(event) || eventLabel(event)}</p><h3>{event.title}</h3>{event.summary && <span>{event.summary}</span>}</div><ArrowRight className="homeNewsArrow" aria-hidden="true" size={20} /></Link>)}</div> : <div className="homeShell homeNewsEmpty" data-reveal="text"><p>New events and research gatherings will appear here as they are published.</p><Link className="homeTextLink" href="/news-events">Visit News &amp; Events <ArrowRight size={16} /></Link></div>}
       </section>
 
