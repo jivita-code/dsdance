@@ -121,6 +121,19 @@ p { text-wrap: pretty; }
 .researchProjectSummary { margin: 0 0 1.4rem; color: #404349; font-size: .96rem; line-height: 1.72; }
 .researchProjectAction { margin-top: auto; display: inline-flex; align-items: center; gap: .55rem; padding-top: .25rem; border-bottom: 1px solid #806236; color: #795f36; font-size: .7rem; font-weight: 800; letter-spacing: .14em; line-height: 1.9; text-transform: uppercase; transition: color 180ms ease, border-color 180ms ease; }
 .researchProjectCard:hover .researchProjectAction { color: var(--ink); border-color: var(--ink); }
+.archiveListing { padding: var(--section-space) max(3rem, calc((100vw - 1280px) / 2)); background: var(--pearl); color: var(--ink); }
+.archiveProjectGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.35rem, 2.25vw, 2rem); }
+.archiveCard { min-width: 0; background: var(--ink); color: var(--pearl); }
+.archiveCardLink { height: 100%; display: flex; flex-direction: column; }
+.archiveCardImage { position: relative; height: clamp(200px, 17vw, 248px); overflow: hidden; background: var(--graphite); }
+.archiveCardImage img { object-fit: cover; filter: saturate(.68) contrast(1.03); transition: scale 600ms var(--ease-editorial), filter 260ms ease; }
+.archiveCard:hover .archiveCardImage img { scale: 1.025; filter: saturate(.95) contrast(1.02); }
+.archiveCardCopy { padding: clamp(1.35rem, 1.75vw, 1.8rem); display: flex; flex: 1; flex-direction: column; align-items: flex-start; }
+.archiveCardStatus { margin: 0 0 1rem; color: var(--gold); font-family: var(--body); font-size: .7rem; font-weight: 800; letter-spacing: .16em; line-height: 1.2; text-transform: uppercase; }
+.archiveCardCopy h2 { margin: 0 0 1rem; color: var(--pearl); font-size: clamp(2rem, 2.4vw, 2.65rem); letter-spacing: -.035em; }
+.archiveCardCopy > p:not(.archiveCardStatus) { margin: 0 0 1.4rem; color: #c5c7ca; font-size: .96rem; line-height: 1.72; }
+.archiveCardAction { margin-top: auto; display: inline-flex; align-items: center; gap: .55rem; padding-top: .25rem; border-bottom: 1px solid var(--gold); color: var(--gold); font-size: .7rem; font-weight: 800; letter-spacing: .14em; line-height: 1.9; text-transform: uppercase; transition: color 180ms ease, border-color 180ms ease; }
+.archiveCard:hover .archiveCardAction { border-color: var(--pearl); color: var(--pearl); }
 .emptyState { min-height: 420px; padding: var(--section-space) 1.5rem; display: grid; place-content: center; text-align: center; background: var(--pearl); color: var(--ink); }
 .emptyState h2 { max-width: 600px; font-size: clamp(2.5rem, 5vw, 4.5rem); }
 .staticPage, .detail, .formPage { min-height: 65vh; background: var(--pearl); color: var(--ink); }
@@ -385,6 +398,8 @@ p { text-wrap: pretty; }
   .listingCard { gap: 3.5rem; }
   .researchProjectGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .researchProjectImage { height: clamp(210px, 31vw, 270px); }
+  .archiveProjectGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .archiveCardImage { height: clamp(210px, 31vw, 270px); }
 }
 
 @media (max-width: 860px) {
@@ -465,14 +480,19 @@ p { text-wrap: pretty; }
   .pageHeroContent > p:not(.eyebrow) { font-size: 1rem; }
   .listing, .visionMission { padding-inline: 1.25rem; }
   .researchListing { padding-inline: 1.25rem; }
+  .archiveListing { padding-inline: 1.25rem; }
   .listing { gap: 4rem; }
   .researchProjectGrid { grid-template-columns: 1fr; gap: 1.25rem; }
   .researchProjectImage { height: clamp(200px, 58vw, 265px); }
+  .archiveProjectGrid { grid-template-columns: 1fr; gap: 1.25rem; }
+  .archiveCardImage { height: clamp(200px, 58vw, 265px); }
   .researchListingIntro h2 { font-size: clamp(2.75rem, 12vw, 3.5rem); }
   .researchProjectFilters { gap: .5rem; }
   .researchProjectFilter { flex: 1 1 calc(50% - .5rem); padding-inline: .65rem; font-size: .66rem; }
   .researchProjectCopy { padding: 1.35rem; }
   .researchProjectCopy h2 { font-size: clamp(2rem, 9vw, 2.45rem); }
+  .archiveCardCopy { padding: 1.35rem; }
+  .archiveCardCopy h2 { font-size: clamp(2rem, 9vw, 2.45rem); }
   .listingCard { gap: 2rem; padding-bottom: 3.5rem; }
   .listingMedia { min-height: 270px; }
   .listingCopy h2 { font-size: clamp(1.8rem, 8vw, 2.25rem); }

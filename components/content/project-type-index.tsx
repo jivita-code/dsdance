@@ -9,10 +9,11 @@ type ProjectTypeIndexProps = {
   title: string;
   image: string;
   prefix: string;
+  layout?: "editorial" | "archive-grid";
 };
 
-export async function ProjectTypeIndex({ type, eyebrow, title, image, prefix }: ProjectTypeIndexProps) {
+export async function ProjectTypeIndex({ type, eyebrow, title, image, prefix, layout = "editorial" }: ProjectTypeIndexProps) {
   const content = await getContent();
   const items = content.projects.filter((item) => item.contentType === type);
-  return <><PageHero eyebrow={eyebrow} title={title} image={image} /><ProjectList items={items} prefix={prefix} emptyTitle={title} /></>;
+  return <><PageHero eyebrow={eyebrow} title={title} image={image} /><ProjectList items={items} prefix={prefix} emptyTitle={title} layout={layout} /></>;
 }
