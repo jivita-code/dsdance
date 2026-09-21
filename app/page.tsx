@@ -31,7 +31,7 @@ function eventDate(event: Project) {
 export default async function Home() {
   const content = homeContent;
   const siteContent = await getContent();
-  const projects = siteContent.projects.filter((project) => project.contentType === "RESEARCH_PROJECT").slice(0, 4);
+  const projects = siteContent.projects.filter((project) => project.contentType === "RESEARCH_PROJECT").slice(0, 3);
   const events = siteContent.projects.filter((project) => project.contentType === "EVENT").slice(0, 3);
   return (
     <main className="homePage">
@@ -86,7 +86,7 @@ export default async function Home() {
 
       <section className="homeProjects" aria-labelledby="projects-title">
         <div className="homeShell homeProjectsHeader" data-reveal="text"><div><p className="homeEyebrow">06 — Research in progress</p><h2 id="projects-title">{content.projects.title}</h2></div><p>{content.projects.body}</p><Link className="homeButton" href="/research-projects">{content.projects.cta}<ArrowRight size={16} /></Link></div>
-        {projects.length ? <div className="homeShell homeProjectGrid">{projects.map((project, index) => <Link href={`/research-projects/${project.slug}`} className="homeProjectVisual" data-reveal="card" data-reveal-delay={String(index % 4)} key={project.slug}><Image src={projectCover(project)} alt={project.title} fill sizes="(max-width: 760px) 100vw, (max-width: 1024px) 50vw, 58vw" /><span className="homeProjectNumber" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><div className="homeProjectMeta"><p>{projectLabel(project)}</p><h3>{project.title}</h3></div></Link>)}</div> : <div className="homeShell homeProjectsEmpty" data-reveal="text"><p className="homeEyebrow">Current research is being prepared.</p><Link className="homeTextLink" href="/research-projects">Explore our research <ArrowRight size={16} /></Link></div>}
+        {projects.length ? <div className="homeShell archiveProjectGrid">{projects.map((project, index) => <article className="archiveCard" data-reveal="card" data-reveal-delay={String(index % 4)} key={project.slug}><Link className="archiveCardLink" href={`/research-projects/${project.slug}`} aria-label={`View project: ${project.title}`}><div className="archiveCardImage"><Image src={projectCover(project)} alt="" fill sizes="(max-width: 680px) 100vw, (max-width: 1080px) 50vw, 33vw" /></div><div className="archiveCardCopy"><p className="archiveCardStatus">{projectLabel(project)}</p><h3>{project.title}</h3>{project.summary && <p>{project.summary}</p>}<span className="archiveCardAction">View project <ArrowRight size={16} aria-hidden="true" /></span></div></Link></article>)}</div> : <div className="homeShell homeProjectsEmpty" data-reveal="text"><p className="homeEyebrow">Current research is being prepared.</p><Link className="homeTextLink" href="/research-projects">Explore our research <ArrowRight size={16} /></Link></div>}
       </section>
 
       <section className="homeNews" aria-labelledby="news-title">

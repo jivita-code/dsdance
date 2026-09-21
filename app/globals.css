@@ -130,7 +130,7 @@ p { text-wrap: pretty; }
 .archiveCard:hover .archiveCardImage img { scale: 1.025; filter: saturate(.95) contrast(1.02); }
 .archiveCardCopy { padding: clamp(1.35rem, 1.75vw, 1.8rem); display: flex; flex: 1; flex-direction: column; align-items: flex-start; }
 .archiveCardStatus { margin: 0 0 1rem; color: var(--gold); font-family: var(--body); font-size: .7rem; font-weight: 800; letter-spacing: .16em; line-height: 1.2; text-transform: uppercase; }
-.archiveCardCopy h2 { margin: 0 0 1rem; color: var(--pearl); font-size: clamp(2rem, 2.4vw, 2.65rem); letter-spacing: -.035em; }
+.archiveCardCopy h2, .archiveCardCopy h3 { margin: 0 0 1rem; color: var(--pearl); font-size: clamp(2rem, 2.4vw, 2.65rem); letter-spacing: -.035em; }
 .archiveCardCopy > p:not(.archiveCardStatus) { margin: 0 0 1.4rem; color: #c5c7ca; font-size: .96rem; line-height: 1.72; }
 .archiveCardAction { margin-top: auto; display: inline-flex; align-items: center; gap: .55rem; padding-top: .25rem; border-bottom: 1px solid var(--gold); color: var(--gold); font-size: .7rem; font-weight: 800; letter-spacing: .14em; line-height: 1.9; text-transform: uppercase; transition: color 180ms ease, border-color 180ms ease; }
 .archiveCard:hover .archiveCardAction { border-color: var(--pearl); color: var(--pearl); }
@@ -492,7 +492,7 @@ p { text-wrap: pretty; }
   .researchProjectCopy { padding: 1.35rem; }
   .researchProjectCopy h2 { font-size: clamp(2rem, 9vw, 2.45rem); }
   .archiveCardCopy { padding: 1.35rem; }
-  .archiveCardCopy h2 { font-size: clamp(2rem, 9vw, 2.45rem); }
+  .archiveCardCopy h2, .archiveCardCopy h3 { font-size: clamp(2rem, 9vw, 2.45rem); }
   .listingCard { gap: 2rem; padding-bottom: 3.5rem; }
   .listingMedia { min-height: 270px; }
   .listingCopy h2 { font-size: clamp(1.8rem, 8vw, 2.25rem); }
