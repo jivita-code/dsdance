@@ -7,6 +7,8 @@ const areasOfInterest = [
   "Residency Programs",
   "Workshops & Training",
   "Research Collaborator",
+  "Research Project",
+  "Research Assistant",
   "Community Engagement",
   "Volunteer/Supporter",
   "International Exchange",
