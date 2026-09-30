@@ -24,6 +24,14 @@ The API key is used only by the server-side inquiry route. Do not add it to `NEX
 
 The browser posts to `/api/inquiries`; that route validates the request, attaches the key and an idempotency identifier, and forwards it to JPanel. Successful submissions appear in the JPanel Inquiries dashboard as either `Contact` or `Join Us`.
 
+## 2027 Screen Dance Festival submissions
+
+The Upcoming Projects page uses the supplied 2027 festival announcement for its deadline, eligibility, and application process. Other upcoming project cards remain sourced from published JPanel records. The existing `dance-on-camera` JPanel record still describes the older 2026 call and should be updated in JPanel before its detail page is promoted as current.
+
+The announcement does not include the Stage 1 Google Form URL or a submission fee. Set `UPCOMING_SUBMISSION_URL` to the confirmed Google Forms URL (`https://docs.google.com/forms/...` or `https://forms.gle/...`) when it is ready, then restart/redeploy the website. Until then the Submit button is visibly disabled; no placeholder destination or old 2026 form is used. The URL is a public destination, not a secret.
+
+The confirmed proposal deadline is **14 December 2026 at 23:59 CET**. Festival screening dates and venues have not yet been announced. If these details change, update `content/upcoming.ts` and the JPanel project record together to keep the website consistent.
+
 ## Zoho email delivery
 
 JPanel remains the source of truth for inquiries. Once JPanel accepts a submission, the website can send an internal notification and a visitor acknowledgement through Zoho Mail.
