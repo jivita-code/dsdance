@@ -1,17 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ExternalLink } from "lucide-react";
-import { projectCover } from "@/components/content/content-images";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
 import { upcomingFestival } from "@/content/upcoming";
-import { getContent } from "@/lib/get-content";
-
-const phases = [
-  { label: "All projects", href: "/research-projects" },
-  { label: "Ongoing", href: "/research-projects/ongoing" },
-  { label: "Past", href: "/research-projects/past" },
-  { label: "Upcoming", href: "/research-projects/upcoming" },
-] as const;
 
 function googleFormUrl(value: string | undefined) {
   if (!value) return null;
@@ -34,10 +24,7 @@ function SubmitButton({ url }: { url: string | null }) {
     : <button className="upcomingSubmit isDisabled" type="button" disabled aria-describedby="submission-status">{label}</button>;
 }
 
-export async function UpcomingProjectIndex() {
-  const content = await getContent();
-  const projects = content.projects.filter((item) => item.contentType === "RESEARCH_PROJECT" && item.projectPhase === "UPCOMING");
-  const otherProjects = projects.filter((item) => item.slug !== "dance-on-camera");
+export function DanceOnCameraDetail() {
   const submissionUrl = googleFormUrl(process.env.UPCOMING_SUBMISSION_URL);
   const festival = upcomingFestival;
 
@@ -53,9 +40,7 @@ export async function UpcomingProjectIndex() {
 
       <section className="upcomingMain" aria-labelledby="upcoming-title">
         <div className="siteShell">
-          <nav className="upcomingPhaseNav" aria-label="Research project phases">
-            {phases.map((phase) => <Link href={phase.href} aria-current={phase.label === "Upcoming" ? "page" : undefined} className={phase.label === "Upcoming" ? "isActive" : ""} key={phase.href}>{phase.label}</Link>)}
-          </nav>
+          <Link className="upcomingBack" href="/research-projects/upcoming"><ArrowLeft size={16} aria-hidden="true" /> Back to upcoming projects</Link>
 
           <div className="upcomingIntro" id="festival">
             <div data-reveal="text">
@@ -127,7 +112,6 @@ export async function UpcomingProjectIndex() {
         </div>
       </section>
 
-      {otherProjects.length > 0 && <section className="upcomingMore" aria-labelledby="upcoming-more-title"><div className="siteShell"><div className="upcomingMoreHeading" data-reveal="text"><p className="eyebrow gold">Beyond the festival</p><h2 id="upcoming-more-title">More upcoming projects</h2></div><div className="upcomingMoreGrid">{otherProjects.map((item, index) => <article className="upcomingMoreCard" data-reveal="card" data-reveal-delay={String(index % 4)} key={item.slug}><Link href={"/research-projects/" + item.slug} aria-label={"View project: " + item.title}><div className="upcomingMoreImage"><Image src={projectCover(item)} alt="" fill sizes="(max-width: 680px) 100vw, 50vw" /></div><div className="upcomingMoreCopy"><p className="eyebrow gold">Upcoming project</p><h3>{item.title}</h3>{item.summary && <p>{item.summary}</p>}<span>Explore project <ExternalLink size={15} aria-hidden="true" /></span></div></Link></article>)}</div></div></section>}
     </main>
   );
 }

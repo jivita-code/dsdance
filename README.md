@@ -26,7 +26,7 @@ The browser posts to `/api/inquiries`; that route validates the request, attache
 
 ## 2027 Screen Dance Festival submissions
 
-The Upcoming Projects page uses the supplied 2027 festival announcement for its deadline, eligibility, and application process. Other upcoming project cards remain sourced from published JPanel records. The existing `dance-on-camera` JPanel record still describes the older 2026 call and should be updated in JPanel before its detail page is promoted as current.
+Upcoming Projects remains a card listing sourced from published JPanel records. The Dance on Camera card opens its dedicated `/research-projects/dance-on-camera` detail page, which uses the supplied 2027 festival announcement for its deadline, eligibility, and application process. Its card title and summary use the updated announcement while the older `dance-on-camera` JPanel record still describes the 2026 call; update that record in JPanel to remove the discrepancy at the source.
 
 The announcement does not include the Stage 1 Google Form URL or a submission fee. Set `UPCOMING_SUBMISSION_URL` to the confirmed Google Forms URL (`https://docs.google.com/forms/...` or `https://forms.gle/...`) when it is ready, then restart/redeploy the website. Until then the Submit button is visibly disabled; no placeholder destination or old 2026 form is used. The URL is a public destination, not a secret.
 

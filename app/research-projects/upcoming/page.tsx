@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { UpcomingProjectIndex } from "@/components/content/upcoming-project-index";
+import { ResearchProjectIndex } from "@/components/content/research-project-index";
 
 export const metadata: Metadata = { title: "Upcoming Projects" };
 export const dynamic = "force-dynamic";
-export default function UpcomingProjectsPage() { return <UpcomingProjectIndex />; }
+export default function UpcomingProjectsPage() { return <ResearchProjectIndex title="Upcoming Projects" phase="UPCOMING" image="/images/home/project-textile.png" />; }
