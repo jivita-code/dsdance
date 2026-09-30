@@ -26,9 +26,9 @@ The browser posts to `/api/inquiries`; that route validates the request, attache
 
 ## Upcoming project submissions
 
-Upcoming Projects is a card listing sourced from published JPanel records. The Dance on Camera detail page uses that record's title, summary, cover, content fields, timeline, location, and gallery media; no festival wording or dates are stored in the website code. Update the existing 2026 Dance on Camera record in JPanel to publish the current announcement.
+Upcoming Projects is a card listing sourced from published JPanel records. Every upcoming card opens the same editorial detail layout, populated with that record's title, summary, cover, content fields, timeline, location, and gallery media. No project wording or dates are stored in the website code. Update the existing 2026 Dance on Camera record in JPanel to publish the current announcement.
 
-When the proposal form is ready, paste its full HTTPS URL into the Dance on Camera project's **Live project URL** field in JPanel. The detail page then shows a Submit proposal button linking to it. If the URL is blank or invalid, the button is omitted. Published content refreshes from JPanel on the normal CMS revalidation interval; no website deployment is needed for content or link changes.
+When the proposal form is ready, paste its full HTTPS URL into the Dance on Camera project's **Live project URL** field in JPanel. Its detail page then shows a Submit proposal button linking to it. Other upcoming projects with a Live project URL show a Visit project button. If the URL is blank or invalid, the button is omitted. Published content refreshes from JPanel on the normal CMS revalidation interval; no website deployment is needed for content or link changes.
 
 JPanel remains the source of truth for any deadlines, categories, fees, rules, and other project details. Add those as populated JSON content fields in the project record; the detail page displays them as sections.
 

@@ -8,11 +8,12 @@ import { PageHero } from "@/components/ui/page-hero";
 import { contentText } from "@/lib/get-content";
 import type { Project } from "@/types/content";
 
-function SubmitLink({ url, className = "" }: { url: string; className?: string }) {
-  return <a className={"upcomingSubmit " + className} href={url} target="_blank" rel="noopener noreferrer" aria-label="Submit proposal (opens in a new tab)">Submit proposal <ArrowRight size={18} aria-hidden="true" /></a>;
+function ProjectLink({ url, label, className = "" }: { url: string; label: string; className?: string }) {
+  return <a className={"upcomingSubmit " + className} href={url} target="_blank" rel="noopener noreferrer" aria-label={label + " (opens in a new tab)"}>{label} <ArrowRight size={18} aria-hidden="true" /></a>;
 }
 
-export function DanceOnCameraDetail({ item }: { item: Project }) {
+export function UpcomingProjectDetail({ item }: { item: Project }) {
+  const actionLabel = item.slug === "dance-on-camera" ? "Submit proposal" : "Visit project";
   const entries = orderedProjectContentEntries(item.content);
   const media = projectMedia(item);
   const body = item.content.body;
@@ -32,7 +33,7 @@ export function DanceOnCameraDetail({ item }: { item: Project }) {
     <div className="upcomingHeroWrap">
       <PageHero
         className="upcomingHero"
-        eyebrow="RESEARCH PROJECT"
+        eyebrow="UPCOMING PROJECT"
         title={item.title}
         body={item.summary || undefined}
         image={projectCover(item)}
@@ -57,7 +58,7 @@ export function DanceOnCameraDetail({ item }: { item: Project }) {
             {locations.length > 0 && <div><dt>Location</dt><dd>{locations.map((location, index) => <span key={index}>{location}</span>)}</dd></div>}
             {item.tags?.length ? <div><dt>Focus</dt><dd>{item.tags.join(" · ")}</dd></div> : null}
           </dl>}
-          {item.projectUrl && <SubmitLink url={item.projectUrl} />}
+          {item.projectUrl && <ProjectLink url={item.projectUrl} label={actionLabel} />}
           {links.length > 0 && <div className="upcomingLinks">{links.map(([label, href]) => <a key={label} href={href} target="_blank" rel="noopener noreferrer">{label}<ExternalLink size={15} aria-hidden="true" /></a>)}</div>}
         </aside>
       </div>
@@ -66,10 +67,10 @@ export function DanceOnCameraDetail({ item }: { item: Project }) {
         <div className="upcomingInformationHeading">
           <p className="eyebrow gold">02 — Project information</p>
           <h2 id="upcoming-information-title">Explore the project</h2>
-          {item.projectUrl && <SubmitLink url={item.projectUrl} className="upcomingRailSubmit" />}
+          {item.projectUrl && <ProjectLink url={item.projectUrl} label={actionLabel} className="upcomingRailSubmit" />}
         </div>
         <div className="upcomingInformationBody">
-          {item.projectUrl && <div className="upcomingMobileAction"><SubmitLink url={item.projectUrl} /></div>}
+          {item.projectUrl && <div className="upcomingMobileAction"><ProjectLink url={item.projectUrl} label={actionLabel} /></div>}
           <ContentSections entries={entries} />
         </div>
       </section>}

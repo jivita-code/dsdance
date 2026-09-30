@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { DanceOnCameraDetail } from "@/components/content/dance-on-camera-detail";
+import { UpcomingProjectDetail } from "@/components/content/upcoming-project-detail";
 import { ProjectDetail } from "@/components/content/project-detail";
 import { getContent } from "@/lib/get-content";
 
@@ -19,7 +19,7 @@ export default async function ResearchProjectPage({ params }: ProjectPageProps) 
   const content = await getContent();
   const item = content.projects.find((project) => project.contentType === "RESEARCH_PROJECT" && project.slug === slug);
   if (!item) notFound();
-  if (slug === "dance-on-camera") return <DanceOnCameraDetail item={item} />;
+  if (item.projectPhase === "UPCOMING") return <UpcomingProjectDetail item={item} />;
   const related = content.projects.filter((project) => project.contentType === "RESEARCH_PROJECT" && project.slug !== item.slug).sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0)).slice(0, 3);
   return <ProjectDetail item={item} back="/research-projects" related={related} />;
 }

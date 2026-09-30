@@ -1,4 +1,4 @@
-/* Dance on Camera: editorial project detail, populated entirely by JPanel. */
+/* Upcoming project detail: shared editorial layout populated by JPanel. */
 .upcomingPage { background: var(--pearl); color: var(--ink); }
 .upcomingHeroWrap { position: relative; background: var(--ink); }
 .upcomingHero { min-height: 650px; }
