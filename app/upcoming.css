@@ -27,7 +27,10 @@
 .upcomingLinks a:hover { text-decoration: underline; text-underline-offset: .2em; }
 .upcomingInformation { display: grid; grid-template-columns: minmax(210px, .55fr) minmax(0, 1.45fr); gap: clamp(3rem, 7vw, 7rem); padding-block: clamp(4rem, 7vw, 7rem); border-top: 1px solid var(--line-light); }
 .upcomingInformationHeading { position: sticky; top: 7rem; align-self: start; }
-.upcomingInformation .contentSections { min-width: 0; }
+.upcomingInformationBody, .upcomingInformation .contentSections { min-width: 0; }
+.upcomingRailSubmit { margin-top: 2rem; background: var(--ink); color: var(--gold); border-color: var(--ink); }
+.upcomingRailSubmit:hover { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+.upcomingMobileAction { display: none; }
 .upcomingGallery { padding-block: clamp(4rem, 7vw, 7rem) 0; border-top: 1px solid var(--line-light); }
 .upcomingGallery > div:first-child { margin-bottom: clamp(2rem, 4vw, 4rem); }
 @media (max-width: 860px) {
@@ -36,6 +39,10 @@
   .upcomingIntro, .upcomingInformation { grid-template-columns: 1fr; }
   .upcomingCallout { max-width: 620px; }
   .upcomingInformationHeading { position: static; }
+  .upcomingRailSubmit { display: none; }
+  .upcomingMobileAction { position: sticky; z-index: 8; top: 78px; display: block; margin-bottom: 1.5rem; padding: .75rem 0; border-bottom: 1px solid var(--line-light); background: var(--pearl); }
+  .upcomingMobileAction .upcomingSubmit { width: 100%; min-height: 48px; justify-content: space-between; margin-top: 0; background: var(--ink); color: var(--gold); border-color: var(--ink); }
+  .upcomingMobileAction .upcomingSubmit:hover { background: var(--gold); color: var(--ink); }
 }
 @media (max-width: 600px) {
   .upcomingHero { min-height: 570px; }

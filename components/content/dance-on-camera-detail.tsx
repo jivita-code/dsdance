@@ -8,6 +8,10 @@ import { PageHero } from "@/components/ui/page-hero";
 import { contentText } from "@/lib/get-content";
 import type { Project } from "@/types/content";
 
+function SubmitLink({ url, className = "" }: { url: string; className?: string }) {
+  return <a className={"upcomingSubmit " + className} href={url} target="_blank" rel="noopener noreferrer" aria-label="Submit proposal (opens in a new tab)">Submit proposal <ArrowRight size={18} aria-hidden="true" /></a>;
+}
+
 export function DanceOnCameraDetail({ item }: { item: Project }) {
   const entries = orderedProjectContentEntries(item.content);
   const media = projectMedia(item);
@@ -53,17 +57,21 @@ export function DanceOnCameraDetail({ item }: { item: Project }) {
             {locations.length > 0 && <div><dt>Location</dt><dd>{locations.map((location, index) => <span key={index}>{location}</span>)}</dd></div>}
             {item.tags?.length ? <div><dt>Focus</dt><dd>{item.tags.join(" · ")}</dd></div> : null}
           </dl>}
-          {item.projectUrl && <a className="upcomingSubmit" href={item.projectUrl} target="_blank" rel="noopener noreferrer">Submit proposal <ArrowRight size={18} aria-hidden="true" /></a>}
+          {item.projectUrl && <SubmitLink url={item.projectUrl} />}
           {links.length > 0 && <div className="upcomingLinks">{links.map(([label, href]) => <a key={label} href={href} target="_blank" rel="noopener noreferrer">{label}<ExternalLink size={15} aria-hidden="true" /></a>)}</div>}
         </aside>
       </div>
 
       {entries.length > 0 && <section className="upcomingInformation" aria-labelledby="upcoming-information-title">
-        <div className="upcomingInformationHeading" data-reveal="text">
+        <div className="upcomingInformationHeading">
           <p className="eyebrow gold">02 — Project information</p>
           <h2 id="upcoming-information-title">Explore the project</h2>
+          {item.projectUrl && <SubmitLink url={item.projectUrl} className="upcomingRailSubmit" />}
         </div>
-        <ContentSections entries={entries} />
+        <div className="upcomingInformationBody">
+          {item.projectUrl && <div className="upcomingMobileAction"><SubmitLink url={item.projectUrl} /></div>}
+          <ContentSections entries={entries} />
+        </div>
       </section>}
 
       {media.length > 0 && <section className="upcomingGallery" aria-labelledby="upcoming-gallery-title">
