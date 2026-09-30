@@ -36,18 +36,25 @@ export default async function Home() {
   return (
     <main className="homePage">
       <section className="homeHero" aria-labelledby="home-title">
-        <Image className="homeHeroImage" src="/images/home/hero.png" alt="Contemporary dancers in a dance research rehearsal" fill priority sizes="100vw" />
-        <div className="homeHeroShade" />
+        <Image className="homeHeroBackdrop" src="/images/home/hero-archive-v2.webp" alt="" fill priority sizes="100vw" />
+        <div className="homeHeroShade" aria-hidden="true" />
+        <Image className="homeHeroDancer" src="/images/home/hero-dancer-v2.webp" alt="Contemporary dancer reaching through an expressive movement" width={1024} height={1536} priority sizes="(max-width: 560px) 90vw, (max-width: 860px) 65vw, 50vw" />
+        <div className="homeHeroVeil" aria-hidden="true" />
+        <div className="homeHeroRail" aria-hidden="true">
+          <div className="homeHeroRailLetters"><span>D</span><span>S</span><span>D</span><span>R</span><span>L</span></div>
+          <span className="homeHeroRailLine" />
+          <p>London based<br />Global perspective</p>
+        </div>
+        <p className="homeHeroThemes">Research <span>Movement</span> Impact</p>
+        <p className="homeHeroSideNote" aria-hidden="true">People · Practice · Research</p>
         <div className="homeShell homeHeroLayout">
-          <div className="homeHeroCopy" data-load>
-            <p className="homeEyebrow">Dance · Research · Performance</p>
-            <h1 id="home-title">{content.hero.title}</h1>
+          <div className="homeHeroCopy">
+            <p className="homeHeroKicker">DS Dance Research Lab</p>
+            <h1 id="home-title" aria-label={content.hero.title}><span>DS Dance</span><span>Research Lab</span></h1>
             <span className="homeRule" />
             <p className="homeHeroStatement">{content.hero.statement}</p>
-            <p className="homeLocation">{content.hero.location}</p>
-            <Link href="/join-us" className="homeButton">{content.hero.cta}<ArrowRight size={16} /></Link>
+            <div className="homeHeroActions"><Link href="/who-we-are" className="homeHeroExplore">{content.hero.cta}<ArrowRight size={19} aria-hidden="true" /></Link></div>
           </div>
-          <p className="homeHeroIndex" aria-hidden="true">01 / 07</p>
         </div>
       </section>
 
