@@ -35,7 +35,7 @@ function normalizedFieldName(value: string) {
     .toLowerCase();
 }
 
-function orderedProjectContentEntries(content: Record<string, unknown>) {
+export function orderedProjectContentEntries(content: Record<string, unknown>) {
   const controlFields = new Set(["type", "status", "timeline", "locations", "location", "tags", "body", "links"]);
   const knownSections = new Map<string, { label: string; order: number }>(projectSectionOrder.map(([field, label], index) => [field, { label, order: index }]));
   knownSections.set("dancefilm", { label: "Dance Film", order: 11 });

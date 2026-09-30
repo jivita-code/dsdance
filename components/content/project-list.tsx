@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { projectCover } from "@/components/content/content-images";
-import { upcomingFestival } from "@/content/upcoming";
 import type { Project } from "@/types/content";
 
 type ProjectListProps = {
@@ -16,22 +15,15 @@ function phaseLabel(item: Project) {
   return item.projectPhase ? `${item.projectPhase[0]}${item.projectPhase.slice(1).toLowerCase()} project` : item.contentType.replace("_", " ");
 }
 
-function projectCardCopy(item: Project) {
-  if (item.slug === "dance-on-camera" && item.projectPhase === "UPCOMING") {
-    return { title: upcomingFestival.title, summary: upcomingFestival.introduction };
-  }
-  return { title: item.title, summary: item.summary };
-}
 
 export function ProjectList({ items, prefix, emptyTitle = "Research Projects", layout = "editorial" }: ProjectListProps) {
   if (!items.length) return <section className="emptyState"><p className="eyebrow gold">CONTENT COMING SOON</p><h2>{emptyTitle}</h2></section>;
 
   if (layout === "research-grid") return <div className="researchProjectGrid">{items.map((item, index) => {
-    const copy = projectCardCopy(item);
     return <article className="researchProjectCard" data-reveal="card" data-reveal-delay={String(index % 4)} key={item.slug}>
-      <Link className="researchProjectLink" href={`${prefix}/${item.slug}`} aria-label={`View project: ${copy.title}`}>
+      <Link className="researchProjectLink" href={`${prefix}/${item.slug}`} aria-label={`View project: ${item.title}`}>
         <div className="researchProjectImage"><Image src={projectCover(item)} alt="" fill sizes="(max-width: 680px) 100vw, (max-width: 1080px) 50vw, 33vw" /></div>
-        <div className="researchProjectCopy"><p className="researchProjectStatus">{phaseLabel(item)}</p><h2>{copy.title}</h2>{copy.summary && <p className="researchProjectSummary">{copy.summary}</p>}<span className="researchProjectAction">View project <ArrowRight size={16} aria-hidden="true" /></span></div>
+        <div className="researchProjectCopy"><p className="researchProjectStatus">{phaseLabel(item)}</p><h2>{item.title}</h2>{item.summary && <p className="researchProjectSummary">{item.summary}</p>}<span className="researchProjectAction">View project <ArrowRight size={16} aria-hidden="true" /></span></div>
       </Link>
     </article>;
   })}</div>;

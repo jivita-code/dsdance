@@ -24,13 +24,13 @@ The API key is used only by the server-side inquiry route. Do not add it to `NEX
 
 The browser posts to `/api/inquiries`; that route validates the request, attaches the key and an idempotency identifier, and forwards it to JPanel. Successful submissions appear in the JPanel Inquiries dashboard as either `Contact` or `Join Us`.
 
-## 2027 Screen Dance Festival submissions
+## Upcoming project submissions
 
-Upcoming Projects remains a card listing sourced from published JPanel records. The Dance on Camera card opens its dedicated `/research-projects/dance-on-camera` detail page, which uses the supplied 2027 festival announcement for its deadline, eligibility, and application process. Its card title and summary use the updated announcement while the older `dance-on-camera` JPanel record still describes the 2026 call; update that record in JPanel to remove the discrepancy at the source.
+Upcoming Projects is a card listing sourced from published JPanel records. The Dance on Camera detail page uses that record's title, summary, cover, content fields, timeline, location, and gallery media; no festival wording or dates are stored in the website code. Update the existing 2026 Dance on Camera record in JPanel to publish the current announcement.
 
-The announcement does not include the Stage 1 Google Form URL or a submission fee. Set `UPCOMING_SUBMISSION_URL` to the confirmed Google Forms URL (`https://docs.google.com/forms/...` or `https://forms.gle/...`) when it is ready, then restart/redeploy the website. Until then the Submit button is visibly disabled; no placeholder destination or old 2026 form is used. The URL is a public destination, not a secret.
+When the proposal form is ready, paste its full HTTPS URL into the Dance on Camera project's **Live project URL** field in JPanel. The detail page then shows a Submit proposal button linking to it. If the URL is blank or invalid, the button is omitted. Published content refreshes from JPanel on the normal CMS revalidation interval; no website deployment is needed for content or link changes.
 
-The confirmed proposal deadline is **14 December 2026 at 23:59 CET**. Festival screening dates and venues have not yet been announced. If these details change, update `content/upcoming.ts` and the JPanel project record together to keep the website consistent.
+JPanel remains the source of truth for any deadlines, categories, fees, rules, and other project details. Add those as populated JSON content fields in the project record; the detail page displays them as sections.
 
 ## Zoho email delivery
 
