@@ -36,7 +36,7 @@ export default async function Home() {
   return (
     <main className="homePage">
       <section className="homeHero" aria-labelledby="home-title">
-        <Image className="homeHeroBackdrop" src="/images/home/hero-archive-v2.webp" alt="" fill priority sizes="100vw" />
+        <Image className="homeHeroBackdrop" src="/images/home/hero-archive-reference.png" alt="" fill priority sizes="100vw" />
         <div className="homeHeroShade" aria-hidden="true" />
         <Image className="homeHeroDancer" src="/images/home/hero-dancer-v2.webp" alt="Contemporary dancer reaching through an expressive movement" width={1024} height={1536} priority sizes="(max-width: 560px) 90vw, (max-width: 860px) 65vw, 50vw" />
         <div className="homeHeroVeil" aria-hidden="true" />
