@@ -76,6 +76,32 @@
 .homeValue > p:not(.homeEyebrow) { max-width: 570px; margin: 0; color: #d8dade; font-size: 1.0625rem; line-height: 1.75; }
 .homeValue > p:not(.homeEyebrow) + p:not(.homeEyebrow) { margin-top: 1rem; }
 
+.homeFilm { padding-block: var(--section-space); background: var(--pearl); color: var(--ink); }
+.homeFilmHeading { display: flex; align-items: flex-end; justify-content: space-between; gap: 3rem; margin-bottom: clamp(2.5rem, 4vw, 3.75rem); }
+.homeFilmHeading h2 { max-width: 900px; margin: 0; font-size: clamp(3rem, 5.5vw, 5.75rem); line-height: .9; }
+.homeFilmHeading > p { max-width: 300px; margin: 0 0 .2rem; color: #505055; font-size: 1rem; line-height: 1.65; }
+.homeFilmPlayer { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #090909; color: var(--pearl); isolation: isolate; }
+.homeFilmPlayer::after { content: ""; position: absolute; z-index: 1; inset: 55% 0 0; background: linear-gradient(transparent, rgba(0, 0, 0, .76)); pointer-events: none; }
+.homeFilmVideo { display: block; width: 100%; height: 100%; object-fit: contain; }
+.homeFilmTopline { position: absolute; z-index: 2; top: 1.5rem; left: 1.75rem; right: 1.75rem; display: flex; justify-content: space-between; gap: 1rem; color: #f1e8da; font-size: .68rem; font-weight: 800; letter-spacing: .2em; text-shadow: 0 1px 8px #000; text-transform: uppercase; pointer-events: none; }
+.homeFilmPlay { position: absolute; z-index: 3; top: 50%; left: 50%; display: grid; width: clamp(72px, 8vw, 104px); aspect-ratio: 1; place-items: center; padding: 0; translate: -50% -50%; border: 1px solid var(--gold); border-radius: 50%; background: rgba(11, 11, 12, .76); color: var(--gold); box-shadow: 0 0 0 12px rgba(11, 11, 12, .2); transition: background-color 200ms ease, color 200ms ease, scale 200ms ease; }
+.homeFilmPlay svg { margin-left: 3px; }
+.homeFilmPlay:hover { scale: 1.06; background: var(--gold); color: var(--ink); }
+.homeFilmControls { position: absolute; z-index: 3; right: 1.5rem; bottom: 1rem; left: 1.5rem; display: flex; min-height: 48px; align-items: center; gap: .8rem; }
+.homeFilmControls button { display: grid; width: 44px; height: 44px; flex: 0 0 auto; place-items: center; padding: 0; border: 0; background: transparent; color: #f8f3ea; transition: color 180ms ease; }
+.homeFilmControls button:hover { color: var(--gold); }
+.homeFilmTime { min-width: 2.35rem; color: #e5ded2; font-size: .72rem; font-variant-numeric: tabular-nums; text-align: center; }
+.homeFilmSeek { width: 100%; min-width: 0; height: 30px; flex: 1; appearance: none; -webkit-appearance: none; border: 0; background: transparent; cursor: pointer; }
+.homeFilmSeek::-webkit-slider-runnable-track { height: 3px; background: linear-gradient(to right, var(--gold) var(--video-progress), rgba(255, 255, 255, .55) var(--video-progress)); }
+.homeFilmSeek::-moz-range-track { height: 3px; background: rgba(255, 255, 255, .55); }
+.homeFilmSeek::-moz-range-progress { height: 3px; background: var(--gold); }
+.homeFilmSeek::-webkit-slider-thumb { width: 12px; height: 12px; margin-top: -4.5px; appearance: none; -webkit-appearance: none; border: 2px solid var(--gold); border-radius: 50%; background: var(--ink); }
+.homeFilmSeek::-moz-range-thumb { width: 9px; height: 9px; border: 2px solid var(--gold); border-radius: 50%; background: var(--ink); }
+.homeFilmSeek:disabled { cursor: default; opacity: .65; }
+.homeFilmError { position: absolute; z-index: 4; top: 50%; left: 50%; width: min(90%, 380px); margin: 0; padding: 1.5rem; translate: -50% -50%; background: rgba(10, 10, 11, .93); color: var(--pearl); text-align: center; }
+.homeFilmError a { color: var(--gold); text-decoration: underline; }
+.homeFilmPlayer:fullscreen { aspect-ratio: auto; }
+
 .homeMentor { padding-block: var(--section-space); background: var(--graphite); }
 .homeMentorGrid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(350px, .85fr); gap: clamp(4rem, 9vw, 9rem); align-items: center; }
 .homeMentorCopy { padding-block: 2rem; }
@@ -243,4 +269,19 @@
 
 @media (prefers-reduced-motion: reduce) {
   .motion-enabled [data-reveal], [data-load] { opacity: 1; translate: none; scale: 1; animation: none; transition: none; }
+}
+
+@media (max-width: 860px) {
+  .homeFilmHeading { display: block; }
+  .homeFilmHeading > p { max-width: 580px; margin-top: 1.25rem; }
+}
+
+@media (max-width: 560px) {
+  .homeFilmHeading h2 { font-size: clamp(2.7rem, 11vw, 3.8rem); }
+  .homeFilmHeading > p { font-size: .95rem; }
+  .homeFilmTopline { top: .65rem; right: .8rem; left: .8rem; font-size: .55rem; }
+  .homeFilmControls { right: .25rem; bottom: .15rem; left: .25rem; gap: .15rem; }
+  .homeFilmControls button { width: 36px; height: 40px; }
+  .homeFilmTime { min-width: 2rem; font-size: .64rem; }
+  .homeFilmPlay { width: 64px; box-shadow: 0 0 0 8px rgba(11, 11, 12, .2); }
 }

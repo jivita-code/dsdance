@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { projectCover } from "@/components/content/content-images";
+import HomeIntroPlayer from "@/components/home/home-intro-player";
 import { homeContent } from "@/content/home";
 import { getContent } from "@/lib/get-content";
 import type { Project } from "@/types/content";
@@ -69,6 +70,16 @@ export default async function Home() {
         <div className="homeShell homeValuesGrid">
           <article className="homeValue"><div className="homeValueImage" data-reveal="image"><Image src="/images/home/vision.png" alt="Solo dancer exploring an expansive movement" fill sizes="(max-width: 760px) 100vw, 43vw" /></div><p className="homeEyebrow" data-reveal="text">03 — Direction</p><h2 data-reveal="text">Our Vision</h2><p data-reveal="text">{content.vision}</p></article>
           <article className="homeValue homeMission"><div className="homeValueImage" data-reveal="image"><Image src="/images/home/mission.png" alt="Dancers collaborating in a movement research studio" fill sizes="(max-width: 760px) 100vw, 43vw" /></div><p className="homeEyebrow" data-reveal="text">04 — Practice</p><h2 data-reveal="text">Our Mission</h2>{content.mission.map((paragraph) => <p data-reveal="text" key={paragraph}>{paragraph}</p>)}</article>
+        </div>
+      </section>
+
+      <section className="homeFilm" aria-labelledby="home-film-title">
+        <div className="homeShell">
+          <div className="homeFilmHeading" data-reveal="text">
+            <div><p className="homeEyebrow">The lab in motion</p><h2 id="home-film-title">An introduction to DSDRL</h2></div>
+            <p>Discover the ideas, people, and movement behind DS Dance Research Lab.</p>
+          </div>
+          <HomeIntroPlayer />
         </div>
       </section>
 
