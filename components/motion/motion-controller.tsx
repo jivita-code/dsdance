@@ -7,28 +7,37 @@ const REVEAL_SELECTOR = "[data-reveal]";
 export function MotionController() {
   useEffect(() => {
     const root = document.documentElement;
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-    if (reducedMotion || !("IntersectionObserver" in window)) {
+    if (!("IntersectionObserver" in window)) {
       root.classList.remove("motion-enabled");
       document.querySelectorAll<HTMLElement>(REVEAL_SELECTOR).forEach((element) => element.classList.add("is-visible"));
       return;
     }
 
+    const reveal = (element: Element) => {
+      element.classList.add("is-visible");
+      element.classList.remove("is-pending");
+      observer.unobserve(element);
+    };
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-visible");
-        entry.target.classList.remove("is-pending");
-        observer.unobserve(entry.target);
+        reveal(entry.target);
       });
-    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+    }, { threshold: 0, rootMargin: "0px 0px -32px 0px" });
 
     const register = (element: HTMLElement) => {
-      if (element.classList.contains("is-visible")) return;
+      if (element.classList.contains("is-visible") || element.classList.contains("is-pending")) return;
+      // Animate a content group once instead of stacking motion on its children.
+      if (motionPreference.matches || element.parentElement?.closest(REVEAL_SELECTOR)) {
+        reveal(element);
+        return;
+      }
       const bounds = element.getBoundingClientRect();
-      if (bounds.bottom <= 0 || (bounds.top < window.innerHeight * .92 && bounds.bottom > 0)) {
-        element.classList.add("is-visible");
+      if (bounds.bottom <= 0 || bounds.top < window.innerHeight) {
+        reveal(element);
         return;
       }
       element.classList.add("is-pending");
@@ -41,18 +50,52 @@ export function MotionController() {
     };
 
     registerTree(document);
-    root.classList.add("motion-enabled");
+    root.classList.toggle("motion-enabled", !motionPreference.matches);
     const mutations = new MutationObserver((records) => {
       records.forEach((record) => record.addedNodes.forEach((node) => {
         if (node instanceof HTMLElement || node instanceof DocumentFragment) registerTree(node);
       }));
+      records.forEach((record) => record.removedNodes.forEach((node) => {
+        if (!(node instanceof HTMLElement) || node.isConnected) return;
+        observer.unobserve(node);
+        node.querySelectorAll(REVEAL_SELECTOR).forEach((element) => observer.unobserve(element));
+      }));
     });
     mutations.observe(document.body, { childList: true, subtree: true });
+
+    const revealTarget = (target: Element | null) => {
+      let pending = target?.closest<HTMLElement>("[data-reveal].is-pending");
+      while (pending) {
+        // Keyboard focus and anchor navigation should never wait for an animation.
+        pending.style.setProperty("--reveal-delay", "0ms");
+        pending.style.setProperty("--reveal-duration", "0ms");
+        reveal(pending);
+        pending = pending.parentElement?.closest<HTMLElement>("[data-reveal].is-pending");
+      }
+    };
+    const onFocus = (event: FocusEvent) => {
+      if (event.target instanceof Element) revealTarget(event.target);
+    };
+    const onHashChange = () => {
+      try { revealTarget(document.getElementById(decodeURIComponent(window.location.hash.slice(1)))); } catch { /* Ignore malformed external hashes. */ }
+    };
+    const onPreferenceChange = () => {
+      root.classList.toggle("motion-enabled", !motionPreference.matches);
+      if (motionPreference.matches) document.querySelectorAll(REVEAL_SELECTOR).forEach(reveal);
+    };
+    document.addEventListener("focusin", onFocus);
+    window.addEventListener("hashchange", onHashChange);
+    motionPreference.addEventListener("change", onPreferenceChange);
+    onHashChange();
 
     return () => {
       mutations.disconnect();
       observer.disconnect();
+      document.removeEventListener("focusin", onFocus);
+      window.removeEventListener("hashchange", onHashChange);
+      motionPreference.removeEventListener("change", onPreferenceChange);
       root.classList.remove("motion-enabled");
+      document.querySelectorAll(REVEAL_SELECTOR).forEach((element) => element.classList.remove("is-pending"));
     };
   }, []);
 

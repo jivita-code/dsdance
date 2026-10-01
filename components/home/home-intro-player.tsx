@@ -70,7 +70,7 @@ export default function HomeIntroPlayer() {
   }
 
   return (
-    <div className="homeFilmPlayer" ref={playerRef}>
+    <div className="homeFilmPlayer" ref={playerRef} data-reveal="image">
       <video
         ref={videoRef}
         className="homeFilmVideo"
