@@ -30,6 +30,9 @@ export function MotionController() {
 
     const register = (element: HTMLElement) => {
       if (element.classList.contains("is-visible") || element.classList.contains("is-pending")) return;
+      // Next.js streams CMS pages into hidden containers before moving them into
+      // the page. A hidden node has no layout yet: do not reveal it prematurely.
+      if (element.getClientRects().length === 0) return;
       // Animate a content group once instead of stacking motion on its children.
       if (motionPreference.matches || element.parentElement?.closest(REVEAL_SELECTOR)) {
         reveal(element);
@@ -51,17 +54,26 @@ export function MotionController() {
 
     registerTree(document);
     root.classList.toggle("motion-enabled", !motionPreference.matches);
+    let registrationFrame = 0;
+    const scheduleRegistration = () => {
+      if (registrationFrame) return;
+      registrationFrame = window.requestAnimationFrame(() => {
+        registrationFrame = 0;
+        registerTree(document);
+      });
+    };
     const mutations = new MutationObserver((records) => {
-      records.forEach((record) => record.addedNodes.forEach((node) => {
-        if (node instanceof HTMLElement || node instanceof DocumentFragment) registerTree(node);
-      }));
+      // Batch registration after streaming scripts and React finish placing the
+      // content, when its viewport position can be measured correctly.
+      scheduleRegistration();
       records.forEach((record) => record.removedNodes.forEach((node) => {
         if (!(node instanceof HTMLElement) || node.isConnected) return;
         observer.unobserve(node);
         node.querySelectorAll(REVEAL_SELECTOR).forEach((element) => observer.unobserve(element));
       }));
     });
-    mutations.observe(document.body, { childList: true, subtree: true });
+    mutations.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ["hidden"] });
+    window.addEventListener("resize", scheduleRegistration, { passive: true });
 
     const revealTarget = (target: Element | null) => {
       let pending = target?.closest<HTMLElement>("[data-reveal].is-pending");
@@ -91,6 +103,8 @@ export function MotionController() {
     return () => {
       mutations.disconnect();
       observer.disconnect();
+      window.cancelAnimationFrame(registrationFrame);
+      window.removeEventListener("resize", scheduleRegistration);
       document.removeEventListener("focusin", onFocus);
       window.removeEventListener("hashchange", onHashChange);
       motionPreference.removeEventListener("change", onPreferenceChange);

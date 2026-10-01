@@ -213,7 +213,8 @@
 @media (max-width: 860px) {
   .homeHero { min-height: max(760px, 100svh); }
   .homeHero::before { display: none; }
-  .homeHeroDancer { right: -15%; bottom: -10%; height: 92%; opacity: .88; }
+  .homeHeroRail { display: none; }
+  .homeHeroDancer { right: 1rem; bottom: 2rem; height: calc(100% - 124px); opacity: .92; }
   .homeHeroLayout { padding-inline: 12vw 1.5rem; }
   .homeHeroCopy { max-width: 72vw; padding-top: 4rem; }
   .homeHero h1 { font-size: clamp(4.25rem, 10vw, 6rem); }
@@ -235,15 +236,15 @@
 }
 
 @media (max-width: 560px) {
-  .homeHero { min-height: max(760px, 100svh); align-items: flex-end; }
+  .homeHero { min-height: max(760px, 100svh); align-items: flex-end; padding-top: calc(94px + env(safe-area-inset-top) + clamp(400px, 118vw, 600px)); }
   .homeHeroBackdrop { object-position: 63% center; }
-  .homeHeroDancer { right: -33%; bottom: 23%; height: 70%; opacity: .9; }
-  .homeHeroVeil { background: linear-gradient(0deg, #080809 5%, rgba(8, 8, 9, .94) 29%, rgba(8, 8, 9, .45) 62%, transparent 90%); }
+  .homeHeroDancer { top: calc(88px + env(safe-area-inset-top)); left: 50%; right: auto; bottom: auto; width: auto; height: clamp(400px, 118vw, 600px); translate: -50% 0; opacity: 1; }
+  .homeHeroVeil { background: linear-gradient(0deg, #080809 0%, rgba(8, 8, 9, .94) 32%, transparent 62%); }
   .homeHeroRail { top: 6.5rem; bottom: auto; left: 1.25rem; }
   .homeHeroRailLetters { display: flex; gap: .2rem; font-size: 2.1rem; letter-spacing: .05em; }
   .homeHeroRailLine, .homeHeroRail p, .homeHeroThemes, .homeHeroSideNote { display: none; }
   .homeHeroLayout { padding-inline: 1.25rem; }
-  .homeHeroCopy { max-width: 100%; padding: 0 0 3rem; }
+  .homeHeroCopy { width: 100%; max-width: 100%; padding: 1rem 0 2.5rem; }
   .homeHeroKicker { margin-bottom: .8rem; font-size: .6rem; letter-spacing: .24em; }
   .homeHero h1 { font-size: clamp(3.6rem, 14.5vw, 5rem); line-height: .84; }
   .homeHero h1 span { white-space: normal; }

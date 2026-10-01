@@ -87,16 +87,16 @@ export default async function Home() {
         <div className="homeShell">
           <div className="homeVoicesHeading" data-reveal="text"><p className="homeEyebrow">05 — Perspectives</p><h2 id="voices-title">Voices from the Lab</h2></div>
           <div className="homeVoicesGrid">
-            <article className="homeVoiceCard" data-reveal="text">
+            <article className="homeVoiceCard">
               <div className="homeVoicePerson"><div className="homeVoicePortrait" data-reveal="image"><Image src="/images/home/founder-portrait.png" alt="Dhanushka Seneviratne" fill sizes="104px" /></div><div><p>Founder &amp; Artistic Director</p><h3>{content.founder.name}</h3></div></div>
-              <div className="homeVoiceMessage">{content.founder.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
-              <ul className="homeVoiceCredentials">{content.founder.credentials.map((credential) => <li key={credential}>{credential}</li>)}</ul>
+              <div className="homeVoiceMessage">{content.founder.paragraphs.map((paragraph) => <p data-reveal="text" key={paragraph}>{paragraph}</p>)}</div>
+              <ul className="homeVoiceCredentials" data-reveal="text">{content.founder.credentials.map((credential) => <li key={credential}>{credential}</li>)}</ul>
               <Link className="homeTextLink" href="/founder">Meet Dhanushka <ArrowRight size={16} /></Link>
             </article>
-            <article className="homeVoiceCard" data-reveal="text" data-reveal-delay="1">
+            <article className="homeVoiceCard">
               <div className="homeVoicePerson"><div className="homeVoicePortrait" data-reveal="image"><Image src="/images/home/mentor-portrait.png" alt="Dr Jacek Ludwig Scarso" fill sizes="104px" /></div><div><p>Mentor</p><h3>{content.mentor.name}</h3></div></div>
-              <div className="homeVoiceMessage">{content.mentor.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
-              <ul className="homeVoiceCredentials">{content.mentor.credentials.map((credential) => <li key={credential}>{credential}</li>)}</ul>
+              <div className="homeVoiceMessage">{content.mentor.paragraphs.map((paragraph) => <p data-reveal="text" key={paragraph}>{paragraph}</p>)}</div>
+              <ul className="homeVoiceCredentials" data-reveal="text">{content.mentor.credentials.map((credential) => <li key={credential}>{credential}</li>)}</ul>
             </article>
           </div>
         </div>
