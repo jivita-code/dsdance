@@ -72,6 +72,7 @@
 .homeValueImage { position: relative; min-height: 420px; margin-bottom: 2.5rem; overflow: hidden; }
 .homeValueImage img, .homeProjectVisual img { object-fit: cover; }
 .homeMission { padding-top: 6.5rem; }
+.homeMission .homeValueImage { min-height: 0; aspect-ratio: 3 / 2; }
 .homeValue h2 { margin: 0 0 1.5rem; color: var(--gold); font-size: clamp(3rem, 4.25vw, 3.75rem); line-height: .9; }
 .homeValue > p:not(.homeEyebrow) { max-width: 570px; margin: 0; color: #d8dade; font-size: 1.0625rem; line-height: 1.75; }
 .homeValue > p:not(.homeEyebrow) + p:not(.homeEyebrow) { margin-top: 1rem; }
