@@ -50,6 +50,7 @@
 .upcomingFieldPreamble { margin-bottom: 1.35rem; }
 .upcomingInlineLink { display: inline-flex; align-items: baseline; gap: .2rem; color: #795f36; text-decoration: underline; text-underline-offset: .2em; overflow-wrap: anywhere; }
 .upcomingField--feature .upcomingInlineLink { color: var(--gold); }
+.upcomingProposalLink { display: flex; width: fit-content; max-width: 100%; margin-top: .65rem; text-decoration: none; }
 .upcomingBulletList { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 1.4rem; margin: 0; padding: 0; list-style: none; }
 .upcomingBulletList li { min-width: 0; padding: .2rem 0 .2rem 1rem; border-left: 2px solid #a98a57; line-height: 1.65; }
 .upcomingStages { margin: 0; padding: 0; list-style: none; }

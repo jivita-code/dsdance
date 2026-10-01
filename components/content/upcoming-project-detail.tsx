@@ -54,24 +54,28 @@ function ProjectLink({ url, label, className = "" }: { url: string; label: strin
   return <a className={"upcomingSubmit " + className} href={url} target="_blank" rel="noopener noreferrer" aria-label={label + " (opens in a new tab)"}>{label} <ArrowRight size={18} aria-hidden="true" /></a>;
 }
 
-function InlineLinks({ text }: { text: string }) {
+function InlineLinks({ text, proposalUrl }: { text: string; proposalUrl?: string }) {
   return <>{text.split(/(https?:\/\/[^\s]+|www\.[^\s]+|[\w.+-]+@[\w.-]+\.[a-z]{2,})/gi).map((part, index) => {
     if (/^[\w.+-]+@[\w.-]+\.[a-z]{2,}$/i.test(part)) return <a className="upcomingInlineLink" href={"mailto:" + part} key={index}>{part}</a>;
     const href = part.toLowerCase().startsWith("www.") ? "https://" + part : part;
+    if (href === proposalUrl && isSafeExternalUrl(href)) return <ProjectLink url={href} label="Submit proposal" className="upcomingProposalLink" key={index} />;
     return isSafeExternalUrl(href)
       ? <a className="upcomingInlineLink" href={href} target="_blank" rel="noopener noreferrer" key={index}>{part}<ExternalLink size={13} aria-hidden="true" /></a>
       : part;
   })}</>;
 }
 
-function ProjectText({ value }: { value: string }) {
-  return <>{value.trim().split(/(?:\r?\n\s*)+|[ \t]{2,}/).map((paragraph, index) => paragraph.trim() && <p key={index}><InlineLinks text={paragraph.trim()} /></p>)}</>;
+function ProjectText({ value, proposalUrl }: { value: string; proposalUrl?: string }) {
+  return <>{value.trim().split(/(?:\r?\n\s*)+|[ \t]{2,}/).map((paragraph, index) => paragraph.trim() && <p key={index}><InlineLinks text={paragraph.trim()} proposalUrl={proposalUrl} /></p>)}</>;
 }
 
 function ProjectFieldValue({ section }: { section: ProjectSection }) {
   const value = section.value;
   if (typeof value !== "string") return <StructuredValue value={value} />;
 
+  const proposalUrl = /submit.*proposal/i.test(section.label)
+    ? value.match(/https?:\/\/[^\s]+|www\.[^\s]+/gi)?.map((url) => url.toLowerCase().startsWith("www.") ? "https://" + url : url).find(isSafeExternalUrl)
+    : undefined;
   if (section.kind === "steps") {
     const stages = value.trim().split(/(?=Stage\s+\d+\s*[—–:-])/gi).map((part) => part.trim()).filter(Boolean);
     if (stages.length > 0 && stages.every((part) => /^Stage\s+\d+\s*[—–:-]/i.test(part))) {
@@ -87,10 +91,10 @@ function ProjectFieldValue({ section }: { section: ProjectSection }) {
   if (markers && markers.length >= 2) {
     const parts = value.split(/[●•👉]\s*/).map((part) => part.trim()).filter(Boolean);
     const hasPreamble = !/^\s*[●•👉]/.test(value);
-    return <>{hasPreamble && parts[0] && <div className="upcomingFieldPreamble"><ProjectText value={parts[0]} /></div>}<ul className="upcomingBulletList">{parts.slice(hasPreamble ? 1 : 0).map((part, index) => <li key={index}><InlineLinks text={part} /></li>)}</ul></>;
+    return <>{hasPreamble && parts[0] && <div className="upcomingFieldPreamble"><ProjectText value={parts[0]} proposalUrl={proposalUrl} /></div>}<ul className="upcomingBulletList">{parts.slice(hasPreamble ? 1 : 0).map((part, index) => <li key={index}><InlineLinks text={part} proposalUrl={proposalUrl} /></li>)}</ul></>;
   }
 
-  return <ProjectText value={value} />;
+  return <ProjectText value={value} proposalUrl={proposalUrl} />;
 }
 
 export function UpcomingProjectDetail({ item }: { item: Project }) {
