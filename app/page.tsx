@@ -50,7 +50,7 @@ export default async function Home() {
         <p className="homeHeroSideNote" aria-hidden="true">People · Practice · Research</p>
         <div className="homeShell homeHeroLayout">
           <div className="homeHeroCopy">
-            <p className="homeHeroKicker">DS Dance Research Lab</p>
+            <p className="homeHeroKicker">Where Dance Meets Discovery</p>
             <h1 id="home-title" aria-label={content.hero.title}><span>DS Dance</span><span>Research Lab</span></h1>
             <span className="homeRule" />
             <p className="homeHeroStatement">{content.hero.statement}</p>

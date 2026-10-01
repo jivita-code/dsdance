@@ -23,8 +23,12 @@
 .homeHeroCopy { max-width: min(900px, 66vw); padding-top: 2rem; }
 .homeHeroThemes { position: absolute; z-index: 2; top: 9.5%; left: 10.9vw; display: grid; gap: .6rem; margin: 0; color: #aaa7a2; font-size: .76rem; font-weight: 600; letter-spacing: .34em; line-height: 1.4; text-transform: uppercase; }
 .homeHeroKicker { margin: 0 0 1.1rem; color: #e6e1d9; font-size: .94rem; font-weight: 600; letter-spacing: .44em; line-height: 1.5; text-transform: uppercase; }
-.homeHero h1 { max-width: 900px; margin: 0; color: #ead4ad; font-size: clamp(7rem, 9.6vw, 10.5rem); letter-spacing: -.055em; line-height: .75; text-shadow: 0 .35rem 1.4rem rgba(0, 0, 0, .2); }
-.homeHero h1 span { display: block; width: fit-content; white-space: nowrap; background: linear-gradient(110deg, #f7e8c9 0%, #e6c38c 23%, #fff0d1 43%, #bb8e56 69%, #efd6a5 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.homeHero h1 { max-width: 900px; margin: 0; color: #ead4ad; font-size: clamp(7rem, 9.6vw, 10.5rem); letter-spacing: -.045em; line-height: .94; text-shadow: 0 .35rem 1.4rem rgba(0, 0, 0, .2); }
+/* Give tall ascenders and serif overhangs room inside the text paint box. */
+.homeHero h1 span { display: block; width: fit-content; padding: .1em .06em .14em; margin: -.1em -.06em -.14em; white-space: nowrap; }
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  .homeHero h1 span { background: linear-gradient(165deg, #f6e8cd 0%, #ecd5aa 40%, #d8b780 75%, #c8a169 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+}
 .homeHero .homeRule { width: 101px; height: 2px; margin: 2.2rem 0 1.65rem; }
 .homeHeroStatement { max-width: 610px; margin: 0; color: #d8d4d0; font-size: clamp(1.45rem, 1.9vw, 2rem); font-weight: 400; line-height: 1.4; }
 .homeHeroActions { display: flex; align-items: center; margin-top: 2.7rem; }
@@ -211,7 +215,7 @@
 }
 
 @media (max-width: 860px) {
-  .homeHero { min-height: max(760px, 100svh); }
+  .homeHero { min-height: 100svh; }
   .homeHero::before { display: none; }
   .homeHeroRail { display: none; }
   .homeHeroDancer { right: 1rem; bottom: 2rem; height: calc(100% - 124px); opacity: .92; }
@@ -236,17 +240,19 @@
 }
 
 @media (max-width: 560px) {
-  .homeHero { min-height: max(760px, 100svh); align-items: flex-end; padding-top: calc(94px + env(safe-area-inset-top) + clamp(400px, 118vw, 600px)); }
+  /* Layer the artwork behind the copy instead of reserving a second screen for it.
+     min-height keeps the first view full-screen while allowing enlarged text to grow. */
+  .homeHero { min-height: 100svh; align-items: flex-end; padding-top: calc(102px + env(safe-area-inset-top)); padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
   .homeHeroBackdrop { object-position: 63% center; }
-  .homeHeroDancer { top: calc(88px + env(safe-area-inset-top)); left: 50%; right: auto; bottom: auto; width: auto; height: clamp(400px, 118vw, 600px); translate: -50% 0; opacity: 1; }
-  .homeHeroVeil { background: linear-gradient(0deg, #080809 0%, rgba(8, 8, 9, .94) 32%, transparent 62%); }
+  .homeHeroDancer { top: calc(88px + env(safe-area-inset-top)); left: 50%; right: auto; bottom: auto; width: auto; height: min(80svh, 155vw); translate: -50% 0; opacity: 1; }
+  .homeHeroVeil { background: linear-gradient(0deg, #080809 0%, rgba(8, 8, 9, .96) 24%, rgba(8, 8, 9, .76) 44%, rgba(8, 8, 9, .12) 68%, transparent 82%); }
   .homeHeroRail { top: 6.5rem; bottom: auto; left: 1.25rem; }
   .homeHeroRailLetters { display: flex; gap: .2rem; font-size: 2.1rem; letter-spacing: .05em; }
   .homeHeroRailLine, .homeHeroRail p, .homeHeroThemes, .homeHeroSideNote { display: none; }
   .homeHeroLayout { padding-inline: 1.25rem; }
-  .homeHeroCopy { width: 100%; max-width: 100%; padding: 1rem 0 2.5rem; }
+  .homeHeroCopy { width: 100%; max-width: 100%; padding: 0; }
   .homeHeroKicker { margin-bottom: .8rem; font-size: .6rem; letter-spacing: .24em; }
-  .homeHero h1 { font-size: clamp(3.6rem, 14.5vw, 5rem); line-height: .84; }
+  .homeHero h1 { font-size: clamp(3rem, 13.8vw, 4.6rem); line-height: .94; }
   .homeHero h1 span { white-space: normal; }
   .homeHero .homeRule { width: 70px; margin: 1.5rem 0 1rem; }
   .homeHeroStatement { max-width: 350px; font-size: 1.05rem; line-height: 1.5; }
