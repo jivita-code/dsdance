@@ -26,11 +26,11 @@ The browser posts to `/api/inquiries`; that route validates the request, attache
 
 ## Upcoming project submissions
 
-Upcoming Projects is a card listing sourced from published JPanel records. Every upcoming card opens the same editorial detail layout, populated with that record's title, summary, cover, content fields, timeline, location, and gallery media. No project wording or dates are stored in the website code. Update the existing 2026 Dance on Camera record in JPanel to publish the current announcement.
+Upcoming Projects is a card listing sourced from published JPanel records. Every upcoming card opens the same editorial detail layout, populated with that record's title, summary, cover, content fields, timeline, location, and gallery media. No project wording or dates are stored in the website code. The published festival is now the `international-screen-dance-festival-uk-sl-2027` record.
 
-When the proposal form is ready, paste its full HTTPS URL into the Dance on Camera project's **Live project URL** field in JPanel. Its detail page then shows a Submit proposal button linking to it. Other upcoming projects with a Live project URL show a Visit project button. If the URL is blank or invalid, the button is omitted. Published content refreshes from JPanel on the normal CMS revalidation interval; no website deployment is needed for content or link changes.
+The **Live project URL** field powers the external action button. Records with a call-for-entries or proposal section show Submit proposal; other upcoming projects show Visit project. If the URL is blank or invalid, the button is omitted. Published content refreshes from JPanel on the normal CMS revalidation interval; no website deployment is needed for content or link changes.
 
-JPanel remains the source of truth for any deadlines, categories, fees, rules, and other project details. Add those as populated JSON content fields in the project record; the detail page displays them as sections.
+JPanel remains the source of truth for deadlines, categories, fees, rules, and other project details. The page builds its navigation from populated fields, displays `Stage 1 —`-style process text as numbered steps, and turns `●`, `•`, or `👉`-marked items into lists. Unknown fields still render as readable sections. A Categories & Fees section appears only if that field is populated; the current festival record does not publish a fee. The festival timeline currently contains the conflicting phrase `23:59 CET UK time)`; correct it in JPanel rather than overriding it in website code.
 
 ## Zoho email delivery
 
