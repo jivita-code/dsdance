@@ -167,8 +167,15 @@ p { text-wrap: pretty; }
 .whoWeAreRule { display: block; width: 96px; height: 1px; background: var(--gold); }
 
 /* Founder — long-form profile */
-.founderHero .pageHeroImage { object-position: 58% 36%; filter: saturate(.68) contrast(1.06) brightness(.62); }
-.founderHero::after { background: linear-gradient(90deg, rgba(16, 17, 19, .92) 0%, rgba(16, 17, 19, .66) 48%, rgba(16, 17, 19, .3) 100%); }
+.founderHero .pageHeroImage { object-position: center; filter: saturate(.75) contrast(1.05) brightness(.9); }
+.founderHero::after { background: linear-gradient(90deg, rgba(16, 17, 19, .75) 0%, rgba(16, 17, 19, .45) 48%, rgba(16, 17, 19, .15) 100%); }
+.founderHero .pageHeroContent { width: min(1050px, 95%); }
+.founderHero .pageHeroIdentity { display: flex; align-items: center; gap: 1.5rem; }
+.founderHero .pageHeroIdentity > div:last-child { min-width: 0; }
+.founderHero .pageHeroPortrait { position: relative; flex: 0 0 104px; width: 104px; height: 104px; overflow: hidden; border: 1px solid var(--gold); border-radius: 50%; background: var(--graphite); }
+.founderHero .pageHeroPortrait img { object-fit: cover; object-position: center 28%; }
+.founderHero .pageHeroIdentity .eyebrow { margin-bottom: .85rem; }
+.founderHero .pageHeroIdentity h1 { margin: 0; font-size: clamp(3rem, 4.5vw, 4.5rem); line-height: 1.05; }
 .founderIntroduction { padding: clamp(7rem, 11vw, 11rem) 0; display: grid; grid-template-columns: minmax(260px, .62fr) minmax(0, 1.38fr); gap: clamp(4rem, 10vw, 11rem); align-items: start; }
 .founderIntroduction h2 { max-width: 420px; margin: 0; font-size: clamp(3.25rem, 5vw, 5.6rem); letter-spacing: -.055em; }
 .founderLead { max-width: 820px; margin: 0; font-size: clamp(1.18rem, 1.65vw, 1.4rem); line-height: 1.8; }
@@ -541,6 +548,11 @@ p { text-wrap: pretty; }
   .whoWeAreClosing { padding-block: 5rem; }
   .whoWeAreClosing p { margin-top: 1.75rem; font-size: clamp(2.45rem, 11.5vw, 3.25rem); }
   .founderIntroduction, .founderScholarship { padding-block: 5rem; }
+  .founderHero .pageHeroContent { width: 100%; }
+  .founderHero .pageHeroIdentity { gap: 1rem; align-items: flex-start; }
+  .founderHero .pageHeroPortrait { flex-basis: 72px; width: 72px; height: 72px; }
+  .founderHero .pageHeroIdentity .eyebrow { font-size: .6rem; line-height: 1.6; }
+  .founderHero .pageHeroIdentity h1 { font-size: clamp(2rem, 7.5vw, 3rem); }
   .founderIntroduction h2 { font-size: clamp(3.1rem, 14vw, 4rem); }
   .founderLead, .founderResearchGrid > p, .founderScholarshipCopy > p:not(.eyebrow) { font-size: 1.05rem; line-height: 1.78; }
   .founderResearchGrid { padding-block: 5rem; gap: 2.5rem; }
