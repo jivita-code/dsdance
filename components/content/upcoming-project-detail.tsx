@@ -23,23 +23,55 @@ function sectionKind(label: string): ProjectSection["kind"] {
   return "default";
 }
 
-function sectionPriority(label: string) {
-  const name = label.toLowerCase();
-  if (/festival overview|^context$|^overview$/.test(name)) return 0;
-  if (/call for entries/.test(name)) return 1;
-  if (/categories|fees/.test(name)) return 2;
-  if (/submission process|application process|how to apply/.test(name)) return 3;
-  if (/rules|terms|eligibility/.test(name)) return 4;
-  if (/screening locations|venues/.test(name)) return 5;
-  if (/submit.*proposal/.test(name)) return 6;
-  return 7;
+type ProjectDocumentOrder = "festival" | "research-community" | "artist-platform";
+
+function documentOrderFor(item: Project, entries: [string, unknown][]): ProjectDocumentOrder | null {
+  const signals = [item.title, item.summary, ...(item.tags ?? []), ...entries.map(([label]) => label)].filter(Boolean).join(" ");
+  if (/screen dance festival|call for entries|proposal submission/i.test(signals)) return "festival";
+  if (/dance researchers?|researchers['’]? community|research community/i.test(signals)) return "research-community";
+  if (/emerging artists?|artist platform/i.test(signals)) return "artist-platform";
+  return null;
 }
 
-function projectSections(content: Record<string, unknown>): ProjectSection[] {
+const documentSectionOrders: Record<ProjectDocumentOrder, RegExp[]> = {
+  festival: [
+    /festival overview|^overview$/i,
+    /call for entries/i,
+    /screening locations|venues/i,
+    /submission process|application process|how to apply/i,
+    /key rules|rules|terms|eligibility/i,
+    /submit.*proposal/i,
+  ],
+  "research-community": [
+    /about.*platform|^overview$/i,
+    /purpose and scope/i,
+    /core offerings/i,
+    /^vision$|global vision/i,
+    /join the community/i,
+    /sign.?up|registration/i,
+    /contact us|contact/i,
+  ],
+  "artist-platform": [
+    /about the platform/i,
+    /purpose and scope|who is this for/i,
+    /what you can do here/i,
+    /global vision|connecting .* creativity to the world/i,
+    /core offerings|what we provide/i,
+    /call to action|be part of the movement|join the movement/i,
+    /sign.?up|registration/i,
+    /contact us|contact/i,
+  ],
+};
+
+function projectSections(item: Project): ProjectSection[] {
+  const content = item.content;
   const entries = orderedProjectContentEntries(content);
-  const isFestival = entries.some(([label]) => /festival overview|call for entries|submission process/i.test(label));
-  const ordered = isFestival
-    ? entries.map((entry, index) => ({ entry, index })).sort((a, b) => sectionPriority(a.entry[0]) - sectionPriority(b.entry[0]) || a.index - b.index).map(({ entry }) => entry)
+  const documentOrder = documentOrderFor(item, entries);
+  const preferredSections = documentOrder ? documentSectionOrders[documentOrder] : null;
+  const ordered = preferredSections
+    ? entries.map((entry, index) => ({ entry, index, priority: preferredSections.findIndex((pattern) => pattern.test(entry[0])) }))
+      .sort((a, b) => (a.priority < 0 ? preferredSections.length : a.priority) - (b.priority < 0 ? preferredSections.length : b.priority) || a.index - b.index)
+      .map(({ entry }) => entry)
     : entries;
 
   return ordered.map(([label, value], index) => ({
@@ -98,7 +130,7 @@ function ProjectFieldValue({ section }: { section: ProjectSection }) {
 }
 
 export function UpcomingProjectDetail({ item }: { item: Project }) {
-  const sections = projectSections(item.content);
+  const sections = projectSections(item);
   const projectSignals = [item.title, item.summary, ...(item.tags ?? []), ...sections.map((section) => section.label)]
     .filter(Boolean)
     .join(" ");
