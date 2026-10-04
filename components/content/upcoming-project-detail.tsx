@@ -99,7 +99,16 @@ function ProjectFieldValue({ section }: { section: ProjectSection }) {
 
 export function UpcomingProjectDetail({ item }: { item: Project }) {
   const sections = projectSections(item.content);
-  const actionLabel = sections.some((section) => /submit.*proposal|call for entries/i.test(section.label)) ? "Submit proposal" : "Visit project";
+  const projectSignals = [item.title, item.summary, ...(item.tags ?? []), ...sections.map((section) => section.label)]
+    .filter(Boolean)
+    .join(" ");
+  const actionLabel = /submit.*proposal|call for entries/i.test(projectSignals)
+    ? "Submit proposal"
+    : /dance researchers?|research community|researchers['’]? community|scholars?/i.test(projectSignals)
+      ? "Join the community"
+      : /emerging artists?|artist platform|register|application|open call|festival/i.test(projectSignals)
+        ? "Register"
+        : "Visit project";
   const media = projectMedia(item);
   const body = item.content.body;
   const timeline = contentText(item.content.timeline);
