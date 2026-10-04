@@ -360,10 +360,11 @@ p { text-wrap: pretty; }
 .footerBase > div:not(.footerBrand) a { transition: color 180ms ease, translate 180ms ease; }
 .footerBase > div:not(.footerBrand) a:hover { color: var(--gold); translate: .18rem 0; }
 .footerBrand { gap: .4rem !important; }
-.footerLogos { min-height: 86px; display: flex; align-items: center; gap: 1.1rem; }
-.footerLogos img { display: block; object-fit: contain; object-position: left center; mix-blend-mode: screen; }
+.footerLogos { min-height: 86px; width: 100%; max-width: 100%; display: flex; flex-wrap: nowrap; align-items: center; gap: 1.1rem; }
+.footerLogos img { display: block; min-width: 0; flex: 0 1 auto; object-fit: contain; object-position: left center; mix-blend-mode: screen; }
 .footerLogos img:first-child { width: 230px; height: 86px; }
-.footerLogos img:last-child { width: 108px; height: 76px; }
+.footerLogos img:last-child { width: 134px; height: 100px; }
+.footerLogos img[src$=".svg"] { mix-blend-mode: normal; }
 .footerBrand p { margin: 0; color: var(--gold); font-family: var(--display); font-size: 1.35rem; font-style: italic; }
 .footerSocial { margin-top: 1.75rem; }
 .footerSocial b { display: block; margin-bottom: .8rem; }
@@ -581,7 +582,7 @@ p { text-wrap: pretty; }
   .footerBrand { grid-column: auto; }
   .footerLogos { gap: .85rem; }
   .footerLogos img:first-child { width: 180px; height: 72px; }
-  .footerLogos img:last-child { width: 80px; height: 58px; }
+  .footerLogos img:last-child { width: 110px; height: 82px; }
 }
 
 /* Project documentation uses a natural-height masonry layout so photography is never cropped. */
