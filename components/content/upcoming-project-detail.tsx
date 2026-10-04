@@ -125,8 +125,9 @@ export function UpcomingProjectDetail({ item }: { item: Project }) {
 
   return <article className="upcomingPage">
     <div className="upcomingHeroWrap">
-      <PageHero className="upcomingHero" eyebrow="UPCOMING PROJECT" title={item.title} body={item.summary || undefined} image={projectCover(item)} />
-      <Link className="upcomingBack" href="/research-projects/upcoming"><ArrowLeft size={16} aria-hidden="true" /> Back to upcoming projects</Link>
+      <PageHero className="upcomingHero" eyebrow="UPCOMING PROJECT" title={item.title} body={item.summary || undefined} image={projectCover(item)} beforeContent={
+        <Link className="upcomingBack" href="/research-projects/upcoming"><ArrowLeft size={16} aria-hidden="true" /> Back to upcoming projects</Link>
+      } />
     </div>
 
     <div className="siteShell upcomingMain">

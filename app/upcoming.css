@@ -6,7 +6,7 @@
 .upcomingHero .pageHeroImage { object-position: center 45%; filter: saturate(.7) contrast(1.06) brightness(.78); }
 .upcomingHero .pageHeroContent { width: min(850px, 80%); }
 .upcomingHero .pageHeroContent h1 { font-size: clamp(3.6rem, 5.8vw, 6rem); line-height: .9; }
-.upcomingBack { position: absolute; z-index: 2; bottom: 2rem; left: max(20px, calc((100vw - 1280px) / 2)); min-height: 44px; display: inline-flex; align-items: center; gap: .7rem; border-bottom: 1px solid var(--gold); color: var(--gold); font-size: .7rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+.upcomingBack { width: fit-content; min-height: 44px; display: inline-flex; align-items: center; gap: .7rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--gold); color: var(--gold); font-size: .7rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
 .upcomingBack:hover { color: var(--pearl); border-color: var(--pearl); }
 .upcomingMain { padding-bottom: var(--section-space); }
 .upcomingIntro { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(290px, .7fr); gap: clamp(3rem, 8vw, 8rem); align-items: start; padding-block: clamp(5rem, 8vw, 8rem); }
@@ -80,7 +80,6 @@
 @media (max-width: 600px) {
   .upcomingHero { min-height: 570px; }
   .upcomingHero .pageHeroContent h1 { font-size: clamp(3rem, 11vw, 4.1rem); }
-  .upcomingBack { bottom: 1.25rem; }
   .upcomingIntro { padding-block: 4rem; }
   .upcomingInformation, .upcomingGallery { padding-block: 4rem; }
   .upcomingField { padding: 1.4rem; }
