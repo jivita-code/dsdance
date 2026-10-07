@@ -75,3 +75,25 @@ Route files should compose shared components and own only the data selection and
 ## Production
 
 Use `.env.production.example` as the deployment template. The public WordPress website remains live until the replacement has been approved and deployed to the VPS.
+
+Compose publishes exactly one application port: `WEBSITE_PORT` (default 3001).
+For production, set `SITE_URL` to the exact HTTPS website origin and bind
+`WEBSITE_BIND_ADDRESS=127.0.0.1` when the reverse proxy runs on the host. Configure
+that proxy to forward to `http://127.0.0.1:3001`, terminate TLS, redirect HTTP to
+HTTPS, and enable HSTS after HTTPS is verified. If the proxy runs in another
+container, connect it to a shared Docker network instead of using host loopback.
+Direct `0.0.0.0` publishing exposes plain HTTP and is not a complete public HTTPS deployment.
+
+Deploy with `docker compose up -d --build --wait` and confirm `docker compose ps`
+reports healthy. `/api/health` checks the web process; it does not test JPanel or
+SMTP. The container runs as a non-root user, drops capabilities, disallows
+privilege escalation, and rotates logs. Environment secrets are excluded from
+the image build context. Keep the production `.env` readable only by the deployment user.
+
+Inquiry requests enforce the configured origin, JSON input, a 32 KiB body limit,
+schema validation, a honeypot, and a 30-request/minute process-wide ceiling.
+This ceiling resets on restart and is not a distributed or per-client limiter;
+configure per-client abuse protection and request/body timeouts at the public
+reverse proxy. Do not expose the JPanel inquiry key in browser variables.
+Validate one real contact submission and email acknowledgement before launch;
+automated readiness checks intentionally do not send emails or create inquiries.
