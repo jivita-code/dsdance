@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { projectCover } from "@/components/content/content-images";
+import HomeIntroPlayer from "@/components/home/home-intro-player";
 import { homeContent } from "@/content/home";
 import { getContent } from "@/lib/get-content";
 import type { Project } from "@/types/content";
@@ -36,18 +37,25 @@ export default async function Home() {
   return (
     <main className="homePage">
       <section className="homeHero" aria-labelledby="home-title">
-        <Image className="homeHeroImage" src="/images/home/hero.png" alt="Contemporary dancers in a dance research rehearsal" fill priority sizes="100vw" />
-        <div className="homeHeroShade" />
+        <Image className="homeHeroBackdrop" src="/images/home/hero-archive-reference.png" alt="" fill priority sizes="100vw" />
+        <div className="homeHeroShade" aria-hidden="true" />
+        <Image className="homeHeroDancer" src="/images/home/hero-dancer-v2.webp" alt="Contemporary dancer reaching through an expressive movement" width={1024} height={1536} priority sizes="(max-width: 560px) 90vw, (max-width: 860px) 65vw, 50vw" />
+        <div className="homeHeroVeil" aria-hidden="true" />
+        <div className="homeHeroRail" aria-hidden="true">
+          <div className="homeHeroRailLetters"><span>D</span><span>S</span><span>D</span><span>R</span><span>L</span></div>
+          <span className="homeHeroRailLine" />
+          <p>London based<br />Global perspective</p>
+        </div>
+        <p className="homeHeroThemes">Research <span>Movement</span> Impact</p>
+        <p className="homeHeroSideNote" aria-hidden="true">People · Practice · Research</p>
         <div className="homeShell homeHeroLayout">
-          <div className="homeHeroCopy" data-load>
-            <p className="homeEyebrow">Dance · Research · Performance</p>
-            <h1 id="home-title">{content.hero.title}</h1>
+          <div className="homeHeroCopy">
+            <p className="homeHeroKicker">Where Dance Meets Discovery</p>
+            <h1 id="home-title" aria-label={content.hero.title}><span>DS Dance</span><span>Research Lab</span></h1>
             <span className="homeRule" />
             <p className="homeHeroStatement">{content.hero.statement}</p>
-            <p className="homeLocation">{content.hero.location}</p>
-            <Link href="/join-us" className="homeButton">{content.hero.cta}<ArrowRight size={16} /></Link>
+            <div className="homeHeroActions"><Link href="/who-we-are" className="homeHeroExplore">{content.hero.cta}<ArrowRight size={19} aria-hidden="true" /></Link></div>
           </div>
-          <p className="homeHeroIndex" aria-hidden="true">01 / 07</p>
         </div>
       </section>
 
@@ -61,7 +69,17 @@ export default async function Home() {
       <section className="homeValues" aria-label="Our vision and mission">
         <div className="homeShell homeValuesGrid">
           <article className="homeValue"><div className="homeValueImage" data-reveal="image"><Image src="/images/home/vision.png" alt="Solo dancer exploring an expansive movement" fill sizes="(max-width: 760px) 100vw, 43vw" /></div><p className="homeEyebrow" data-reveal="text">03 — Direction</p><h2 data-reveal="text">Our Vision</h2><p data-reveal="text">{content.vision}</p></article>
-          <article className="homeValue homeMission"><div className="homeValueImage" data-reveal="image"><Image src="/images/home/mission.png" alt="Dancers collaborating in a movement research studio" fill sizes="(max-width: 760px) 100vw, 43vw" /></div><p className="homeEyebrow" data-reveal="text">04 — Practice</p><h2 data-reveal="text">Our Mission</h2>{content.mission.map((paragraph) => <p data-reveal="text" key={paragraph}>{paragraph}</p>)}</article>
+          <article className="homeValue homeMission"><div className="homeValueImage" data-reveal="image"><Image src="/images/home/mission-motion-research.webp" alt="Dancer with gold joint-tracking points and geometric lines illustrating movement research" fill sizes="(max-width: 760px) 100vw, 43vw" /></div><p className="homeEyebrow" data-reveal="text">04 — Practice</p><h2 data-reveal="text">Our Mission</h2>{content.mission.map((paragraph) => <p data-reveal="text" key={paragraph}>{paragraph}</p>)}</article>
+        </div>
+      </section>
+
+      <section className="homeFilm" aria-labelledby="home-film-title">
+        <div className="homeShell">
+          <div className="homeFilmHeading" data-reveal="text">
+            <div><p className="homeEyebrow">The lab in motion</p><h2 id="home-film-title">An introduction to DSDRL</h2></div>
+            <p>Discover the ideas, people, and movement behind DS Dance Research Lab.</p>
+          </div>
+          <HomeIntroPlayer />
         </div>
       </section>
 
@@ -69,16 +87,16 @@ export default async function Home() {
         <div className="homeShell">
           <div className="homeVoicesHeading" data-reveal="text"><p className="homeEyebrow">05 — Perspectives</p><h2 id="voices-title">Voices from the Lab</h2></div>
           <div className="homeVoicesGrid">
-            <article className="homeVoiceCard" data-reveal="text">
+            <article className="homeVoiceCard">
               <div className="homeVoicePerson"><div className="homeVoicePortrait" data-reveal="image"><Image src="/images/home/founder-portrait.png" alt="Dhanushka Seneviratne" fill sizes="104px" /></div><div><p>Founder &amp; Artistic Director</p><h3>{content.founder.name}</h3></div></div>
-              <div className="homeVoiceMessage">{content.founder.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
-              <ul className="homeVoiceCredentials">{content.founder.credentials.map((credential) => <li key={credential}>{credential}</li>)}</ul>
+              <div className="homeVoiceMessage">{content.founder.paragraphs.map((paragraph) => <p data-reveal="text" key={paragraph}>{paragraph}</p>)}</div>
+              <ul className="homeVoiceCredentials" data-reveal="text">{content.founder.credentials.map((credential) => <li key={credential}>{credential}</li>)}</ul>
               <Link className="homeTextLink" href="/founder">Meet Dhanushka <ArrowRight size={16} /></Link>
             </article>
-            <article className="homeVoiceCard" data-reveal="text" data-reveal-delay="1">
+            <article className="homeVoiceCard">
               <div className="homeVoicePerson"><div className="homeVoicePortrait" data-reveal="image"><Image src="/images/home/mentor-portrait.png" alt="Dr Jacek Ludwig Scarso" fill sizes="104px" /></div><div><p>Mentor</p><h3>{content.mentor.name}</h3></div></div>
-              <div className="homeVoiceMessage">{content.mentor.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
-              <ul className="homeVoiceCredentials">{content.mentor.credentials.map((credential) => <li key={credential}>{credential}</li>)}</ul>
+              <div className="homeVoiceMessage">{content.mentor.paragraphs.map((paragraph) => <p data-reveal="text" key={paragraph}>{paragraph}</p>)}</div>
+              <ul className="homeVoiceCredentials" data-reveal="text">{content.mentor.credentials.map((credential) => <li key={credential}>{credential}</li>)}</ul>
             </article>
           </div>
         </div>

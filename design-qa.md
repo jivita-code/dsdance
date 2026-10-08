@@ -44,3 +44,47 @@
 ## Final result
 
 final result: blocked
+
+# Homepage hero redesign — Design QA
+
+## Comparison target
+
+- Source visual truth: image 2 in the user's latest message (1672 × 941 px), the DSDRL design reference.
+- Previous implementation evidence: image 1 in the user's latest message (1908 × 931 px), before this revision.
+- Latest implementation route: `/`; intended states: desktop, tablet, mobile, reduced motion.
+- Latest implementation screenshot path: unavailable because the in-app browser cannot open. Pixel dimensions, CSS viewport, and density normalization cannot be recorded for the latest build.
+
+## Full-view and focused comparison evidence
+
+- The provided desktop screenshots show the previous copy starting at roughly 23% of the frame width versus roughly 16% in the reference. The new CSS positions the copy at 15.8vw, but its rendered result is not captured.
+- The previous research labels were horizontal and low; the reference stacks them near the upper-left. They are now positioned against the hero frame.
+- The previous dancer pose and scale visibly differed. A new transparent dancer was generated from the reference pose, but exact person/pose fidelity requires a rendered side-by-side review.
+- The previous backdrop was sharp and flat. A newly generated plate places softly defocused archive frames behind a top-right warm light source.
+- Focused text/model regions were assessed from the two user-provided images; no post-fix focused implementation capture is available.
+
+## Required fidelity surfaces
+
+- Fonts and typography: existing Cormorant Garamond/Manrope remain; the display title now uses a warm gold text gradient and larger reference-scale type. Browser rendering unverified.
+- Spacing and layout rhythm: rail, labels, copy, CTA, and side note are anchored to viewport proportions measured from the source. Browser rendering and responsive wrapping unverified.
+- Colors and tokens: dark charcoal, champagne gold, restrained bronze light, and a separate background veil are implemented. Contrast under the final browser rasterization is unverified.
+- Image quality and asset fidelity: versioned WebP backdrop and transparent dancer are present; the optimized dancer response preserves alpha. Exact model identity cannot be guaranteed by image generation.
+- Copy and content: the reference subtitle and Explore DSDRL CTA are implemented; the site header's Join Us link remains.
+
+## Findings
+
+- [P1] Visual QA blocked: no browser is available through computer use; opening `iab` returns “Browser is not available.” No latest desktop/mobile screenshot, console check, or interaction capture can be compared with the reference.
+- [P2] Exact dancer likeness is unconfirmed: the generated cutout follows the reference silhouette and lighting but is not a literal extraction of the model.
+
+## Comparison history
+
+1. Initial hero implementation: user-provided implementation screenshot exposed copy misalignment, horizontal labels, insufficient depth, and a different dancer.
+2. This revision: regenerated both image layers; moved labels to the hero frame; aligned copy/rail/CTA to the reference; added warm gold text treatment and background depth. TypeScript, build, route, and media checks pass. Post-fix visual comparison remains blocked.
+
+## Follow-up verification
+
+- Capture the latest `/` at the reference aspect ratio and a mobile width, then compare title alignment, dancer edge/crop, background depth, CTA, and reduced-motion state.
+- Test the Explore DSDRL link and keyboard focus, and inspect the browser console.
+
+## Final result
+
+final result: blocked
