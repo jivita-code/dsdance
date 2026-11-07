@@ -179,7 +179,7 @@ p { text-wrap: pretty; }
 .founderIntroduction { padding: clamp(7rem, 11vw, 11rem) 0; display: grid; grid-template-columns: minmax(260px, .62fr) minmax(0, 1.38fr); gap: clamp(4rem, 10vw, 11rem); align-items: start; }
 .founderBiographyImage { position: relative; width: 100%; max-width: 420px; aspect-ratio: 4 / 5; overflow: hidden; background: var(--graphite); }
 .founderBiographyImage img { object-fit: cover; transform: scale(1.008); }
-.founderLead { max-width: 820px; margin: 0; font-size: clamp(1.18rem, 1.65vw, 1.4rem); line-height: 1.8; }
+.founderLead { max-width: 70ch; margin: 0; font-size: clamp(1rem, 1.15vw, 1.125rem); line-height: 1.78; }
 .founderLead strong { color: #765b30; font-weight: 800; }
 .founderResearch { background: var(--panel); color: var(--pearl); }
 .founderResearchGrid { padding: clamp(6rem, 10vw, 10rem) 0; display: grid; grid-template-columns: minmax(320px, .9fr) minmax(380px, 1.1fr); gap: clamp(2rem, 4vw, 4.5rem); align-items: center; }
@@ -190,11 +190,11 @@ p { text-wrap: pretty; }
 .founderScholarship { padding: clamp(7rem, 11vw, 11rem) 0; display: grid; grid-template-columns: minmax(80px, .18fr) minmax(0, 1fr); gap: clamp(2.5rem, 7vw, 7rem); }
 .founderScholarshipIndex { padding-top: .45rem; color: #87693c; font-family: var(--display); font-size: clamp(2.5rem, 4vw, 4rem); line-height: .8; }
 .founderScholarshipCopy { max-width: 900px; }
-.founderScholarshipCopy > p:not(.eyebrow) { margin: 0; font-size: clamp(1.1rem, 1.45vw, 1.3rem); line-height: 1.82; }
+.founderScholarshipCopy > p:not(.eyebrow) { margin: 0; font-size: clamp(1rem, 1.15vw, 1.125rem); line-height: 1.78; }
 .founderScholarshipCopy > p:not(.eyebrow) + p:not(.eyebrow) { margin-top: 2.25rem; padding-top: 2.25rem; border-top: 1px solid var(--line-light); }
 .founderClosing { padding: clamp(7rem, 11vw, 11rem) 0; background: var(--ink); color: var(--pearl); }
 .founderClosing span { display: block; width: 96px; height: 1px; background: var(--gold); }
-.founderClosing p { max-width: 1050px; margin: 2.5rem 0 0; color: var(--gold); font-family: var(--display); font-size: clamp(2.35rem, 4.25vw, 4.7rem); line-height: .98; letter-spacing: -.04em; }
+.founderClosing p { max-width: 1050px; margin: 2.5rem 0 0; color: var(--gold); font-family: var(--display); font-size: clamp(1.75rem, 2.6vw, 2.75rem); line-height: 1.18; letter-spacing: -.025em; }
 .profilePage { width: var(--shell); margin-inline: auto; padding: var(--section-space) 0; display: grid; grid-template-columns: minmax(340px, .8fr) minmax(0, 1.2fr); gap: clamp(4rem, 8vw, 8rem); align-items: start; }
 .profileImage { position: sticky; top: 110px; min-height: 680px; overflow: hidden; }
 .profileImage img { object-fit: cover; object-position: center 25%; }
@@ -561,7 +561,7 @@ p { text-wrap: pretty; }
   .founderResearchImage { min-height: 0; }
   .founderScholarshipCopy > p:not(.eyebrow) + p:not(.eyebrow) { margin-top: 1.75rem; padding-top: 1.75rem; }
   .founderClosing { padding-block: 5rem; }
-  .founderClosing p { margin-top: 1.75rem; font-size: clamp(2.45rem, 11.5vw, 3.25rem); }
+  .founderClosing p { margin-top: 1.75rem; font-size: clamp(1.65rem, 6vw, 2rem); }
   .introAside { min-height: 380px; }
   .profileImage { min-height: 520px; }
   .peopleGrid { grid-template-columns: 1fr; }
