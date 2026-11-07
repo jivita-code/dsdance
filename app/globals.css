@@ -154,16 +154,16 @@ p { text-wrap: pretty; }
 .whoWeAreIntroduction { padding: clamp(7rem, 11vw, 11rem) 0; display: grid; grid-template-columns: minmax(80px, .2fr) minmax(0, 1fr); gap: clamp(2.5rem, 7vw, 7rem); background: var(--pearl); }
 .whoWeAreIndex { padding-top: .45rem; color: #87693c; font-family: var(--display); font-size: clamp(2.5rem, 4vw, 4rem); line-height: .8; }
 .whoWeAreLead { max-width: 940px; }
-.whoWeAreLead h2 { max-width: 760px; margin: 0 0 2.5rem; color: var(--ink); font-size: clamp(3.75rem, 6.2vw, 6.5rem); letter-spacing: -.055em; }
-.whoWeAreLead > p:not(.eyebrow) { max-width: 840px; margin: 0; font-size: clamp(1.2rem, 1.8vw, 1.45rem); line-height: 1.7; }
+.whoWeAreLead h2 { max-width: 760px; margin: 0 0 2rem; color: var(--ink); font-size: clamp(2.5rem, 4vw, 4rem); line-height: 1.05; letter-spacing: -.035em; }
+.whoWeAreLead > p:not(.eyebrow) { max-width: 70ch; margin: 0; font-size: clamp(1rem, 1.15vw, 1.125rem); line-height: 1.78; }
 .whoWeArePractice { background: var(--panel); color: var(--pearl); }
 .whoWeArePracticeGrid { padding: clamp(6rem, 10vw, 10rem) 0; display: grid; grid-template-columns: minmax(280px, .72fr) minmax(0, 1fr); gap: clamp(4rem, 10vw, 11rem); align-items: center; }
 .whoWeArePortrait { position: relative; min-height: 670px; overflow: hidden; background: var(--graphite); }
 .whoWeArePortrait img { object-fit: cover; object-position: center; }
 .whoWeArePracticeCopy { max-width: 700px; }
-.whoWeArePracticeCopy > p:not(.eyebrow) { margin: 0; color: #e0e0e1; font-size: clamp(1.2rem, 1.65vw, 1.4rem); line-height: 1.78; }
+.whoWeArePracticeCopy > p:not(.eyebrow) { margin: 0; color: #e0e0e1; font-size: clamp(1rem, 1.15vw, 1.125rem); line-height: 1.78; }
 .whoWeAreClosing { padding: clamp(7rem, 11vw, 11rem) 0; background: var(--pearl); }
-.whoWeAreClosing p { max-width: 980px; margin: 2.5rem 0 0; font-family: var(--display); font-size: clamp(2.35rem, 4.25vw, 4.7rem); line-height: .98; letter-spacing: -.04em; }
+.whoWeAreClosing p { max-width: 980px; margin: 2.5rem 0 0; font-family: var(--display); font-size: clamp(1.75rem, 2.6vw, 2.75rem); line-height: 1.18; letter-spacing: -.025em; }
 .whoWeAreRule { display: block; width: 96px; height: 1px; background: var(--gold); }
 
 /* Founder — long-form profile */
@@ -544,12 +544,12 @@ p { text-wrap: pretty; }
   .advisoryCopy h2 { margin: 1rem 0 1.75rem; font-size: clamp(2.7rem, 12.5vw, 3.8rem); }
   .advisoryCopy > p:not(.eyebrow) { font-size: 1.02rem; line-height: 1.78; }
   .whoWeAreIntroduction { padding-block: 5rem; }
-  .whoWeAreLead h2 { margin-bottom: 1.75rem; font-size: clamp(3.1rem, 14vw, 4rem); }
+  .whoWeAreLead h2 { margin-bottom: 1.75rem; font-size: clamp(2.2rem, 9vw, 3rem); }
   .whoWeAreLead > p:not(.eyebrow), .whoWeArePracticeCopy > p:not(.eyebrow) { font-size: 1.05rem; line-height: 1.75; }
   .whoWeArePracticeGrid { padding-block: 5rem; gap: 2.5rem; }
   .whoWeArePortrait { min-height: 470px; }
   .whoWeAreClosing { padding-block: 5rem; }
-  .whoWeAreClosing p { margin-top: 1.75rem; font-size: clamp(2.45rem, 11.5vw, 3.25rem); }
+  .whoWeAreClosing p { margin-top: 1.75rem; font-size: clamp(1.65rem, 6vw, 2rem); }
   .founderIntroduction, .founderScholarship { padding-block: 5rem; }
   .founderHero .pageHeroContent { width: 100%; }
   .founderHero .pageHeroIdentity { gap: 1rem; align-items: flex-start; }
