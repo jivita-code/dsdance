@@ -11,6 +11,7 @@ export async function getContent(): Promise<SiteContent> {
 
   const response = await fetch(`${base}/public/sites/${encodeURIComponent(slug)}`, {
     headers: { accept: "application/json" },
+    signal: AbortSignal.timeout(10000),
     next: { revalidate: 60, tags: ["jpanel-content"] },
   });
   if (!response.ok) throw new Error(`JPanel content request failed with status ${response.status}.`);

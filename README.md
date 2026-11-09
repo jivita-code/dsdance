@@ -24,6 +24,14 @@ The API key is used only by the server-side inquiry route. Do not add it to `NEX
 
 The browser posts to `/api/inquiries`; that route validates the request, attaches the key and an idempotency identifier, and forwards it to JPanel. Successful submissions appear in the JPanel Inquiries dashboard as either `Contact` or `Join Us`.
 
+## Upcoming project submissions
+
+Upcoming Projects is a card listing sourced from published JPanel records. Every upcoming card opens the same editorial detail layout, populated with that record's title, summary, cover, content fields, timeline, location, and gallery media. No project wording or dates are stored in the website code. The published festival is now the `international-screen-dance-festival-uk-sl-2027` record.
+
+The **Live project URL** field powers the external action button. Records with a call-for-entries or proposal section show Submit proposal; other upcoming projects show Visit project. If the URL is blank or invalid, the button is omitted. Published content refreshes from JPanel on the normal CMS revalidation interval; no website deployment is needed for content or link changes.
+
+JPanel remains the source of truth for deadlines, categories, fees, rules, and other project details. The page builds its navigation from populated fields, displays `Stage 1 —`-style process text as numbered steps, and turns `●`, `•`, or `👉`-marked items into lists. Unknown fields still render as readable sections. A Categories & Fees section appears only if that field is populated; the current festival record does not publish a fee. The festival timeline currently contains the conflicting phrase `23:59 CET UK time)`; correct it in JPanel rather than overriding it in website code.
+
 ## Zoho email delivery
 
 JPanel remains the source of truth for inquiries. Once JPanel accepts a submission, the website can send an internal notification and a visitor acknowledgement through Zoho Mail.
@@ -67,3 +75,25 @@ Route files should compose shared components and own only the data selection and
 ## Production
 
 Use `.env.production.example` as the deployment template. The public WordPress website remains live until the replacement has been approved and deployed to the VPS.
+
+Compose publishes exactly one application port: `WEBSITE_PORT` (default 3001).
+For production, set `SITE_URL` to the exact HTTPS website origin and bind
+`WEBSITE_BIND_ADDRESS=127.0.0.1` when the reverse proxy runs on the host. Configure
+that proxy to forward to `http://127.0.0.1:3001`, terminate TLS, redirect HTTP to
+HTTPS, and enable HSTS after HTTPS is verified. If the proxy runs in another
+container, connect it to a shared Docker network instead of using host loopback.
+Direct `0.0.0.0` publishing exposes plain HTTP and is not a complete public HTTPS deployment.
+
+Deploy with `docker compose up -d --build --wait` and confirm `docker compose ps`
+reports healthy. `/api/health` checks the web process; it does not test JPanel or
+SMTP. The container runs as a non-root user, drops capabilities, disallows
+privilege escalation, and rotates logs. Environment secrets are excluded from
+the image build context. Keep the production `.env` readable only by the deployment user.
+
+Inquiry requests enforce the configured origin, JSON input, a 32 KiB body limit,
+schema validation, a honeypot, and a 30-request/minute process-wide ceiling.
+This ceiling resets on restart and is not a distributed or per-client limiter;
+configure per-client abuse protection and request/body timeouts at the public
+reverse proxy. Do not expose the JPanel inquiry key in browser variables.
+Validate one real contact submission and email acknowledgement before launch;
+automated readiness checks intentionally do not send emails or create inquiries.
