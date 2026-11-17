@@ -43,8 +43,46 @@ function json(message: string, status: number) {
   );
 }
 
+const maxBodyBytes = 32 * 1024;
+let submissionWindow = { start: Date.now(), count: 0 };
+
 export async function POST(request: Request) {
-  const parsed = input.safeParse(await request.json().catch(() => null));
+  const origin = request.headers.get("origin");
+  const allowedOrigin = new URL(process.env.SITE_URL || request.url).origin;
+  if ((origin && origin !== allowedOrigin) || request.headers.get("sec-fetch-site") === "cross-site") {
+    return json("This submission origin is not allowed.", 403);
+  }
+  if (request.headers.get("content-type")?.split(";")[0].trim() !== "application/json") {
+    return json("Please send a JSON request.", 415);
+  }
+  if (Date.now() - submissionWindow.start >= 60000) submissionWindow = { start: Date.now(), count: 0 };
+  if (++submissionWindow.count > 30) {
+    return NextResponse.json({ message: "Too many requests. Please try again in a minute." }, {
+      status: 429, headers: { "Cache-Control": "no-store", "Retry-After": "60" },
+    });
+  }
+  if (Number(request.headers.get("content-length")) > maxBodyBytes) return json("Submission is too large.", 413);
+  const reader = request.body?.getReader();
+  if (!reader) return json("Please complete the required fields correctly.", 400);
+  const chunks: Uint8Array[] = [];
+  let size = 0;
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      size += value.byteLength;
+      if (size > maxBodyBytes) {
+        await reader.cancel();
+        return json("Submission is too large.", 413);
+      }
+      chunks.push(value);
+    }
+  } catch {
+    return json("Unable to read submission.", 400);
+  }
+  let body: unknown;
+  try { body = JSON.parse(Buffer.concat(chunks).toString("utf8")); } catch { body = null; }
+  const parsed = input.safeParse(body);
   if (!parsed.success) return json("Please complete the required fields correctly.", 400);
 
   // Give automated submissions the same response as a successful inquiry,

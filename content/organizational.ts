@@ -8,9 +8,15 @@ export const organizationalContent = {
     },
     {
       name: "Bryony Kummer-Seddon",
-      image: "/images/advisory/bryony-kummer-seddon.png",
+      image: "/images/advisory/bryony-kummer-seddon-portrait.png",
       alt: "Bryony Kummer-Seddon",
       paragraphs: ["Bryony May Kummer-Seddon is a lecturer, artist, and theatre practitioner. She is currently undertaking a PhD in Performing Arts at the University of Lincoln. She has taught theatre design internationally and has previously presented on this topic at the Prague Quadrennial. Previously, the Head of the Technical Theatre Department at Edna Manley College (Jamaica), she helped arrange the 2017 Rex Nettleford International Conference. Coming from a foundation of design and experimental performance, her practice has expanded into the areas of history, heritage, and dance. Inspired by her personal experience of dancing the maypole as a child, maypole traditions are now her primary research focus. At present, her principal area of study is her thesis, which is entitled: Maypole Dancing as Microcosm: Performing Politics, Moralities and Identities in Seventeenth Century England."],
+    },
+    {
+      name: "Dr Xueting Luo",
+      image: "/images/advisory/xueting-luo.jpg",
+      alt: "Dr Xueting Luo",
+      paragraphs: ["Dr Xueting Luo is a dance and performance researcher, practitioner and educator whose work explores the embodied philosophies and cultural aesthetics of Chinese classical dance and Kunqu. She holds a PhD from the University of Leeds and an MA in Chinese Dance History and Aesthetics from Beijing Dance Academy. Her research draws on Chinese philosophy, poetry and martial arts to examine how aesthetic ideas and ways of understanding the world are cultivated through embodied practice. She has published in both English and Chinese and has extensive experience in cross-cultural teaching, artistic practice and public engagement in the UK and internationally. Combining theoretical enquiry with sustained practical investigation, her current research explores how traditional Chinese embodied practices can open pathways to philosophical insight, cultural transmission and intercultural understanding, while contributing to broader conversations about embodied learning and wellbeing."],
     },
     {
       name: "Dr.Ravibandhu Vidhyapathi",

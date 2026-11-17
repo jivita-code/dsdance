@@ -14,7 +14,7 @@ export function SiteFooter() {
         <div className="footerBrand" data-reveal="text">
         <div className="footerLogos">
           <img src="/images/brand/ds-dance-research-lab.png" alt="DS Dance Research Lab" />
-          <img src="/images/brand/one-dance-uk.png" alt="One Dance UK" />
+          <img src="/images/brand/one-dance-uk-white.svg" alt="One Dance UK Member" />
         </div>
         <p>Where Dance Meets Discovery</p>
         <div className="footerSocial" aria-label="Follow and listen to DS Dance Research Lab">

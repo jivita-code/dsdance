@@ -35,7 +35,7 @@ function normalizedFieldName(value: string) {
     .toLowerCase();
 }
 
-function orderedProjectContentEntries(content: Record<string, unknown>) {
+export function orderedProjectContentEntries(content: Record<string, unknown>) {
   const controlFields = new Set(["type", "status", "timeline", "locations", "location", "tags", "body", "links"]);
   const knownSections = new Map<string, { label: string; order: number }>(projectSectionOrder.map(([field, label], index) => [field, { label, order: index }]));
   knownSections.set("dancefilm", { label: "Dance Film", order: 11 });
@@ -105,7 +105,7 @@ export function ProjectDetail({ item, back, related = [] }: { item: Project; bac
         {(item.projectUrl || links.length > 0) && <div className="detailLinks"><p className="eyebrow">PROJECT LINKS</p>{item.projectUrl && <a className="textLink" href={item.projectUrl} target="_blank" rel="noreferrer">Visit external project <ExternalLink size={15} aria-hidden="true" /></a>}{links.map(([name, href]) => <a className="textLink" key={name} href={href} target="_blank" rel="noreferrer">{name} <ExternalLink size={15} aria-hidden="true" /></a>)}</div>}
       </aside>
     </section>
-    {media.length > 0 && <section className="detailGallery"><div className="detailGalleryHeading" data-reveal="text"><p className="eyebrow">02 — DOCUMENTATION</p><h2>Project imagery</h2></div><Gallery title={item.title} media={media} /></section>}
+    {media.length > 0 && <section className="detailGallery"><div className="detailGalleryHeading" data-reveal="text"><p className="eyebrow">02 — DOCUMENTATION</p><h2>Project imagery</h2>{item.contentType === "RESEARCH_PROJECT" && item.slug === "tusker-eye" && <p className="detailPhotographyCredit">Professional photographer Sisira Maddumage UK</p>}</div><Gallery title={item.title} media={media} /></section>}
     {related.length > 0 && <section className="relatedProjects"><div className="relatedProjectsHeading" data-reveal="text"><p className="eyebrow gold">CONTINUE EXPLORING</p><h2>{labels.related}</h2></div><div className="relatedProjectsGrid">{related.map((project, index) => <Link className="relatedProjectCard" data-reveal="card" data-reveal-delay={String(index)} href={`${back}/${project.slug}`} key={project.slug}><div><Image src={projectCover(project)} alt="" fill sizes="(max-width: 760px) 100vw, 30vw" /></div><p>{project.projectPhase || project.contentType.replace("_", " ")}</p><h3>{project.title}</h3><span>View details <ExternalLink size={14} aria-hidden="true" /></span></Link>)}</div></section>}
   </article>;
 }
